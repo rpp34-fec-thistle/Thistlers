@@ -3,8 +3,9 @@
 }
 
 .image-gallery,
-.defualt-view,
-.selected-image {
+.default-view,
+.selected-image,
+.expanded-view {
   border-style: solid;
   margin: 10px;
 }

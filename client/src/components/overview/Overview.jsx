@@ -14,7 +14,7 @@ class Overview extends React.Component {
     return (
       <div className="overview-main">
         <h2>Product Overview [Placeholder]</h2>
-        <ImageGallery />
+        <ImageGallery view={this.state.view}/>
       </div>
     )
   }

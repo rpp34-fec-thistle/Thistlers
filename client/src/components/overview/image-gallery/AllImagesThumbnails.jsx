@@ -12,7 +12,7 @@ class AllImagesThumbnails extends React.Component {
 
   render() {
     return (
-      <div style={{'border-style': 'dashed', 'margin': '10px'}}>
+      <div className="all-image-tns">
         <p>AllImagesThumbnails [Placeholder]</p>
         <ImageThumbnail/>
       </div>

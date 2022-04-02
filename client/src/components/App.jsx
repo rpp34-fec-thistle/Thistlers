@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Overview from './overview/Overview.jsx'
+import '../../public/style.css';
 
 class App extends Component {
   constructor(props) {

@@ -12,7 +12,7 @@ class ImageGallery extends React.Component {
 
   render() {
     return (
-      <div style={{'border-style': 'solid', 'margin': '10px'}}>
+      <div className="image-gallery">
         <h4>Image Gallery [Placeholder]</h4>
         <DefaultView />
       </div>

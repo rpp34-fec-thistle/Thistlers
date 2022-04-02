@@ -10,7 +10,7 @@ class ImageThumbnail extends React.Component {
 
   render() {
     return (
-      <p style={{'border-style': 'dashed', 'margin': '10px'}}>
+      <p className="image-tn">
         ImageThumbnial [Placeholder]
       </p>
     )

@@ -12,9 +12,9 @@ class DefaultView extends React.Component {
 
   render() {
     return(
-      <div style={{'border-style': 'solid', 'margin': '10px'}}>
+      <div className="default-view">
         <h5>DefaultView [Placeholder] </h5>
-        <div style={{'border-style': 'solid', 'margin': '10px'}}>
+        <div className="selected-image">
           Selected Image
           <AllImagesThumbnails/>
           </div>

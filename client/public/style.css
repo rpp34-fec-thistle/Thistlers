@@ -1,0 +1,16 @@
+.overview-main {
+  border-style: solid;
+}
+
+.image-gallery,
+.defualt-view,
+.selected-image {
+  border-style: solid;
+  margin: 10px;
+}
+
+.all-image-tns,
+.image-tn {
+  border-style: dashed;
+  margin: 10px;
+}

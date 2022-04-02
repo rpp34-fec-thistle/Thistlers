@@ -12,7 +12,7 @@ class Overview extends React.Component {
 
   render() {
     return (
-      <div style={{'border-style': 'solid'}}>
+      <div className="overview-main">
         <h2>Product Overview [Placeholder]</h2>
         <ImageGallery />
       </div>

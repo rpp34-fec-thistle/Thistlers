@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Breakdown from './breakdown/Breakdown.jsx';
+import CustomerReviews from './customerReviews/CustomerReviews.jsx';
 
 class Reviews extends Component {
   constructor(props) {
@@ -12,6 +14,8 @@ class Reviews extends Component {
     return (
       <section className="reviews">
         This is the Reviews Section!
+        <Breakdown />
+        <CustomerReviews />
       </section>
     );
   }

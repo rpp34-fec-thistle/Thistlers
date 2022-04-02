@@ -13,7 +13,7 @@ class Reviews extends Component {
   render() {
     return (
       <section className="reviews">
-        This is the Reviews Section!
+        <h1>Ratings & Reviews</h1>
         <Breakdown />
         <CustomerReviews />
       </section>

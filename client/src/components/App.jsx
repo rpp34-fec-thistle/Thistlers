@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Overview from './overview/Overview.jsx'
 import Reviews from './reviews/Reviews.jsx';
 import '../../public/style.css';
+import '../../public/reviews/style.css';
 
 class App extends Component {
   constructor(props) {

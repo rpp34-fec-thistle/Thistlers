@@ -12,9 +12,9 @@ class Reviews extends Component {
 
   render() {
     return (
-      <section className="reviews">
-        <h1>Ratings & Reviews</h1>
-        <div className="reviews-main">
+      <section className="reviews-container">
+        <h1 className="reviews-title">Ratings & Reviews</h1>
+        <div className="reviews">
           <Breakdown />
           <CustomerReviews />
         </div>

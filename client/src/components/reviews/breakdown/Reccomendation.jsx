@@ -11,14 +11,14 @@ class Recommendation extends Component {
   render() {
     if (this.state.recommend) {
       return (
-        <div className="review-breakdown-recommendation">
-          I RECCOMEND THIS PRODUCT!
+        <div className="reviews-breakdown-recommendation">
+          100% OF CUSTOMERS RECCOMEND THIS PRODUCT!
         </div>
       );
     }
 
     return (
-      <div className="review-breakdown-recommendation"></div>
+      <div className="reviews-breakdown-recommendation"></div>
     );
   }
 }

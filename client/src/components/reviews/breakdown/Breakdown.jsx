@@ -11,7 +11,7 @@ class Breakdown extends Component {
 
   render() {
     return (
-      <div className="breakdown">
+      <div className="reviews-breakdown">
         <RatingDisplay />
         <Recommendation recommend={true /*TEST CHANGE LASTER!*/}/>
         <StarDistribution />

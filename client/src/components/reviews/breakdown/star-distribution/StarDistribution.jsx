@@ -11,7 +11,7 @@ class StarDistribution extends Component {
 
   render() {
     return (
-      <div>
+      <div className="reviews-breakdown-star-distribution">
         {this.state.starData.map(starData => (
           <IndividualStar key="" data={starData} />
         ))}

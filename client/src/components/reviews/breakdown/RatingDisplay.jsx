@@ -7,7 +7,7 @@ class RatingDisplay extends Component {
 
   render() {
     return (
-      <div className="reviews-breakdown-rating-display">
+      <div className="reviews-breakdown-rating">
         <h2 className="breakdown-rating-num">
           5
         </h2>

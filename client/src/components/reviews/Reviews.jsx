@@ -14,8 +14,10 @@ class Reviews extends Component {
     return (
       <section className="reviews">
         <h1>Ratings & Reviews</h1>
-        <Breakdown />
-        <CustomerReviews />
+        <div className="reviews-main">
+          <Breakdown />
+          <CustomerReviews />
+        </div>
       </section>
     );
   }

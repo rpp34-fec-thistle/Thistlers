@@ -14,3 +14,59 @@
   border-style: dashed;
   margin: 10px;
 }
+
+
+.review-breakdown-recommendation {
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.star-distribution-indiv-star {
+  display: grid;
+  grid-template-columns: 10% 85%;
+}
+
+.indiv-star-box {
+  width: 100%;
+  height: 25px;
+  border: 1px solid black;
+}
+
+.indiv-star-percentage {
+  height: 100%;
+  background-color: yellow;
+  width: 50%;
+}
+
+.customer-comments-bar-container {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  justify-content: space-around;
+  position: relative;
+}
+
+.cc-bar {
+  width: 100%;
+  height: 10px;
+  background-color: gray;
+}
+
+.cc-bar-percentage-indicator {
+  background-color: black;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  left: 26%;
+}
+
+.customer-comments-bar-container-2 {
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  justify-content: space-around;
+  position: relative;
+}

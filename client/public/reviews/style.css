@@ -1,0 +1,38 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+.reviews {
+    font-family: lato, sans-serif;
+}
+
+.reviews-main {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+.breakdown {
+  background-color: cadetblue;
+}
+
+.customer-reviews {
+  background-color: thistle;
+}
+
+.reviews-breakdown-rating-display {
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
+.breakdown-rating-num {
+  font-size: 20;
+  font-weight: 900;
+}
+
+.reviews-breakdown-star-distribution {
+  background-color: orange;
+  min-height: 150px;
+}
+
+.reviews-breakdown-customer-comments {
+    min-height: 150px;
+}

@@ -7,7 +7,7 @@ class CustomerReviews extends Component {
 
   render() {
     return (
-      <div className="cutomer-reviews">
+      <div className="customer-reviews">
           this is the customer reviews portion!
       </div>
     );

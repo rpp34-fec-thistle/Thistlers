@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AllImagesThumbnails from './AllImagesThumbnails.jsx';
+import AllImagesThumbnails from './default-view-components/AllImagesThumbnails.jsx';
 
 class DefaultView extends React.Component {
   constructor(props) {

@@ -1,10 +1,17 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
+.hr {
+  width: 100%;
+  height: 2px;
+  background: black;
+}
+
 .reviews {
   font-family: lato, sans-serif;
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 25% 70%;
+  justify-content: space-between;
 }
 
 .reviews-breakdown {
@@ -12,7 +19,7 @@
 }
 
 .customer-reviews {
-  background-color: thistle;
+  background-color: whitesmoke;
 }
 
 .reviews-breakdown-rating {
@@ -88,4 +95,44 @@
   grid-template-columns: 24% 24% 24% 24%;
   justify-content: space-around;
   position: relative;
+}
+
+.total-reviews-and-sort-container {
+  height: 65px;
+}
+
+.indiv-reviews-star-and-date-display {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-between;
+}
+
+.reviews-reviews-list {
+  display: grid;
+  grid-template-columns: auto;
+  grid-row-gap: 10px;
+}
+
+.indiv-review-summary {
+  font-weight: bold;
+}
+
+.individual-review {
+  display: grid;
+  grid-template-columns: auto;
+  grid-row-gap: 20px;
+}
+
+.btn-r-int {
+  border: 2px solid black;
+  box-sizing: border-box;
+  padding: 20px;
+  font-size: large;
+  font-weight: 900;
+}
+
+.reviews-reviews-interactions {
+ display: grid;
+ grid-template-columns: max-content max-content;
+ grid-column-gap: 2%;
 }

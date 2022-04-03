@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import ReviewCount from './ReviewCount.jsx';
+import ReviewList from './reviewList/ReviewList.jsx';
+import ReviewInteractions from './ReviewInteractions.jsx';
 
 class CustomerReviews extends Component {
   constructor(props) {
@@ -8,7 +11,10 @@ class CustomerReviews extends Component {
   render() {
     return (
       <div className="customer-reviews">
-          this is the customer reviews portion!
+          <ReviewCount />
+          <ReviewList />
+          <hr />
+          <ReviewInteractions />
       </div>
     );
   }

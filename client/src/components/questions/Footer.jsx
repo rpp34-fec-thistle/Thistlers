@@ -3,8 +3,8 @@ import React from 'react';
 const Footer = () => {
   return (
     <div className="question-footer">
-      <button>MORE ANSWERED QUESTIONS</button>
-      <button>ADD A QUESTION +</button>
+      <button className="more-questions-btn">MORE ANSWERED QUESTIONS</button>
+      <button className="add-question-btn">ADD A QUESTION +</button>
     </div>
   )
 };

@@ -1,0 +1,44 @@
+.question-widget {
+  border: 2px solid black;
+  margin: 5px;
+  padding: 5px;
+}
+
+.question-search input {
+  width: 99%;
+}
+
+.question-list {
+  border: 2px solid black;
+  margin: 5px;
+  padding: 5px;
+
+}
+
+.question {
+  border: 2px solid black;
+  margin: 5px;
+  padding: 5px;
+}
+
+.answer-list {
+  border: 2px solid black;
+  margin: 5px;
+  padding: 5px;
+}
+
+.answer {
+  border: 2px solid black;
+  margin: 5px;
+  padding: 5px;
+}
+
+.more-questions-btn {
+  margin: 5px;
+  padding: 10px 8px;
+}
+
+.add-question-btn {
+  margin: 5px;
+  padding: 10px 8px;
+}

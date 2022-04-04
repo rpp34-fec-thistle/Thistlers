@@ -31,3 +31,19 @@ app.get('/styles', (req, res) => {
     })
 });
 
+app.get('/questions/:id', (req, res) => {
+  const id = req.params.id;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${id}`,
+    method: 'get',
+    headers: {'Authorization': API_KEY.API_KEY}
+  })
+  .then(results => {
+    res.json(results.data);
+  })
+  .catch(err => {
+    console.error('err: ', err);
+    res.status(500).send(err);
+  })
+})
+

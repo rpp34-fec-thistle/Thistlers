@@ -3,15 +3,45 @@
 }
 
 .image-gallery,
-.default-view,
-.selected-image,
 .expanded-view {
   border-style: solid;
   margin: 10px;
 }
 
-.all-image-tns,
+.default-view {
+  border-style: solid;
+  margin: 10px;
+  height: 50%;
+  width: 50%;
+  text-align: center;
+}
+
+.selected-image {
+  border-style: solid;
+  margin: 10px;
+  position: relative;
+  text-align: center;
+  height: 50%;
+  width: 50%;
+}
+
+.all-image-tns {
+  border-style: dashed;
+  margin: 10px;
+}
+
 .image-tn {
   border-style: dashed;
   margin: 10px;
+  height: 25%;
+  width: 25%;
+}
+
+.image-tn-selected {
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 10%;
+  margin: 10px;
+  height: 25%;
+  width: 25%;
 }

@@ -17,7 +17,6 @@ class ImageGallery extends React.Component {
   componentDidMount() {
     axios.get(`http://localhost:8080/styles/${this.state.style}`)
       .then((response) => {
-        console.log(response.data)
         this.setState({
           data: response.data.results
         })

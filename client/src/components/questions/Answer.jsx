@@ -1,19 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Answer = (props) => {
-  console.log(props.answer);
+const Answer = ({ answer }) => {
   return (
     <div className="answer">
-      <p>A: {props.answer.body}</p>
+      <p>A: {answer.body}</p>
         <div className="answer-footer">
-          <p>by {props.answer.answerer_name}, {props.answer.date}</p>
+          <p>by {answer.answerer_name}, {answer.date}</p>
           <p> | </p>
-          <p> Helpful? <span>Yes ({props.answer.helpfulness})</span></p>
+          <p> Helpful? <span>Yes ({answer.helpfulness})</span></p>
           <p> | </p>
           <p> Report</p>
         </div>
     </div>
   )
+};
+
+Answer.propTypes = {
+  answer: PropTypes.object.isRequired
 };
 
 export default Answer;

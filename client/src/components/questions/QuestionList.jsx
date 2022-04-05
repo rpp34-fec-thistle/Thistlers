@@ -1,14 +1,19 @@
 import React from 'react';
 import Question from './Question.jsx';
+import PropTypes from 'prop-types';
 
-const QuestionList = (props) => {
+const QuestionList = ({ questions }) => {
   return (
     <div className="question-list">
-      {props.questions.map(question => {
+      {questions.map(question => {
         return <Question question={question} key={question.question_id}/>;
       })}
     </div>
   )
+};
+
+QuestionList.propTypes = {
+  questions: PropTypes.array.isRequired
 };
 
 export default QuestionList;

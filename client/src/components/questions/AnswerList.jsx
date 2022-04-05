@@ -1,16 +1,20 @@
 import React from 'react';
 import Answer from './Answer.jsx';
+import PropTypes from 'prop-types';
 
-const AnswerList = (props) => {
-  console.log('props: ', props);
+const AnswerList = ({ answers }) => {
   return (
     <div className="answer-list">
-      {Object.values(props.answers).map(answer => {
-        return <Answer answer={answer} />
+      {Object.values(answers).map(answer => {
+        return <Answer answer={answer} key={answer.id}/>
       })}
 
     </div>
   )
+};
+
+AnswerList.propTypes = {
+  answers: PropTypes.object.isRequired
 };
 
 export default AnswerList;

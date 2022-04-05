@@ -1,14 +1,18 @@
 import React from 'react';
 import AnswerList from './AnswerList.jsx';
+import PropTypes from 'prop-types';
 
-const Question = (props) => {
-  console.log('props1: ', props);
+const Question = ({ question }) => {
   return (
     <div className="question">
-      <p>Q: {props.question.question_body}</p>
-      <AnswerList answers={props.question.answers}/>
+      <p>Q: {question.question_body}</p>
+      <AnswerList answers={question.answers}/>
     </div>
   )
+};
+
+Question.propTypes = {
+  question: PropTypes.object.isRequired
 };
 
 export default Question;

@@ -16,15 +16,19 @@ class QuestionWidget extends Component {
   }
 
   componentDidMount() {
-    axios('/questions/64621')
+    axios('/questions/64622')
     .then(results => {
-      const questionData = results.data.results;
-      this.setState({ questions: questionData });
-      if (questionData.length > 2) {
-        const topTwoQuestions = questionData.slice(0, 2);
+      const qaData = results.data.results;
+      const qaDataWithHiddedAnswers = qaData.map(question => {
+        question['showAll'] = false;
+        return question;
+      })
+      this.setState({ questions: qaDataWithHiddedAnswers });
+      if (qaDataWithHiddedAnswers.length > 2) {
+        const topTwoQuestions = qaDataWithHiddedAnswers.slice(0, 2);
         this.setState({ displayedQuestions: topTwoQuestions, numberDisplayed: 2, moreQuestions: true });
       } else {
-        this.setState({ displayedQuestions: questionData, numberDisplayed: questionData.length, moreQuestions: false });
+        this.setState({ displayedQuestions: qaDataWithHiddedAnswers, numberDisplayed: qaDataWithHiddedAnswers.length, moreQuestions: false });
       }
     })
     .catch(err => {
@@ -43,13 +47,29 @@ class QuestionWidget extends Component {
     }
   }
 
+  onShowMoreAnswersClick(questionID) {
+    const updatedQaData = this.state.questions.map(question => {
+      if (question.question_id === questionID) {
+        question['showAll'] = true;
+      }
+      return question;
+    })
+    this.setState({ questions: updatedQaData });
+  }
+
   render() {
     return (
       <div className="question-widget">
         <p>QUESTIONS & ANSWERS</p>
         <Search/>
-        <QuestionList questions={this.state.displayedQuestions}/>
-        <Footer moreQuestions={this.state.moreQuestions} onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}/>
+        <QuestionList
+          questions={this.state.displayedQuestions}
+          onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
+        />
+        <Footer
+          moreQuestions={this.state.moreQuestions}
+          onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
+        />
       </div>
     )
   }

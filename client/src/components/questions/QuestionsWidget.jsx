@@ -11,20 +11,20 @@ class QuestionWidget extends Component {
       questions: [],
       displayedQuestions: [],
       numberDisplayed: 0,
-      showMoreQuestionsVisible: false
+      moreQuestions: false
     }
   }
 
   componentDidMount() {
-    axios('/questions/64626')
+    axios('/questions/64621')
     .then(results => {
       const questionData = results.data.results;
       this.setState({ questions: questionData });
       if (questionData.length > 2) {
         const topTwoQuestions = questionData.slice(0, 2);
-        this.setState({ displayedQuestions: topTwoQuestions, numberDisplayed: 2, showMoreQuestionsVisible: true });
+        this.setState({ displayedQuestions: topTwoQuestions, numberDisplayed: 2, moreQuestions: true });
       } else {
-        this.setState({ displayedQuestions: questionData, numberDisplayed: questionData.length, showMoreQuestionsVisible: false });
+        this.setState({ displayedQuestions: questionData, numberDisplayed: questionData.length, moreQuestions: false });
       }
     })
     .catch(err => {
@@ -35,12 +35,10 @@ class QuestionWidget extends Component {
   onShowMoreQuestionsClick() {
     const numberDisplayed = this.state.numberDisplayed;
     const newDisplayedQuestions = this.state.questions.slice(0, numberDisplayed + 2);
-    console.log('questions.length: ', this.state.questions.length);
-    console.log('number displayed: ', numberDisplayed);
     if (this.state.questions.length <= numberDisplayed + 2) {
-      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2, showMoreQuestionsVisible: false });
+      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2, moreQuestions: false });
     } else {
-      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2, showMoreQuestionsVisible: true });
+      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2, moreQuestions: true });
 
     }
   }
@@ -51,7 +49,7 @@ class QuestionWidget extends Component {
         <p>QUESTIONS & ANSWERS</p>
         <Search/>
         <QuestionList questions={this.state.displayedQuestions}/>
-        <Footer showMoreQuestionsVisible={this.state.showMoreQuestionsVisible} onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}/>
+        <Footer moreQuestions={this.state.moreQuestions} onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}/>
       </div>
     )
   }

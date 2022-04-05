@@ -42,3 +42,7 @@
   margin: 5px;
   padding: 10px 8px;
 }
+
+.answer-footer {
+  display: flex;
+}

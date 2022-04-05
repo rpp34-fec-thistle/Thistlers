@@ -16,7 +16,14 @@ class QuestionWidget extends Component {
   componentDidMount() {
     axios('/questions/64621')
     .then(results => {
-      this.setState({ questions: results.data.results })
+      const questionData = results.data.results;
+      this.setState({ questions: questionData });
+      if (questionData.length >= 2) {
+        const topTwoQuestions = questionData.slice(0, 2);
+        this.setState({ displayedQuestions: topTwoQuestions })
+      }
+
+
     })
     .catch(err => {
       console.error('err: ', err);
@@ -28,7 +35,7 @@ class QuestionWidget extends Component {
       <div className="question-widget">
         <p>QUESTIONS & ANSWERS</p>
         <Search/>
-        <QuestionList />
+        <QuestionList questions={this.state.displayedQuestions}/>
         <Footer />
       </div>
     )

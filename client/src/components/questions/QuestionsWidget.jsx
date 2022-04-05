@@ -37,7 +37,6 @@ class QuestionWidget extends Component {
     this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2 });
   }
 
-
   render() {
     return (
       <div className="question-widget">

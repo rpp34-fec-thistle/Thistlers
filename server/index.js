@@ -15,8 +15,8 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 })
 
-app.get('/styles', (req, res) => {
-  let id = req.body.id;
+app.get('/styles/:id', (req, res) => {
+  let id = req.params.id;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`;
   let options = {
     headers: {'Authorization': API_KEY}

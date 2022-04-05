@@ -9,7 +9,9 @@ class RelatedProducts extends Component {
 
   render() {
     return(
-      <h1>This will render the Related Products carousel</h1>
+      <div className="relatedProducts">
+        <Carousels />
+      </div>
     )
   }
 }

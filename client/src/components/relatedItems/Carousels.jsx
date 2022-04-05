@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Ratings from './Ratings.jsx'
+import Cards from './Cards.jsx';
 
 class Carousels extends Component {
   constructor(props) {
@@ -9,7 +9,9 @@ class Carousels extends Component {
 
   render() {
     return(
-      <h1>This will render the two card carousels using one template interchangeably.</h1>
+      <div className="carousels">
+        <Cards />
+      </div>
     )
   }
 }

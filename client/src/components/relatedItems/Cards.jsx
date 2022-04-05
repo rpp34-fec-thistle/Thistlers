@@ -8,7 +8,7 @@ class Cards extends Component {
 
   render() {
     return(
-      <h1>This will render individual cards for use in the RelatedProducts and YourOutfit Carousels.</h1>
+      <div className="card"><h1>card goes here</h1></div>
     )
   }
 }

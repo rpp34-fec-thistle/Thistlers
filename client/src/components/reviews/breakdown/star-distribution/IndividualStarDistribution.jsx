@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class IndividualStar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    //   HARD CODED!
+      starData: this.props.starData,
+      //   HARD CODED! {for testing}
       amtOfReviews: 100,
       totalReviews: 130,
       starNum: 5
@@ -24,5 +26,10 @@ class IndividualStar extends Component {
     )
   }
 }
+
+//PROPS
+IndividualStar.propTypes = {
+  starData: PropTypes.object.isRequired
+};
 
 export default IndividualStar;

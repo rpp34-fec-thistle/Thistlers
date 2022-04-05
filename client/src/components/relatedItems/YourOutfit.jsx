@@ -9,7 +9,9 @@ class YourOutfit extends Component {
 
   render() {
     return(
-      <h1>This will render the Your Outfit carousel.</h1>
+      <div className="yourOutfit">
+        <Carousels />
+      </div>
     )
   }
 }

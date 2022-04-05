@@ -36,7 +36,7 @@ app.get('/questions/:id', (req, res) => {
   axios({
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${id}`,
     method: 'get',
-    headers: {'Authorization': API_KEY.API_KEY}
+    headers: {'Authorization': API_KEY}
   })
   .then(results => {
     res.json(results.data);

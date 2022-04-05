@@ -3,11 +3,26 @@
 }
 
 .image-gallery,
-.default-view,
-.selected-image,
 .expanded-view {
   border-style: solid;
   margin: 10px;
+}
+
+.default-view {
+  border-style: solid;
+  margin: 10px;
+  height: 50%;
+  width: 50%;
+  text-align: center;
+}
+
+.selected-image {
+  border-style: solid;
+  margin: 10px;
+  position: relative;
+  text-align: center;
+  height: 50%;
+  width: 50%;
 }
 
 .all-image-tns,

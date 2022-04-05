@@ -9,7 +9,8 @@ class QuestionWidget extends Component {
     super(props);
     this.state = {
       questions: [],
-      displayedQuestions: []
+      displayedQuestions: [],
+      numberDisplayed: 0
     }
   }
 
@@ -20,15 +21,22 @@ class QuestionWidget extends Component {
       this.setState({ questions: questionData });
       if (questionData.length >= 2) {
         const topTwoQuestions = questionData.slice(0, 2);
-        this.setState({ displayedQuestions: topTwoQuestions })
+        this.setState({ displayedQuestions: topTwoQuestions, numberDisplayed: 2 });
+      } else {
+        this.setState({ displayedQuestions: questionData, numberDisplayed: questionData.length });
       }
-
-
     })
     .catch(err => {
       console.error('err: ', err);
     })
   }
+
+  onShowMoreQuestionsClick() {
+    const numberDisplayed = this.state.numberDisplayed;
+    const newDisplayedQuestions = this.state.questions.slice(0, numberDisplayed + 2);
+    this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2 });
+  }
+
 
   render() {
     return (
@@ -36,7 +44,7 @@ class QuestionWidget extends Component {
         <p>QUESTIONS & ANSWERS</p>
         <Search/>
         <QuestionList questions={this.state.displayedQuestions}/>
-        <Footer />
+        <Footer onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}/>
       </div>
     )
   }

@@ -1,10 +1,12 @@
 import React from 'react';
 import Question from './Question.jsx';
 
-const QuestionList = () => {
+const QuestionList = (props) => {
   return (
     <div className="question-list">
-      <Question />
+      {props.questions.map(question => {
+        return <Question question={question} key={question.question_id}/>;
+      })}
     </div>
   )
 };

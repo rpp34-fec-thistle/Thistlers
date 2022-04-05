@@ -1,11 +1,12 @@
 import React from 'react';
 import AnswerList from './AnswerList.jsx';
 
-const Question = () => {
+const Question = (props) => {
+  console.log('props1: ', props);
   return (
     <div className="question">
-      Q: [sample question text]
-      <AnswerList />
+      <p>Q: {props.question.question_body}</p>
+      <AnswerList answers={props.question.answers}/>
     </div>
   )
 };

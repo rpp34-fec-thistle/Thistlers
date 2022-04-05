@@ -89,3 +89,15 @@
   justify-content: space-around;
   position: relative;
 }
+
+#sort-by {
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+}
+
+#sort-by:focus {
+  outline: none;
+  border: none;
+}

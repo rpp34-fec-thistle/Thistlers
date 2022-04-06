@@ -29,7 +29,10 @@ const Question = ({ question, onShowMoreAnswersClick }) => {
         </div>
       </div>
       <div className="question-body">
+        <p>A: </p>
         <AnswerList answers={answers}/>
+      </div>
+      <div className="question-footer">
         {loadMoreAnswersDisplayed && <p onClick={onMoreAnswersClick}>LOAD MORE ANSWERS</p>}
       </div>
     </div>

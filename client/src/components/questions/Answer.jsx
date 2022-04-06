@@ -13,7 +13,7 @@ const Answer = ({ answer }) => {
 
   return (
     <div className="answer">
-      <p>A: {answer.body}</p>
+      <p>{answer.body}</p>
         <div className="reaction-buttons">
           <p>by {answer.answerer_name}, {formatDate(answer.date)}</p>
           <p className="reaction-button-break">|</p>

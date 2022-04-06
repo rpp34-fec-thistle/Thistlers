@@ -10,7 +10,7 @@ class Carousels extends Component {
   render() {
     return(
       <div className="carousels">
-        <Cards />
+        <Cards /><Cards /><Cards /><Cards />
       </div>
     )
   }

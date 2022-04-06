@@ -79,3 +79,5 @@ app.put('/questions/:question_id/helpful', (req, res) => {
   })
 })
 
+
+app.get('/')

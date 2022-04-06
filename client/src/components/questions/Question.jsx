@@ -14,9 +14,7 @@ const Question = ({ question, onShowMoreAnswersClick }) => {
   if (question.showAll || Object.keys(question.answers).length <= 2) {
     answers = question.answers;
   } else if (Object.keys(question.answers).length > 2) {
-    answers = Object.fromEntries(
-      Object.entries(question.answers).slice(0, 2)
-    );
+    answers = Object.fromEntries(Object.entries(question.answers).slice(0, 2));
     loadMoreAnswersDisplayed = true;
   }
 

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class Recommendation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recommend: props.recommend
+      recommend: true || props.recommend
     };
   }
 
@@ -23,8 +24,9 @@ class Recommendation extends Component {
   }
 }
 
+//PROPS
 Recommendation.propTypes = {
-  recommend: null
+  recommend: PropTypes.number
 }
 
 export default Recommendation;

@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class RatingDisplay extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      rating: this.props.rating
+    }
   }
 
   render() {
@@ -18,5 +22,10 @@ class RatingDisplay extends Component {
     );
   }
 }
+
+//PROPS
+RatingDisplay.propTypes = {
+  rating: PropTypes.number.isRequired
+};
 
 export default RatingDisplay;

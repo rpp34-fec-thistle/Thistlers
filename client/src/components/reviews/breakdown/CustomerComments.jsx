@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class CustomerComments extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      characteristics: this.props.characteristics,
+    };
   }
 
   render() {
@@ -69,5 +73,10 @@ class CustomerComments extends Component {
     );
   }
 }
+
+//PROPS
+CustomerComments.propTypes = {
+  characteristics: PropTypes.object.isRequired
+};
 
 export default CustomerComments;

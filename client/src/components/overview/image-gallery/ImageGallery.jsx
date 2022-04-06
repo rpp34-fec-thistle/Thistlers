@@ -37,7 +37,6 @@ class ImageGallery extends React.Component {
     }
     return (
       <div className="image-gallery">
-        <h4>Image Gallery [Placeholder]</h4>
         {view}
       </div>
     )

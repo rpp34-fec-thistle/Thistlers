@@ -8,7 +8,9 @@ class Ratings extends Component {
 
   render() {
     return(
-      <h1>Should this be a shared component?</h1>
+      <div className="ratings">
+        ⭐⭐⭐⭐⭐
+      </div>
     )
   }
 }

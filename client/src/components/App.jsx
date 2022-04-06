@@ -5,6 +5,7 @@ import Questions from './questions/QuestionsWidget.jsx';
 import RelatedItems from './relatedItems/RelatedItemsWidget.jsx'
 import '../../public/style.css';
 import '../../public/reviews/style.css';
+import '../../public/relatedItems/style.css';
 
 class App extends Component {
   constructor(props) {

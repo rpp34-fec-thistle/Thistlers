@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
+import Ratings from './Ratings.jsx';
 
 class Cards extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+
+    };
   }
+
+
+
 
   render() {
     return(
-      <div className="card"><h1>card goes here</h1></div>
+      <div className="card">
+        <div className="card-image">
+        (image)
+        </div>
+        <div className="card-description">
+          (category)
+          (product-name)
+          (product-price)
+          <Ratings />
+        </div>
+      </div>
     )
   }
 }

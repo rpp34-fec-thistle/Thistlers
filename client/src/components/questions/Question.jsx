@@ -2,7 +2,13 @@ import React from 'react';
 import AnswerList from './AnswerList.jsx';
 import PropTypes from 'prop-types';
 
-const Question = ({ question, onShowMoreAnswersClick, onCollapseAnswersClick, allAnswersDisplayed }) => {
+const Question = ({
+  question,
+  onShowMoreAnswersClick,
+  onCollapseAnswersClick,
+  allAnswersDisplayed,
+  onHelpfulClick
+}) => {
 
   const onMoreAnswersClick = () => {
     onShowMoreAnswersClick(question.question_id);
@@ -10,6 +16,10 @@ const Question = ({ question, onShowMoreAnswersClick, onCollapseAnswersClick, al
 
   const onLessAnswersClick = () => {
     onCollapseAnswersClick(question.question_id);
+  }
+
+  const onQuestionLike = () => {
+    onHelpfulClick('questions', question.question_id)
   }
 
   let answers;
@@ -27,14 +37,14 @@ const Question = ({ question, onShowMoreAnswersClick, onCollapseAnswersClick, al
       <div className="question-header">
         <p>Q: {question.question_body}</p>
         <div className="reaction-buttons">
-          <p> Helpful? <span>Yes ({question.question_helpfulness})</span></p>
+          <p> Helpful? <span onClick={onQuestionLike}>Yes </span>({question.question_helpfulness})</p>
           <p className="reaction-button-break">|</p>
           <p> Add Answer</p>
         </div>
       </div>
       <div className="question-body">
         <p>A: </p>
-        <AnswerList answers={answers}/>
+        <AnswerList answers={answers} onHelpfulClick={onHelpfulClick}/>
       </div>
       <div className="question-footer">
         {loadMoreAnswersDisplayed
@@ -49,7 +59,8 @@ Question.propTypes = {
   question: PropTypes.object.isRequired,
   onShowMoreAnswersClick: PropTypes.func.isRequired,
   allAnswersDisplayed: PropTypes.array.isRequired,
-  onCollapseAnswersClick: PropTypes.func.isRequired
+  onCollapseAnswersClick: PropTypes.func.isRequired,
+  onHelpfulClick: PropTypes.func.isRequired
 };
 
 export default Question;

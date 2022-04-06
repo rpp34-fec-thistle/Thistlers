@@ -58,16 +58,24 @@ class QuestionWidget extends Component {
     })})
   }
 
-  onQuestionHelpfulClick(questionId) {
+  onHelpfulClick(type, id) {
     axios({
-      url: `/questions/${questionId}/helpful`,
+      url: `/${type}/${id}/helpful`,
       method: 'put'
     })
     .then(() => {
       axios(`/questions/${testProductId}`)
       .then(results => {
-        console.log(results);
+        const qaData = results.data.results;
+        const displayedQaData = qaData.slice(0, this.state.numberDisplayed);
+        this.setState({ displayedQuestions: displayedQaData })
       })
+      .catch(err => {
+        console.error(err);
+      })
+    })
+    .catch(err => {
+      console.error(err);
     })
   }
 
@@ -81,6 +89,7 @@ class QuestionWidget extends Component {
           onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
           allAnswersDisplayed={this.state.allAnswersDisplayed}
           onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
+          onHelpfulClick={this.onHelpfulClick.bind(this)}
         />
         <Footer
           moreQuestions={this.state.moreQuestions}

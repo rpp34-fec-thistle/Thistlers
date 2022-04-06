@@ -4,6 +4,8 @@ import QuestionList from './QuestionList.jsx';
 import Footer from './Footer.jsx';
 import axios from 'axios';
 
+const testProductId = 64622;
+
 class QuestionWidget extends Component {
   constructor(props) {
     super(props);
@@ -11,24 +13,23 @@ class QuestionWidget extends Component {
       questions: [],
       displayedQuestions: [],
       numberDisplayed: 0,
-      moreQuestions: false
+      moreQuestions: false,
+      allAnswersDisplayed: []
     }
   }
 
+
+
   componentDidMount() {
-    axios('/questions/64622')
+    axios(`/questions/${testProductId}`)
     .then(results => {
       const qaData = results.data.results;
-      const qaDataWithHiddedAnswers = qaData.map(question => {
-        question['showAll'] = false;
-        return question;
-      })
-      this.setState({ questions: qaDataWithHiddedAnswers });
-      if (qaDataWithHiddedAnswers.length > 2) {
-        const topTwoQuestions = qaDataWithHiddedAnswers.slice(0, 2);
+      this.setState({ questions: qaData });
+      if (qaData.length > 2) {
+        const topTwoQuestions = qaData.slice(0, 2);
         this.setState({ displayedQuestions: topTwoQuestions, numberDisplayed: 2, moreQuestions: true });
       } else {
-        this.setState({ displayedQuestions: qaDataWithHiddedAnswers, numberDisplayed: qaDataWithHiddedAnswers.length, moreQuestions: false });
+        this.setState({ displayedQuestions: qaData, numberDisplayed: qaData.length, moreQuestions: false });
       }
     })
     .catch(err => {
@@ -47,14 +48,27 @@ class QuestionWidget extends Component {
     }
   }
 
-  onShowMoreAnswersClick(questionID) {
-    const updatedQaData = this.state.questions.map(question => {
-      if (question.question_id === questionID) {
-        question['showAll'] = true;
-      }
-      return question;
+  onShowMoreAnswersClick(questionId) {
+    this.setState({ allAnswersDisplayed: [...this.state.allAnswersDisplayed, questionId] });
+  }
+
+  onCollapseAnswersClick(questionId) {
+    this.setState({ allAnswersDisplayed: this.state.allAnswersDisplayed.filter(id => {
+      return id !== questionId;
+    })})
+  }
+
+  onQuestionHelpfulClick(questionId) {
+    axios({
+      url: `/questions/${questionId}/helpful`,
+      method: 'put'
     })
-    this.setState({ questions: updatedQaData });
+    .then(() => {
+      axios(`/questions/${testProductId}`)
+      .then(results => {
+        console.log(results);
+      })
+    })
   }
 
   render() {
@@ -65,6 +79,8 @@ class QuestionWidget extends Component {
         <QuestionList
           questions={this.state.displayedQuestions}
           onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
+          allAnswersDisplayed={this.state.allAnswersDisplayed}
+          onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
         />
         <Footer
           moreQuestions={this.state.moreQuestions}

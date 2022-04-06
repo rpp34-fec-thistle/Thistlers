@@ -21,6 +21,11 @@
   padding: 5px;
 }
 
+.question-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .answer-list {
   border: 2px solid black;
   margin: 5px;
@@ -43,6 +48,10 @@
   padding: 10px 8px;
 }
 
-.answer-footer {
+.reaction-buttons {
   display: flex;
+}
+
+.reaction-button-break {
+  padding: 0px 10px;
 }

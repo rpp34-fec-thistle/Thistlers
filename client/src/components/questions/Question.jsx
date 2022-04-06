@@ -22,9 +22,18 @@ const Question = ({ question, onShowMoreAnswersClick }) => {
 
   return (
     <div className="question">
-      <p>Q: {question.question_body}</p>
-      <AnswerList answers={answers}/>
-      {loadMoreAnswersDisplayed && <p onClick={onMoreAnswersClick}>LOAD MORE ANSWERS</p>}
+      <div className="question-header">
+        <p>Q: {question.question_body}</p>
+        <div className="reaction-buttons">
+          <p> Helpful? <span>Yes ({question.question_helpfulness})</span></p>
+          <p className="reaction-button-break">|</p>
+          <p> Add Answer</p>
+        </div>
+      </div>
+      <div className="question-body">
+        <AnswerList answers={answers}/>
+        {loadMoreAnswersDisplayed && <p onClick={onMoreAnswersClick}>LOAD MORE ANSWERS</p>}
+      </div>
     </div>
   )
 };

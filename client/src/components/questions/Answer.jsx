@@ -21,7 +21,7 @@ const Answer = ({ answer, onHelpfulClick }) => {
         <div className="reaction-buttons">
           <p>by {answer.answerer_name}, {formatDate(answer.date)}</p>
           <p className="reaction-button-break">|</p>
-          <p> Helpful? <span onClick={onAnswerLike}>Yes ({answer.helpfulness})</span></p>
+          <p> Helpful? <span className="helpful-button" onClick={onAnswerLike}>Yes</span> ({answer.helpfulness})</p>
           <p className="reaction-button-break">|</p>
           <p> Report</p>
         </div>

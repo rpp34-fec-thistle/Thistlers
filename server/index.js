@@ -80,16 +80,18 @@ app.put('/questions/:question_id/helpful', (req, res) => {
 })
 
 
-app.get('/relatedItems', (req, res) => {
+app.get('/products/:id', (req, res) => {
+  let { id } = req.params;
   axios({
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/`,
-    headers: {'Authorization': API_KEY.API_KEY}
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}`,
+    headers: {'Authorization': API_KEY}
   })
   .then((response) => {
     res.send(response.data);
   })
   .catch((err) => {
-    console.log('error in relatedItems GET request');
+    console.log('error in products/:id GET request');
     res.status(500).send(err);
   })
 })
+

@@ -18,7 +18,20 @@
 }
 .relatedProducts {
   border: 3px solid palevioletred;
+  float: left;
+  width: 90%;
+  clear: both
 }
 .yourOutfit {
   border: 3px solid plum;
+  float: left;
+  width: 90%;
+  clear: both;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
 }

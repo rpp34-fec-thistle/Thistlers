@@ -26,7 +26,20 @@
   justify-content: space-between;
 }
 
+.question-body {
+  display: flex;
+}
+
+.question-text {
+  font-weight: bold;
+}
+
+.answer-icon {
+  font-weight: bold;
+}
+
 .answer-list {
+  width: 100%;
   border: 2px solid black;
   margin: 5px;
   padding: 5px;
@@ -54,4 +67,8 @@
 
 .reaction-button-break {
   padding: 0px 10px;
+}
+
+.helpful-button {
+  text-decoration: underline;
 }

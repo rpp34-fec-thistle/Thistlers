@@ -43,7 +43,7 @@ class Cards extends Component {
     axios(`http://localhost:8080/products/${this.state.testId}`)
     .then((data) => {
       var result = data.data;
-      console.log(result);
+      // console.log(result);
       this.setState({
         testCategory: result.category,
         testName: result.name

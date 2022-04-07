@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 0px;
+  margin: 20px;
 
   position: relative;
   width: 100%;
@@ -85,15 +86,15 @@
   padding: 0px;
 
   position: static;
-  width: 40%;
-  height: fit-content;
+  /* width: 40%; */
+  height: auto;
   left: 1157px;
   top: 0px;
 
   flex: none;
   order: 1;
   align-self: stretch;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   margin: 0px 0px;
 }
 
@@ -109,7 +110,7 @@
 
   position: static;
   width: 493px;
-  height: 240px;
+  height: 25%;
   left: 44px;
   top: 0px;
 
@@ -150,7 +151,7 @@
 
   position: static;
   width: 493px;
-  height: 240px;
+  height: 25%;
   left: 44px;
   top: 332.5px;
 
@@ -191,7 +192,7 @@
 
   position: static;
   width: 493px;
-  height: 220px;
+  height: 25%;
   left: 44px;
   top: 665px;
 

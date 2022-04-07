@@ -31,7 +31,6 @@ class AllImagesThumbnails extends React.Component {
     } else {
       pageElement = (
       <div className="all-image-tns">
-        <p>AllImagesThumbnails [Placeholder]</p>
         {this.state.styleThumbnails.map((tn, index) => {
           let key = tn.split('-')[1];
           return (<ImageThumbnail

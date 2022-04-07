@@ -33,7 +33,7 @@ class Info extends React.Component {
 }
 
 Info.propTypes ={
-  info: PropTypes.object
+  info: PropTypes.array
 }
 
 export default Info;

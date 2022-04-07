@@ -16,6 +16,7 @@ class Overview extends React.Component {
   render() {
     return (
       <div className="overview-main">
+        <h1>Overview</h1>
         <ImageGallery view={this.state.view}/>
         <div className="right-pane">
           <ProductInfo/>

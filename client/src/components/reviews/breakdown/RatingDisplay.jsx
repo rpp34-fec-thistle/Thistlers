@@ -25,7 +25,7 @@ class RatingDisplay extends Component {
 
 //PROPS
 RatingDisplay.propTypes = {
-  rating: PropTypes.number.isRequired
+  rating: PropTypes.number
 };
 
 export default RatingDisplay;

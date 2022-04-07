@@ -28,9 +28,9 @@ class CustomerReviews extends Component {
 
 //PROPS
 CustomerReviews.propTypes = {
-  reviews: PropTypes.object.isRequired,
-  totalReviews: PropTypes.number.isRequired,
-  refresh: PropTypes.func.isRequired
+  reviews: PropTypes.array,
+  totalReviews: PropTypes.number,
+  refresh: PropTypes.func
 };
 
 export default CustomerReviews;

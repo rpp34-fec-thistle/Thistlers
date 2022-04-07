@@ -130,6 +130,11 @@
   margin: 10px;
   height: 50%;
 }
+
+.avg-stars {
+  height: 20px;
+  width: 20px;
+}
 /* ------------------ */
 
 /* STYLE SELECTOR */

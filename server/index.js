@@ -31,6 +31,22 @@ app.get('/styles/:id', (req, res) => {
     })
 });
 
+app.get('/avgstars/:id', (req, res) => {
+  const id = req.params.id;
+  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`;
+  let options = {
+    headers: {'Authorization': API_KEY}
+  }
+  axios.get(url, options)
+    .then((response) => {
+      res.send(response.data)
+    })
+    .catch((err) => {
+      console.log('GET Avg Stars ERROR:', err);
+      res.sendStatus(500);
+    })
+})
+
 app.get('/questions/:id', (req, res) => {
   const id = req.params.id;
   axios({

@@ -23,7 +23,6 @@ class StarRating extends React.Component {
         avg = avg + (star * this.props.stars[star]);
         totalRates += +this.props.stars[star]
       }
-      console.log({avg, totalRates})
       this.setState({
         avgstars: (avg/totalRates).toFixed(2)
       })
@@ -45,7 +44,6 @@ class StarRating extends React.Component {
           continue;
         }
         if (avg < 0.5 && avg > 0) {
-          console.log(avg)
           stars.push(<img className="avg-stars" src={QuarterStar}></img>)
           avg = avg - 1;
           continue;

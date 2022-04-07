@@ -9,13 +9,13 @@ class ImageGallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      style: '64620',
+      product_id: '64620',
       data: []
     }
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:8080/styles/${this.state.style}`)
+    axios.get(`http://localhost:8080/styles/${this.state.product_id}`)
       .then((response) => {
         this.setState({
           data: response.data.results

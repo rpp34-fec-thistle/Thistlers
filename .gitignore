@@ -1,3 +1,4 @@
 node_modules/
 config.js
 client/public/bundle.js
+client/public/images

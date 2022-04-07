@@ -5,8 +5,5 @@ import Overview from './Overview.jsx';
 
 test('renders a message', () => {
   const {container, getByText} = render(<Overview />)
-  expect(getByText('Hello, world!')).toBeInTheDocument()
-  expect(container.firstChild).toMatchInlineSnapshot(`
-    <h1>Overview</h1>
-  `)
+  expect(getByText('Overview')).toBeInTheDocument()
 })

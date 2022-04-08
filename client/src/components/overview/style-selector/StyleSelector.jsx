@@ -6,7 +6,10 @@ import AllStyleThumbnails from './components/AllStyleThumbnails.jsx';
 class StyleSelector extends React.Component {
   constructor(props) {
     super(props);
-    this.state ={}
+    this.state ={
+      product_id: ''
+
+    }
   }
 
   render() {

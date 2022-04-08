@@ -6,26 +6,27 @@ class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      testId: 64620,
-      testImage: '',
-      testPrice: 0,
-      testCategory: '',
-      testName: '',
-      testReviews: ''
+      cardType: '',
+      id: 0,
+      image: '',
+      price: 0,
+      category: '',
+      name: '',
+      reviews: ''
     }
     this.setCard = this.setCard.bind(this);
     this.setDescription = this.setDescription.bind(this);
   }
 
   setCard() {
-    axios(`http://localhost:8080/styles/${this.state.testId}`)
+    axios(`http://localhost:8080/styles/${this.state.id}`)
     .then((data) => {
       var result = data.data;
       // console.log(result);
       this.setState({
-        testId: result.product_id,
-        testImage: result.results[0].photos[0].thumbnail_url,
-        testPrice: result.results[0].original_price
+        id: result.product_id,
+        image: result.results[0].photos[0].thumbnail_url,
+        price: result.results[0].original_price
       });
       return result;
     })
@@ -40,13 +41,13 @@ class Cards extends Component {
   }
 
   setDescription() {
-    axios(`http://localhost:8080/products/${this.state.testId}`)
+    axios(`http://localhost:8080/products/${this.state.id}`)
     .then((data) => {
       var result = data.data;
       // console.log(result);
       this.setState({
-        testCategory: result.category,
-        testName: result.name
+        category: result.category,
+        name: result.name
       });
       return result;
     })
@@ -63,14 +64,14 @@ class Cards extends Component {
   render() {
 
     return(
-      <div className="card" key={this.state.testId}>
+      <div className="card" key={this.state.id}>
         <div className="card-image">
-        <img src={this.state.testImage} />
+        <img src={this.state.image} />
         </div>
         <div className="card-description">
-          {this.state.testCategory}
-          {this.state.testName}
-          {this.state.testPrice}
+          {this.state.category}
+          {this.state.name}
+          {this.state.price}
           <Ratings />
         </div>
       </div>

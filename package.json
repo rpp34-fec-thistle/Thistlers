@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test-qa": "jest client/src/components/questions",
+    "test-r": "jest client/src/components/relatedItems --watch",
     "react-dev": "webpack --mode development --watch",
     "server-dev": "nodemon server/index.js"
   },

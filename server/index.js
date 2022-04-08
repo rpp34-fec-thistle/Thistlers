@@ -111,3 +111,18 @@ app.get('/products/:id', (req, res) => {
   })
 })
 
+
+app.get('/products/:id/related', (req, res) => {
+  let { id } = req.params;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/related`,
+    headers: {'Authorization': API_KEY}
+  })
+  .then((response) => {
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in products/:id/related GET request');
+    res.status(500).send(err);
+  })
+});

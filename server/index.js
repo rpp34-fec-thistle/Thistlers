@@ -95,6 +95,37 @@ app.put('/questions/:question_id/helpful', (req, res) => {
   })
 })
 
+app.put('/questions/:question_id/report', (req, res) => {
+  const questionId = req.params.question_id;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${questionId}/report`,
+    method: 'put',
+    headers: {'Authorization': API_KEY}
+  })
+  .then(() => {
+    res.end();
+  })
+  .catch(err => {
+    console.error('err', err);
+    res.status(500).send(err);
+  })
+})
+
+app.put('/answers/:answer_id/report', (req, res) => {
+  const answerId = req.params.answer_id;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/answers/${answerId}/report`,
+    method: 'put',
+    headers: {'Authorization': API_KEY}
+  })
+  .then(() => {
+    res.end();
+  })
+  .catch(err => {
+    console.error('err', err);
+    res.status(500).send(err);
+  })
+})
 
 app.get('/products/:id', (req, res) => {
   let { id } = req.params;

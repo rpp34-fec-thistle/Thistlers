@@ -7,17 +7,19 @@ class RelatedProducts extends Component {
     super(props);
     this.state = {
       testOverviewId: 64620,
-      relatedProductsArr: []
+      relatedProductsIds: [],
+      relatedProductsData: [],
+      currentCard: 0,
     };
-    this.setRelatedProducts.bind(this);
+    this.setRelatedProductsId = this.setRelatedProductsId.bind(this);
   }
 
-  setRelatedProducts() {
+  setRelatedProductsId() {
     axios(`http://localhost:8080/products/${this.state.testOverviewId}/related`)
       .then((data) => {
         var result = data.data;
         this.setState({
-          relatedProductsArr: result
+          relatedProductsIds: result
         });
         return result;
       })
@@ -32,13 +34,13 @@ class RelatedProducts extends Component {
   }
 
   componentDidMount() {
-    this.setRelatedProducts();
+    this.setRelatedProductsId();
   }
 
-
-  // to render, take this.state.relatedProductsArr and for each item, render a card using its ID
+  // to render, take this.state.relatedProductsId and for each item, render a card using its ID
 
   render() {
+
     return(
       <div className="relatedProducts">
         <Cards /><Cards /><Cards /><Cards />

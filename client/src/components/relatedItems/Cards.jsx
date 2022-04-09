@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
 import axios from 'axios';
 import Ratings from './Ratings.jsx';
 
@@ -34,7 +35,7 @@ class Cards extends Component {
       this.setDescription();
     })
     .catch((err) => {
-      console.log('setCard error');
+      // console.log('setCard error');
       return err;
     })
 
@@ -78,5 +79,10 @@ class Cards extends Component {
     )
   }
 }
+
+// Cards.propTypes = {
+//   setCard: PropTypes.func.isRequired,
+//   setDescription: PropTypes.func.isRequired
+// }
 
 export default Cards;

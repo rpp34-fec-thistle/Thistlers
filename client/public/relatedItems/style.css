@@ -1,4 +1,4 @@
-.card {
+.related-item-card {
     width: 200px;
     height: 350px;
     border: 5px solid cornflowerblue;
@@ -6,12 +6,12 @@
     width: 22%;
     padding: 5px;
 }
-.card-image {
+.related-item-card-image {
   width: 220px;
   height: 250px;
   border: 5px solid indianred;
 }
-.card-description {
+.related-item-card-description {
   width: 220px;
   height: 80px;
   border: 5px solid darkcyan;
@@ -29,7 +29,7 @@
   clear: both;
 }
 
-.card-image img {
+.related-item-card-image img {
   display: block;
   margin-left: auto;
   margin-right: auto;

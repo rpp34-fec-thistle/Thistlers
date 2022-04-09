@@ -9,7 +9,7 @@ class ProductInfo extends React.Component {
     super(props);
     this.state ={
       product_id: '64620',
-      info: [],
+      info: {},
       avgstars:{}
     }
   }

@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import Carousels from './Carousels.jsx';
+import Cards from './Cards.jsx';
+
 
 class YourOutfit extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      yourOutfitArr: []
+    };
   }
 
   render() {
     return(
       <div className="yourOutfit">
-        <Carousels />
+        <Cards /><Cards /><Cards /><Cards />
       </div>
     )
   }

@@ -98,7 +98,6 @@ class DefaultView extends React.Component {
 
     return(
       <div className="default-view">
-        <h5>DefaultView [Placeholder] </h5>
           {pageElement}
       </div>
     )

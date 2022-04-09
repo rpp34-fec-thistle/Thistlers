@@ -29,7 +29,7 @@
   clear: both;
 }
 
-card-img {
+.card-image img {
   display: block;
   margin-left: auto;
   margin-right: auto;

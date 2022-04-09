@@ -33,27 +33,28 @@ class StarRating extends React.Component {
     let stars = [];
     let avg = +this.state.avgstars;
     for(let i = 0; i < 5; i++) {
-      if (avg > 1) {
-        stars.push(<img className="avg-stars" src={Star}></img>)
+      if (avg > 1 || avg === 1) {
+        stars.push(<img key={`star-${i}`}className="avg-stars" src={Star}></img>)
         avg = avg - 1;
         continue;
       } else if (avg < 1) {
         if (avg > 0.5) {
-          stars.push(<img className="avg-stars" src={ThreeQuaterStar}></img>)
+          stars.push(<img key={`star-${i}`} className="avg-stars" src={ThreeQuaterStar}></img>)
           avg = avg - 1;
           continue;
         }
         if (avg < 0.5 && avg > 0) {
-          stars.push(<img className="avg-stars" src={QuarterStar}></img>)
+          stars.push(<img key={`star-${i}`} className="avg-stars" src={QuarterStar}></img>)
           avg = avg - 1;
           continue;
         }
         if (avg === 0.5) {
-          stars.push(<img className="avg-stars" src={HalfStar}></img>)
+          stars.push(<img key={`star-${i}`} className="avg-stars" src={HalfStar}></img>)
           avg = avg - 1;
+          continue
         }
       }
-      stars.push(<img className="avg-stars" src={EmptyStar}></img>)
+      stars.push(<img key={`star-${i}`} className="avg-stars" src={EmptyStar}></img>)
     }
     return(
       <div className="star-rating">

@@ -29,7 +29,7 @@ class ReviewCount extends Component {
 
 //PROPS
 ReviewCount.propTypes = {
-  totalReviews: PropTypes.number.isRequired
+  totalReviews: PropTypes.number
 };
 
 export default ReviewCount;

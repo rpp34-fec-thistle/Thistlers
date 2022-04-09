@@ -76,7 +76,7 @@ class CustomerComments extends Component {
 
 //PROPS
 CustomerComments.propTypes = {
-  characteristics: PropTypes.object.isRequired
+  characteristics: PropTypes.object
 };
 
 export default CustomerComments;

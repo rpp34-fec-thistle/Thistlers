@@ -29,9 +29,9 @@ class Breakdown extends Component {
 
 //PROPS
 Breakdown.propTypes = {
-  metadata: PropTypes.object.isRequired,
-  rating: PropTypes.number.isRequired,
-  recomend: PropTypes.number.isRequired,
+  metadata: PropTypes.object,
+  rating: PropTypes.number,
+  recomend: PropTypes.number,
 }
 
 export default Breakdown;

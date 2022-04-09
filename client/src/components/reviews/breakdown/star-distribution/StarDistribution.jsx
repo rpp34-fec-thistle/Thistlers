@@ -14,8 +14,8 @@ class StarDistribution extends Component {
   render() {
     return (
       <div className="reviews-breakdown-star-distribution">
-        {this.state.starData.map(starData => (
-          <IndividualStar key="" data={starData} starData={'INSERT_STARDATA'} />
+        {this.state.starData.map((starData, i) => (
+          <IndividualStar key={`individual-star-${i}`} data={starData} starData={'INSERT_STARDATA'} />
         ))}
       </div>
     );
@@ -24,7 +24,7 @@ class StarDistribution extends Component {
 
 //PROPS
 StarDistribution.propTypes = {
-  metadata: PropTypes.object.isRequired
+  metadata: PropTypes.object
 };
 
 export default StarDistribution;

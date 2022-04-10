@@ -11,7 +11,6 @@ class RelatedProducts extends Component {
       relatedProductsData: []
     };
     this.setRelatedProductsId = this.setRelatedProductsId.bind(this);
-    this.setCard = this.setCard.bind(this);
     this.setRelatedProductsData = this.setRelatedProductsData.bind(this);
   }
 
@@ -21,7 +20,7 @@ class RelatedProducts extends Component {
       this.setRelatedProductsId(),
       this.setRelatedProductsData()
     ]).then(values => {
-      console.log(values);
+      console.log('return values: ', values);
     }).then(results => {
       return results;
     }).catch(err => {
@@ -77,78 +76,19 @@ class RelatedProducts extends Component {
             })
           )
           .catch((err) => {
-            console.log('setDescription error');
+            console.log('API call to /products error');
             return err;
           })
       })
       .catch((err) => {
-        console.log('setCard error');
+        console.log('API call to /styles error');
         return err;
       })
     }
   }
 
-  setCard() {
-    axios(`http://localhost:8080/styles/${this.state.id}`)
-    .then((data) => {
-      var result = data.data;
-      var newObj = {
-        id: result.product_id,
-        image: result.results[0].photos[0].thumbnail_url,
-        price: result.results[0].original_price
-      };
-      console.log('setCard obj: ', newObj);
-      return newObj;
-    })
-    .then((obj) => {
-        axios(`http://localhost:8080/products/${this.state.id}`)
-        .then((data) => {
-          var result = data.data;
-          var newObj2 = {
-            category: result.category,
-            name: result.name
-          };
-          var allData = Object.assign(obj, newObj2);
-          var updateData = this.state.relatedProductsData.push(allData);
-          this.setState({
-            relatedProductsData: updateData
-          });
-          return result;
-        })
-        .catch((err) => {
-          console.log('setDescription error');
-          return err;
-        })
-    })
-    .catch((err) => {
-      console.log('setCard error');
-      return err;
-    })
+  // need to set Reviews data
 
-  }
-
-  // setDescription(obj) {
-  //   axios(`http://localhost:8080/products/${this.state.id}`)
-  //   .then((data) => {
-  //     var result = data.data;
-  //     var newObj2 = {
-  //       category: result.category,
-  //       name: result.name
-  //     };
-  //     var allData = Object.assign(obj, newObj2);
-  //     var updateData = this.state.relatedProductsData.push(allData);
-  //     this.setState({
-  //       relatedProductsData: updateData
-  //     });
-  //     return result;
-  //   })
-  //   .catch((err) => {
-  //     console.log('setDescription error');
-  //     return err;
-  //   })
-  // }
-
-  // to render, take this.state.relatedProductsId and for each item, render a card using its ID
 
   render() {
 

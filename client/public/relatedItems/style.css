@@ -2,9 +2,11 @@
     width: 200px;
     height: 350px;
     border: 5px solid cornflowerblue;
-    float: left;
     width: 22%;
     padding: 5px;
+    clear: both;
+    display: flex;
+    flex-wrap: wrap;
 }
 .related-item-card-image {
   width: 220px;

@@ -157,3 +157,18 @@ app.get('/products/:id/related', (req, res) => {
     res.status(500).send(err);
   })
 });
+
+app.get('/reviews', (req, res) => {
+  let { id } = req.params;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`,
+    headers: {'Authorization': API_KEY}
+  })
+  .then((response) => {
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in reviews GET request');
+    res.status(500).send(err);
+  })
+});

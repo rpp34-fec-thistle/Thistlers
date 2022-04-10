@@ -8,39 +8,25 @@ class RelatedProducts extends Component {
     this.state = {
       testOverviewId: 64620,
       relatedProductsIds: [],
-      relatedProductsData: [],
-      // id: 0,
-      // image: '',
-      // price: 0,
-      // category: '',
-      // name: '',
-      // reviews: ''
+      relatedProductsData: []
     };
     this.setRelatedProductsId = this.setRelatedProductsId.bind(this);
     this.setCard = this.setCard.bind(this);
-    this.setDescription = this.setDescription.bind(this);
     this.setRelatedProductsData = this.setRelatedProductsData.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({loading: true});
 
+  componentDidMount() {
     Promise.all([
       this.setRelatedProductsId(),
       this.setRelatedProductsData()
     ]).then(values => {
-        return values[0].concat(values[1]);
+      console.log(values);
     }).then(results => {
-        this.setState({
-            articles: this.state.articles.concat(results),
-            loading: "none"
-        });
+      return results;
     }).catch(err => {
         console.log('Oops, something went wrong', err);
     });
-
-
-
   }
 
   setRelatedProductsId() {
@@ -60,21 +46,44 @@ class RelatedProducts extends Component {
 
   setRelatedProductsData() {
     for (var id in this.relatedProductsIds) {
-      this.setState({
-        id: id
-      });
-      this.setCard();
-      var newObj = {
-        id: this.state.id,
-        image: this.state.image,
-        price: this.state.price,
-        category: this.state.category,
-        name: this.state.name,
-        reviews: this.state.reviews
-      };
-      var newArr = this.state.relatedProductsData.push(newObj);
-      this.setState({
-        relatedProductsData: newArr
+      axios(`http://localhost:8080/styles/${id}`)
+      .then((data) => {
+        var result = data.data;
+        var newObj = {
+          id: result.product_id,
+          style: result.results.style_id,
+          image: result.results[0].photos[0].thumbnail_url,
+          price: result.results[0].original_price,
+          salePrice: result.results[0].sale_price
+        };
+        console.log('setCard obj: ', newObj);
+        return newObj;
+      })
+      .then((obj) => {
+          axios(`http://localhost:8080/products/${id}`)
+          .then((data) => {
+            var result = data.data;
+            var newObj2 = {
+              category: result.category,
+              name: result.name
+            };
+            var allData = Object.assign(obj, newObj2);
+            var updateData = this.relatedProductsData.push(allData);
+            return updateData;
+          })
+          .then((itemArray) =>
+            this.setState({
+              relatedProductsData: itemArray
+            })
+          )
+          .catch((err) => {
+            console.log('setDescription error');
+            return err;
+          })
+      })
+      .catch((err) => {
+        console.log('setCard error');
+        return err;
       })
     }
   }
@@ -91,8 +100,25 @@ class RelatedProducts extends Component {
       console.log('setCard obj: ', newObj);
       return newObj;
     })
-    .then(() => {
-      this.setDescription();
+    .then((obj) => {
+        axios(`http://localhost:8080/products/${this.state.id}`)
+        .then((data) => {
+          var result = data.data;
+          var newObj2 = {
+            category: result.category,
+            name: result.name
+          };
+          var allData = Object.assign(obj, newObj2);
+          var updateData = this.state.relatedProductsData.push(allData);
+          this.setState({
+            relatedProductsData: updateData
+          });
+          return result;
+        })
+        .catch((err) => {
+          console.log('setDescription error');
+          return err;
+        })
     })
     .catch((err) => {
       console.log('setCard error');
@@ -101,26 +127,26 @@ class RelatedProducts extends Component {
 
   }
 
-  setDescription(obj) {
-    axios(`http://localhost:8080/products/${this.state.id}`)
-    .then((data) => {
-      var result = data.data;
-      var newObj2 = {
-        category: result.category,
-        name: result.name
-      };
-      var allData = Object.assign(obj, newObj2);
-      var updateData = this.state.relatedProductsData.push(allData);
-      this.setState({
-        relatedProductsData: updateData
-      });
-      return result;
-    })
-    .catch((err) => {
-      console.log('setDescription error');
-      return err;
-    })
-  }
+  // setDescription(obj) {
+  //   axios(`http://localhost:8080/products/${this.state.id}`)
+  //   .then((data) => {
+  //     var result = data.data;
+  //     var newObj2 = {
+  //       category: result.category,
+  //       name: result.name
+  //     };
+  //     var allData = Object.assign(obj, newObj2);
+  //     var updateData = this.state.relatedProductsData.push(allData);
+  //     this.setState({
+  //       relatedProductsData: updateData
+  //     });
+  //     return result;
+  //   })
+  //   .catch((err) => {
+  //     console.log('setDescription error');
+  //     return err;
+  //   })
+  // }
 
   // to render, take this.state.relatedProductsId and for each item, render a card using its ID
 

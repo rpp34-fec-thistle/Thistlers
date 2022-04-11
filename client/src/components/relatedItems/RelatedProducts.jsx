@@ -1,111 +1,118 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Ratings from './Ratings.jsx';
+// import Ratings from './Ratings.jsx';
+import Cards from './Cards.jsx';
 
-class RelatedProducts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      testOverviewId: 64620,
-      relatedProductsIds: [],
-      relatedProductsData: []
-    };
-    this.setRelatedProductsId = this.setRelatedProductsId.bind(this);
-    this.setRelatedProductsData = this.setRelatedProductsData.bind(this);
-  }
+const RelatedProducts = () => {
+
+  const [overviewId, setOverviewId] = useState(64620);
+  const [relatedProductsIds, setRelatedProductsIds] = useState([]);
+  const [relatedProductsData, setRelatedProductsData] = useState([]);
 
 
-  componentDidMount() {
-    Promise.all([
-      this.setRelatedProductsId(),
-      this.setRelatedProductsData()
-    ]).then(values => {
-      console.log('return values: ', values);
-    }).then(results => {
-      return results;
-    }).catch(err => {
-        console.log('Oops, something went wrong', err);
-    });
-  }
+  const fetchProductsIds = () => {
 
-  setRelatedProductsId() {
-    axios(`http://localhost:8080/products/${this.state.testOverviewId}/related`)
+    const relatedIdsAPI = `http://localhost:8080/products/${overviewId}/related`;
+
+    axios(relatedIdsAPI)
       .then((data) => {
         var result = data.data;
-        this.setState({
-          relatedProductsIds: result
-        });
+        setRelatedProductsIds(result);
         return result;
       })
       .catch((err) => {
-        console.log('error in setRelatedProducts');
+        console.log('error in setRelatedProductsIds');
         return err;
       })
-  }
 
-  setRelatedProductsData() {
-    for (var id in this.relatedProductsIds) {
-      axios(`http://localhost:8080/styles/${id}`)
-      .then((data) => {
-        var result = data.data;
-        var newObj = {
-          id: result.product_id,
-          style: result.results.style_id,
-          image: result.results[0].photos[0].thumbnail_url,
-          price: result.results[0].original_price,
-          salePrice: result.results[0].sale_price
-        };
-        console.log('setCard obj: ', newObj);
-        return newObj;
-      })
-      .then((obj) => {
-          axios(`http://localhost:8080/products/${id}`)
-          .then((data) => {
-            var result = data.data;
-            var newObj2 = {
-              category: result.category,
-              name: result.name
-            };
-            var allData = Object.assign(obj, newObj2);
-            var updateData = this.relatedProductsData.push(allData);
-            return updateData;
-          })
-          .then((itemArray) =>
-            this.setState({
-              relatedProductsData: itemArray
-            })
-          )
-          .catch((err) => {
-            console.log('API call to /products error');
-            return err;
-          })
-      })
-      .catch((err) => {
-        console.log('API call to /styles error');
-        return err;
-      })
-    }
-  }
+  };
 
-  // need to set Reviews data
+  const fetchProductsData = () => {
+
+    console.log('relatedProductsIds: ', relatedProductsIds);
+    const newArr = [];
+
+    relatedProductsIds.forEach((id) => {
+
+      const relatedStylesAPI = `http://localhost:8080/styles/${id}`;
+      const relatedProductsAPI = `http://localhost:8080/products/${id}`;
+
+      const getRelatedStyles = axios.get(relatedStylesAPI);
+
+      const getRelatedProducts = axios.get(relatedProductsAPI);
+
+      axios.all([getRelatedStyles, getRelatedProducts])
+        .then(axios.spread((...data) => {
+          const stylesData = data[0].data;
+          const productsData = data[1].data;
+          let stylesObj = {
+            id: stylesData.product_id,
+            style: stylesData.results.style_id,
+            image: stylesData.results[0].photos[0].thumbnail_url,
+            price: stylesData.results[0].original_price,
+            salePrice: stylesData.results[0].sale_price
+          };
+          let productsObj = {
+            category: productsData.category,
+            name: productsData.name
+          };
+          const sumData = Object.assign(stylesObj, productsObj)
+          console.log('related item object: ', sumData);
+          return sumData;
+        }))
+        .then((data) => {
+          newArr.push(data);
+          return newArr;
+        })
+        .else((err) => {
+          console.log('error from axios.all');
+          return err;
+        })
+    })
+
+    setRelatedProductsData(newArr);
+
+  };
+
+  // useEffect(() => {
+  //   Promise.all([
+  //     setOverviewId(64620),
+  //     fetchProductsIds()
+  //   ]).then(() => {
+  //     fetchProductsData()
+  //   })
+  //     .catch((err) => {
+  //       console.log('load state error: ', err);
+  //     })
+  // }, [relatedProductsIds]);
 
 
-  render() {
+  return (
+    <>
+    <div className="related-products-carousel">
+      <Cards /> <Cards /> <Cards /> <Cards />
+    </div>
+    </>
 
-    return(
-      <div className="related-item-card" key={this.state.id}>
-        <div className="related-item-card-image">
-        <img src={this.state.image} />
-        </div>
-        <div className="related-item-card-description">
-          {this.state.category}
-          {this.state.name}
-          {this.state.price}
-          <Ratings />
-        </div>
-      </div>
-    )
-  }
-}
+  )
+};
 
 export default RelatedProducts;
+
+
+    // {/* {
+    //   relatedProductsData.map((eachProduct) =>
+    //     <div className="related-item-card" key={eachProduct.id}>
+    //       <div className="related-item-card-image">
+    //         <img src={eachProduct.image} />
+    //       </div>
+    //       <div className="related-item-card-description">
+    //         {eachProduct.category}
+    //         {eachProduct.name}
+    //         {eachProduct.price}
+    //         <Ratings />
+    //       </div>
+    //     </div>
+    //   )
+    // } */}
+

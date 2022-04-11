@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RelatedProducts from './RelatedProducts.jsx';
-import YourOutfit from './YourOutfit.jsx'
+// import YourOutfit from './YourOutfit.jsx'
 
 class RelatedItemsWidget extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class RelatedItemsWidget extends Component {
     return (
       <div className="relatedItemsWidget">
         <RelatedProducts />
-        <YourOutfit />
+        {/* <YourOutfit /> */}
       </div>
     )
   }

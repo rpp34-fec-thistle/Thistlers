@@ -35,7 +35,6 @@ class Cards extends Component {
           price: result.results[0].original_price,
           salePrice: result.results[0].sale_price
         });
-        console.log('stylesAPI results: ', result);
         return result;
       })
       .then(() => {
@@ -46,7 +45,6 @@ class Cards extends Component {
               category: result.category,
               name: result.name
             });
-            console.log('productAPI results: ', result);
             return result;
           })
           .catch((err) => {

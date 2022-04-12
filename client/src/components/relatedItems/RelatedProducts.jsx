@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Ratings from './Ratings.jsx';
+import Cards from './Cards.jsx';
+
 
 class RelatedProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      testOverviewId: 64620,
-      relatedProductsIds: [],
-      relatedProductsData: []
+      overviewId: 64626,
+      relatedProductsIds: []
     };
-    this.setRelatedProductsId = this.setRelatedProductsId.bind(this);
-    this.setRelatedProductsData = this.setRelatedProductsData.bind(this);
+    this.setRelatedProductsIds = this.setRelatedProductsIds.bind(this);
   }
-
 
   componentDidMount() {
-    Promise.all([
-      this.setRelatedProductsId(),
-      this.setRelatedProductsData()
-    ]).then(values => {
-      console.log('return values: ', values);
-    }).then(results => {
-      return results;
-    }).catch(err => {
-        console.log('Oops, something went wrong', err);
-    });
+    this.setRelatedProductsIds()
   }
 
-  setRelatedProductsId() {
-    axios(`http://localhost:8080/products/${this.state.testOverviewId}/related`)
+  setRelatedProductsIds = () => {
+
+    const relatedIdsAPI = `http://localhost:8080/products/${this.state.overviewId}/related`;
+
+    axios(relatedIdsAPI)
       .then((data) => {
         var result = data.data;
         this.setState({
@@ -38,74 +30,86 @@ class RelatedProducts extends Component {
         return result;
       })
       .catch((err) => {
-        console.log('error in setRelatedProducts');
+        console.log('error in setRelatedProductsIds');
         return err;
       })
+
   }
-
-  setRelatedProductsData() {
-    for (var id in this.relatedProductsIds) {
-      axios(`http://localhost:8080/styles/${id}`)
-      .then((data) => {
-        var result = data.data;
-        var newObj = {
-          id: result.product_id,
-          style: result.results.style_id,
-          image: result.results[0].photos[0].thumbnail_url,
-          price: result.results[0].original_price,
-          salePrice: result.results[0].sale_price
-        };
-        console.log('setCard obj: ', newObj);
-        return newObj;
-      })
-      .then((obj) => {
-          axios(`http://localhost:8080/products/${id}`)
-          .then((data) => {
-            var result = data.data;
-            var newObj2 = {
-              category: result.category,
-              name: result.name
-            };
-            var allData = Object.assign(obj, newObj2);
-            var updateData = this.relatedProductsData.push(allData);
-            return updateData;
-          })
-          .then((itemArray) =>
-            this.setState({
-              relatedProductsData: itemArray
-            })
-          )
-          .catch((err) => {
-            console.log('API call to /products error');
-            return err;
-          })
-      })
-      .catch((err) => {
-        console.log('API call to /styles error');
-        return err;
-      })
-    }
-  }
-
-  // need to set Reviews data
-
 
   render() {
 
+    const items = this.state.relatedProductsIds;
+
     return(
-      <div className="related-item-card" key={this.state.id}>
-        <div className="related-item-card-image">
-        <img src={this.state.image} />
-        </div>
-        <div className="related-item-card-description">
-          {this.state.category}
-          {this.state.name}
-          {this.state.price}
-          <Ratings />
-        </div>
+
+      <div className="related-products-carousel">
+        {items.map((eachId) =>
+          <Cards key={eachId} id={eachId} />
+        )}
       </div>
+
+
     )
   }
 }
 
+
 export default RelatedProducts;
+
+
+    // {/* {
+    //   relatedProductsData.map((eachProduct) =>
+    //     <div className="related-item-card" key={eachProduct.id}>
+    //       <div className="related-item-card-image">
+    //         <img src={eachProduct.image} />
+    //       </div>
+    //       <div className="related-item-card-description">
+    //         {eachProduct.category}
+    //         {eachProduct.name}
+    //         {eachProduct.price}
+    //         <Ratings />
+    //       </div>
+    //     </div>
+    //   )
+    // } */}
+
+
+  //   <div className="related-item-card" key={this.state.id}>
+  //   <div className="related-item-card-image">
+  //   <img src={this.state.image} />
+  //   </div>
+  //   <div className="related-item-card-description">
+  //     {this.state.category}
+  //     {this.state.name}
+  //     {this.state.price}
+  //     <Ratings />
+  //   </div>
+  // </div>
+
+    // axios.all([getRelatedStyles, getRelatedProducts])
+    // .then(axios.spread((...data) => {
+    //   const stylesData = data[0].data;
+    //   const productsData = data[1].data;
+    //   let stylesObj = {
+    //     id: stylesData.product_id,
+    //     style: stylesData.results.style_id,
+    //     image: stylesData.results[0].photos[0].thumbnail_url,
+    //     price: stylesData.results[0].original_price,
+    //     salePrice: stylesData.results[0].sale_price
+    //   };
+    //   let productsObj = {
+    //     category: productsData.category,
+    //     name: productsData.name
+    //   };
+    //   const sumData = Object.assign(stylesObj, productsObj)
+    //   console.log('related item object: ', sumData);
+    //   return sumData;
+    // }))
+    // .then((data) => {
+    //   newArr.push(data);
+    //   return newArr;
+    // })
+    // .else((err) => {
+    //   console.log('error from axios.all');
+    //   return err;
+    // })

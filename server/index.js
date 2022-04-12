@@ -158,7 +158,7 @@ app.get('/products/:id/related', (req, res) => {
   })
 });
 
-app.get('/reviews', (req, res) => {
+app.get('/reviews/:id', (req, res) => {
   let { id } = req.params;
   axios({
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`,

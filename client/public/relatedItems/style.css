@@ -1,3 +1,8 @@
+.related-products-carousel {
+  clear: both;
+  display: flex;
+  flex-wrap: wrap;
+}
 .related-item-card {
     width: 200px;
     height: 350px;

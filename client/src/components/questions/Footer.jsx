@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 class Footer extends Component {
   constructor(props) {
@@ -21,6 +22,22 @@ class Footer extends Component {
   }
 
   onQuestionSubmit = () => {
+    axios({
+      url: '/questions',
+      method: 'post',
+      data: {
+        body: this.state.question,
+        name: this.state.nickname,
+        email: this.state.email,
+        product_id: this.props.productId
+      }
+    })
+    .then(results => {
+      console.log(results);
+    })
+    .catch(err => {
+      console.error('err ', err);
+    })
     document.querySelector('.add-question-modal').style.display = 'none';
   }
 
@@ -89,7 +106,8 @@ class Footer extends Component {
 Footer.propTypes = {
   onShowMoreQuestionsClick: PropTypes.func.isRequired,
   moreQuestions: PropTypes.bool.isRequired,
-  productName: PropTypes.string.isRequired
+  productName: PropTypes.string.isRequired,
+  productId: PropTypes.number.isRequired
 }
 
 export default Footer;

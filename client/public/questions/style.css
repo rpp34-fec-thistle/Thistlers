@@ -75,6 +75,7 @@
 
 .reported-text {
   color: red;
+  font-style: italic;
 }
 
 .question-footer {

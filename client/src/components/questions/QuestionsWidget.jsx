@@ -20,8 +20,6 @@ class QuestionWidget extends Component {
     }
   }
 
-
-
   componentDidMount() {
     axios(`/questions/${testProductId}`)
     .then(results => {
@@ -112,6 +110,7 @@ class QuestionWidget extends Component {
           moreQuestions={this.state.moreQuestions}
           onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
           productName={testProductName}
+          productId={testProductId}
         />
       </div>
     )

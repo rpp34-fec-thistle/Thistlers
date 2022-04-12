@@ -31,6 +31,21 @@ app.get('/styles/:id', (req, res) => {
     })
 });
 
+app.post('/cart', (req, res) => {
+  let options = {
+    headers: {'Authorization': API_KEY}
+  }
+  let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/cart';
+  axios.post(url, req.body, options)
+    .then(() => {
+      res.sendStatus(201)
+    })
+    .catch((err) => {
+      console.log('Add to Cart ERROR:', err);
+      res.sendStatus(500)
+    })
+})
+
 app.get('/avgstars/:id', (req, res) => {
   const id = req.params.id;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`;

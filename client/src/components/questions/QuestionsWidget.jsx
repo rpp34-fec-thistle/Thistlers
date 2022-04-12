@@ -14,7 +14,8 @@ class QuestionWidget extends Component {
       displayedQuestions: [],
       numberDisplayed: 0,
       moreQuestions: false,
-      allAnswersDisplayed: []
+      allAnswersDisplayed: [],
+      reportedAnswers: []
     }
   }
 
@@ -79,6 +80,19 @@ class QuestionWidget extends Component {
     })
   }
 
+  onReport(type, id) {
+    axios({
+      url: `/${type}/${id}/report`,
+      method: 'put'
+    })
+    .then(() => {
+      this.setState({ reportedAnswers: [...this.state.reportedAnswers, id]})
+    })
+    .catch(err => {
+      console.error(err);
+    })
+  }
+
   render() {
     return (
       <div className="question-widget">
@@ -90,6 +104,8 @@ class QuestionWidget extends Component {
           allAnswersDisplayed={this.state.allAnswersDisplayed}
           onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
           onHelpfulClick={this.onHelpfulClick.bind(this)}
+          onReport={this.onReport.bind(this)}
+          reportedAnswers={this.state.reportedAnswers}
         />
         <Footer
           moreQuestions={this.state.moreQuestions}

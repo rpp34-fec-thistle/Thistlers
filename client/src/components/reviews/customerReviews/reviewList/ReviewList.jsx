@@ -20,7 +20,7 @@ class ReviewList extends Component {
 
 //PROPS
 ReviewList.propTypes = {
-  reviews: PropTypes.object.isRequired
+  reviews: PropTypes.array
 };
 
 export default ReviewList;

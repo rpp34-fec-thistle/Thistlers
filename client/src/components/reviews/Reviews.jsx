@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import Breakdown from './breakdown/Breakdown.jsx';
 import CustomerReviews from './customerReviews/CustomerReviews.jsx';
+import PropTypes from 'prop-types';
 
 class Reviews extends Component {
   constructor(props) {
     super(props);
     // PROPS SHOULD HAVE props.product_id or SIMILAR!
     this.state = {
-      productId: 1 || 'FILL_ME_IN',
-      reviews: [],
-      metadata: {},
-      overallRating: 3,
-      recomend: 2
+      productId: 1 || this.props.productId,
+      reviews: [{}, {}, {}],
+      metadata: {char: {}, this: {}, that: {}},
+      overallRating: 3, // does not come with api
+      recomend: 2 //does not come with api 
     }
     this.refresh(this.state.productId);
   }
@@ -21,7 +22,7 @@ class Reviews extends Component {
       <section className="reviews-container">
         <h1 className="reviews-title">Ratings & Reviews</h1>
         <div className="reviews">
-          <Breakdown metadata={this.state.metadata} rating={this.state.overallRating} recomend={this.state.recomend}/>
+          <Breakdown metadata={this.state.metadata} rating={this.state.overallRating} recomend={this.state.recomend/ this.state.reviews.length}/>
           <CustomerReviews reviews={this.state.reviews} totalReviews={this.state.reviews.length} refresh={() => this.refresh.call(this, this.state.productId)}/>
         </div>
       </section>
@@ -55,5 +56,10 @@ class Reviews extends Component {
     */
   }
 }
+
+//PROPS
+Reviews.propTypes = {
+  productId: PropTypes.number
+};
 
 export default Reviews;

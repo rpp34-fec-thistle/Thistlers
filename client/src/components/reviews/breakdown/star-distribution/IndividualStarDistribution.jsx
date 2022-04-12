@@ -29,7 +29,7 @@ class IndividualStar extends Component {
 
 //PROPS
 IndividualStar.propTypes = {
-  starData: PropTypes.object.isRequired
+  starData: PropTypes.string
 };
 
 export default IndividualStar;

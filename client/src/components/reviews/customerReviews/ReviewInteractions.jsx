@@ -22,7 +22,7 @@ class ReviewInteractions extends Component {
 
 //PROPS
 ReviewInteractions.propTypes = {
-  refresh: PropTypes.func.isRequired
+  refresh: PropTypes.func
 };
 
 export default ReviewInteractions;

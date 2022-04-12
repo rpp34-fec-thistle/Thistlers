@@ -23,7 +23,7 @@ function AllStyleThumbnails(props) {
 }
 
 AllStyleThumbnails.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
   updateStyle: PropTypes.func,
   currentStyle: PropTypes.number
 }

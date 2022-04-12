@@ -10,22 +10,12 @@ class RelatedProducts extends Component {
       relatedProductsIds: [],
       relatedProductsData: []
     };
-    this.setRelatedProductsId = this.setRelatedProductsId.bind(this);
-    this.setRelatedProductsData = this.setRelatedProductsData.bind(this);
+    this.setRelatedProductsIds = this.setRelatedProductsIds.bind(this);
   }
 
 
   componentDidMount() {
-    Promise.all([
-      this.setRelatedProductsId(),
-      this.setRelatedProductsData()
-    ]).then(values => {
-      console.log('return values: ', values);
-    }).then(results => {
-      return results;
-    }).catch(err => {
-        console.log('Oops, something went wrong', err);
-    });
+    this.setRelatedProductsId()
   }
 
   setRelatedProductsId() {

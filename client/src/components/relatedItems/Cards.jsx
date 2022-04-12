@@ -66,7 +66,6 @@ class Cards extends Component {
 
   render() {
 
-    console.log(this.props.relatedProductsIds);
     return (
       <>
         <div className="related-item-card" key={this.props.id}>

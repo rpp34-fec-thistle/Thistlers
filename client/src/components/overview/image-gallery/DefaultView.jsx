@@ -8,7 +8,8 @@ class DefaultView extends React.Component {
     super(props);
     this.state = {
       styles: [],
-      currentPhoto: ''
+      currentPhoto: '',
+      currentStyle: 0
     }
 
     this.cyclePhotos = this.cyclePhotos.bind(this);
@@ -17,13 +18,13 @@ class DefaultView extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(this.props.styles !== prevProps.styles) {
-      let thumbnails = this.props.styles[0].photos.map((photo) => {
+      let thumbnails = this.props.styles[this.state.currentStyle].photos.map((photo) => {
         return photo.thumbnail_url
       });
-      let image_id = this.props.styles[0].photos[0].url.split('-')[1];
+      let image_id = this.props.styles[this.state.currentStyle].photos[0].url.split('-')[1];
       this.setState({
         styles: this.props.styles,
-        currentPhoto: this.props.styles[0].photos[0].url,
+        currentPhoto: this.props.styles[this.state.currentStyle].photos[0].url,
         imageIndex: 0,
         currentStyle: 0,
         thumbnails: thumbnails,

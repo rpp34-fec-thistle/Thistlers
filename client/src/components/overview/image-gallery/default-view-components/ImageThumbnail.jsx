@@ -1,42 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class ImageThumbnail extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-
-    this.handleClick = this.handleClick.bind(this);
+function ImageThumbnail(props) {
+  let handleClick = (e) => {
+    props.selectedPhoto(+e.target.id)
   }
-
-  handleClick(e) {
-    this.props.selectedPhoto(+e.target.id)
-  }
-
-  render() {
     let pageElement;
-    if (this.props.currentImage === this.props.imageId) {
+    if (props.currentImage === props.imageId) {
       pageElement = (
-          <img onClick={this.handleClick}
-          id={this.props.image_index}
-          src={this.props.thumbnail}
+          <img onClick={handleClick}
+          id={props.image_index}
+          src={props.thumbnail}
           className="image-tn-selected"
           ></img>
       )
     } else {
       pageElement = (
         <img
-        src={this.props.thumbnail}
+        src={props.thumbnail}
         className="image-tn"
-        onClick={this.handleClick}
-        id={this.props.image_index}
+        onClick={handleClick}
+        id={props.image_index}
         ></img>
       )
     }
     return (
       pageElement
     )
-  }
 }
 
 ImageThumbnail.propTypes = {

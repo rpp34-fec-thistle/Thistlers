@@ -8,7 +8,7 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
 
   const formatDate = (date) => {
     const newDate = new Date(date);
-    return `${months[newDate.getMonth()]} ${newDate.getDay()}, ${newDate.getFullYear()}`;
+    return `${months[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`;
   }
 
   const onAnswerLike = () => {

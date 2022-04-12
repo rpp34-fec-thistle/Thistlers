@@ -4,7 +4,8 @@ import QuestionList from './QuestionList.jsx';
 import Footer from './Footer.jsx';
 import axios from 'axios';
 
-const testProductId = 64635;
+const testProductId = 64620;
+const testProductName = 'Camo Onesi';
 
 class QuestionWidget extends Component {
   constructor(props) {
@@ -110,6 +111,7 @@ class QuestionWidget extends Component {
         <Footer
           moreQuestions={this.state.moreQuestions}
           onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
+          productName={testProductName}
         />
       </div>
     )

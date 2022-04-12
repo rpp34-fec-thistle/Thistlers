@@ -14,7 +14,8 @@ class QuestionWidget extends Component {
       displayedQuestions: [],
       numberDisplayed: 0,
       moreQuestions: false,
-      allAnswersDisplayed: []
+      allAnswersDisplayed: [],
+      reportedAnswers: []
     }
   }
 
@@ -85,15 +86,7 @@ class QuestionWidget extends Component {
       method: 'put'
     })
     .then(() => {
-      axios(`/questions/${testProductId}`)
-      .then(results => {
-        const qaData = results.data.results;
-        const displayedQaData = qaData.slice(0, this.state.numberDisplayed);
-        this.setState({ displayedQuestions: displayedQaData })
-      })
-      .catch(err => {
-        console.error(err);
-      })
+      this.setState({ reportedAnswers: [...this.state.reportedAnswers, id]})
     })
     .catch(err => {
       console.error(err);
@@ -112,6 +105,7 @@ class QuestionWidget extends Component {
           onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
           onHelpfulClick={this.onHelpfulClick.bind(this)}
           onReport={this.onReport.bind(this)}
+          reportedAnswers={this.state.reportedAnswers}
         />
         <Footer
           moreQuestions={this.state.moreQuestions}

@@ -8,8 +8,13 @@ function AllStyleThumbnails(props) {
   if(props.data) {
     comp = (
       <div className="all-styles-tn">
-      {props.data.photos.map((img,index) => (
-      <StyleThumbnail imageindex={index} key={`img-${index}`} image={img.thumbnail_url}/>
+      {props.data.map((img,index) => (
+      <StyleThumbnail
+        updateStyle={props.updateStyle}
+        imageindex={index} key={`img-${index}`}
+        image={img.photos[0].thumbnail_url}
+        currentStyle={props.currentStyle}
+      />
       ))}
       </div>
     )
@@ -18,8 +23,9 @@ function AllStyleThumbnails(props) {
 }
 
 AllStyleThumbnails.propTypes = {
-  data: PropTypes.object,
-  updateStyle: PropTypes.func
+  data: PropTypes.array,
+  updateStyle: PropTypes.func,
+  currentStyle: PropTypes.number
 }
 
 export default AllStyleThumbnails;

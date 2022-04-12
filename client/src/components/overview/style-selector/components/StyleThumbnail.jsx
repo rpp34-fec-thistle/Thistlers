@@ -3,17 +3,28 @@ import PropTypes from 'prop-types';
 
 function StyleThumbnail(props) {
   let handleClick = () => {
-    console.log({index: props.imageindex})
+    props.updateStyle(props.imageindex)
+  }
+  let pageElement = <></>
+  if (props.imageindex === props.currentStyle) {
+    pageElement = (
+      <img onClick={handleClick} className="selected-style-tn" src={props.image}></img>
+    )
+  } else {
+    pageElement = (
+      <img onClick={handleClick} className="style-tn" src={props.image}></img>
+    )
   }
     return(
-        <img onClick={handleClick} className="style-tn" src={props.image}></img>
+      pageElement
     )
 }
 
 StyleThumbnail.propTypes = {
   image: PropTypes.string,
   updateStyle: PropTypes.func,
-  imageindex: PropTypes.number
+  imageindex: PropTypes.number,
+  currentStyle: PropTypes.number
 }
 
 export default StyleThumbnail;

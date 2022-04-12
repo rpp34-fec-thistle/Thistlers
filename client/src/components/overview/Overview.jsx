@@ -17,6 +17,13 @@ class Overview extends React.Component {
       info: {},
       ratings: {}
     }
+    this.updateStyle = this.updateStyle.bind(this);
+  }
+
+  updateStyle(index) {
+    this.setState({
+      styleIndex: index
+    })
   }
 
   componentDidMount() {
@@ -46,8 +53,12 @@ class Overview extends React.Component {
       <div className="overview-main">
         <ImageGallery styleIndex={this.state.styleIndex} stylesData={this.state.styles} view={this.state.view}/>
         <div className="right-pane">
-          <ProductInfo ratings={this.state.ratings} info={this.state.info}/>
-          <StyleSelector styleIndex={this.state.styleIndex} styles={this.state.styles}/>
+          <ProductInfo
+          ratings={this.state.ratings}
+          info={this.state.info}
+          sale_price={this.state.styles[this.state.styleIndex]?.sale_price}
+          />
+          <StyleSelector updateStyle={this.updateStyle} styleIndex={this.state.styleIndex} styles={this.state.styles}/>
           <AddToCart/>
         </div>
       </div>

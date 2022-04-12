@@ -1,21 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import StyleThumbnail from './StyleThumbnail.jsx';
 
-class AllStyleThumbnails extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
-
-  render() {
-    return(
+function AllStyleThumbnails(props) {
+  let comp = <></>;
+  if(props.data) {
+    comp = (
       <div className="all-styles-tn">
-        AllStyleThumbnails [Placeholder]
-        <StyleThumbnail/>
+      {props.data.photos.map((img,index) => (
+      <StyleThumbnail imageindex={index} key={`img-${index}`} image={img.thumbnail_url}/>
+      ))}
       </div>
     )
   }
+    return(comp)
+}
+
+AllStyleThumbnails.propTypes = {
+  data: PropTypes.object,
+  updateStyle: PropTypes.func
 }
 
 export default AllStyleThumbnails;

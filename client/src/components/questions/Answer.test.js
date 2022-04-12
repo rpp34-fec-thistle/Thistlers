@@ -56,7 +56,7 @@ describe('Answer Component Unit Tests', () => {
         reportedAnswers={reportedAnswers}
       />
     );
-    expect(getByText(/by n00bgamer, November 6, 2019/)).toBeInTheDocument();
+    expect(getByText(/by n00bgamer, November 23, 2019/)).toBeInTheDocument();
   })
 
   it('renders the question body', () => {

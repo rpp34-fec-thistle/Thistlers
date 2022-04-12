@@ -62,7 +62,7 @@ const Question = ({
     </div>
   )
 };
-{/* <p onClick={onLessAnswersClick}>COLLAPSE ANSWERS</p> */}
+
 Question.propTypes = {
   question: PropTypes.object.isRequired,
   onShowMoreAnswersClick: PropTypes.func.isRequired,

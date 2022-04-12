@@ -12,7 +12,7 @@ class YourOutfit extends Component {
 
   render() {
     return(
-      <div className="yourOutfit">
+      <div className="your-outfit-carousel">
         <Cards /><Cards /><Cards /><Cards />
       </div>
     )

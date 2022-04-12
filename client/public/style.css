@@ -170,14 +170,20 @@
 .all-styles-tn {
   border-style: solid;
   margin: 10px;
-  height: 50%;
+  height: fit-content;
 }
 
 .style-tn {
-  border-style: solid;
-  margin: 10px;
-  height: 50%;
+  margin: 0px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  border-style: dashed;
+  width: 100px;
+  height: 100px;
 }
+
 /* ------------------ */
 
 /* ADD TO CART */

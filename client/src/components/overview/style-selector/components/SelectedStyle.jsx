@@ -1,18 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class SelectedStyle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
-
-  render() {
+function SelectedStyle(props) {
     return(
       <div className="selected-style">
-        SELECTED STYLE [Placeholder]
+        <p>{props.styleName}</p>
       </div>
     )
-  }
+}
+
+SelectedStyle.propTypes = {
+  styleName: PropTypes.string
 }
 
 export default SelectedStyle;

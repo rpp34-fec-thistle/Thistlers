@@ -8,7 +8,8 @@ const Question = ({
   onCollapseAnswersClick,
   allAnswersDisplayed,
   onHelpfulClick,
-  onReport
+  onReport,
+  reportedAnswers
 }) => {
 
   const onMoreAnswersClick = () => {
@@ -52,7 +53,7 @@ const Question = ({
       </div>
       <div className="question-body">
         <p className="answer-icon">A: </p>
-        <AnswerList answers={answers} onHelpfulClick={onHelpfulClick} onReport={onReport}/>
+        <AnswerList answers={answers} onHelpfulClick={onHelpfulClick} onReport={onReport} reportedAnswers={reportedAnswers}/>
       </div>
       <div className="question-footer">
         {displayButton
@@ -68,7 +69,8 @@ Question.propTypes = {
   allAnswersDisplayed: PropTypes.array.isRequired,
   onCollapseAnswersClick: PropTypes.func.isRequired,
   onHelpfulClick: PropTypes.func.isRequired,
-  onReport: PropTypes.func.isRequired
+  onReport: PropTypes.func.isRequired,
+  reportedAnswers: PropTypes.array.isRequired
 };
 
 export default Question;

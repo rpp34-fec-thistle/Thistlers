@@ -8,14 +8,15 @@ function ProductInfo(props) {
     return(
       <div className="product-info">
         <StarRating stars={props.ratings}/>
-        <Info info={props.info}/>
+        <Info sale_price={props.sale_price} info={props.info}/>
       </div>
     )
 }
 
 ProductInfo.propTypes = {
   ratings: PropTypes.object,
-  info: PropTypes.object
+  info: PropTypes.object,
+  sale_price: PropTypes.string
 }
 
 export default ProductInfo;

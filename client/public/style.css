@@ -52,8 +52,9 @@
   margin: 10px;
   position: relative;
   text-align: center;
-  height: 25%;
-  width: 25%;
+  height: 500px;
+  width: auto;
+  max-width: fit-content;
 }
 
 .all-image-tns {
@@ -123,7 +124,7 @@
 .info {
   border-style: solid;
   margin: 10px;
-  height: 50%;
+  height: fit-content;
 }
 
 .star-rating {
@@ -135,6 +136,13 @@
 .avg-stars {
   height: 20px;
   width: 20px;
+}
+
+.old-price {
+  text-decoration: line-through;
+}
+.sale-price {
+  color: red;
 }
 /* ------------------ */
 
@@ -180,6 +188,18 @@
   width: 100%;
   border-radius: 100%;
   border-style: dashed;
+  width: 100px;
+  height: 100px;
+}
+
+.selected-style-tn {
+  margin: 0px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 100%;
+  border-style: solid;
+  border-width: 10px;
   width: 100px;
   height: 100px;
 }

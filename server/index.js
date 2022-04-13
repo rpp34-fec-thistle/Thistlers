@@ -65,7 +65,7 @@ app.get('/avgstars/:id', (req, res) => {
 app.get('/questions/:id', (req, res) => {
   const id = req.params.id;
   axios({
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${id}`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${id}&count=100`,
     method: 'get',
     headers: {'Authorization': API_KEY}
   })

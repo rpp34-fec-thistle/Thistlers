@@ -171,3 +171,7 @@
   color: white;
   cursor: pointer;
 }
+
+.answer-from-seller {
+  font-weight: bold;
+}

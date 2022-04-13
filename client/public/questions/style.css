@@ -73,13 +73,16 @@
   text-decoration: underline;
 }
 
-.reported-text {
-  color: red;
-  font-style: italic;
-}
-
 .report-button.disabled {
   pointer-events: none;
+  color: red;
+  font-weight: bold;
+}
+
+.reported-text {
+  pointer-events: none;
+  color: red;
+  font-weight: bold;
 }
 
 .question-footer {

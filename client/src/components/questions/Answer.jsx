@@ -23,7 +23,9 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
     <div className="answer">
       <p>{answer.body}</p>
         <div className="reaction-buttons">
-          <p>by {answer.answerer_name}, {formatDate(answer.date)}</p>
+          <p>by {answer.answerer_name === 'Seller'
+            ? <span className="answer-from-seller">{answer.answerer_name}</span>
+            : <span>{answer.answerer_name}</span>}, {formatDate(answer.date)}</p>
           <p className="reaction-button-break">|</p>
           <p> Helpful? <span className="helpful-button" onClick={onAnswerLike}>Yes</span> ({answer.helpfulness})</p>
           <p className="reaction-button-break">|</p>

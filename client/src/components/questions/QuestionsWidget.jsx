@@ -3,8 +3,9 @@ import Search from './Search.jsx';
 import QuestionList from './QuestionList.jsx';
 import Footer from './Footer.jsx';
 import axios from 'axios';
+import helpers from './helpers.js';
 
-const testProductId = 64620;
+const testProductId = 64700;
 const testProductName = 'Camo Onesi';
 
 class QuestionWidget extends Component {
@@ -13,7 +14,7 @@ class QuestionWidget extends Component {
     this.state = {
       questions: [],
       displayedQuestions: [],
-      numberDisplayed: 0,
+      numberDisplayed: 2,
       moreQuestions: false,
       allAnswersDisplayed: [],
       reportedAnswers: []
@@ -21,31 +22,42 @@ class QuestionWidget extends Component {
   }
 
   componentDidMount() {
-    axios(`/questions/${testProductId}`)
-    .then(results => {
-      const qaData = results.data.results;
-      this.setState({ questions: qaData });
-      if (qaData.length > 2) {
-        const topTwoQuestions = qaData.slice(0, 2);
-        this.setState({ displayedQuestions: topTwoQuestions, numberDisplayed: 2, moreQuestions: true });
+    helpers.orderData(testProductId, (err, results) => {
+      if (err) {
+        console.error('An error occured fetching the data: ', err);
       } else {
-        this.setState({ displayedQuestions: qaData, numberDisplayed: qaData.length, moreQuestions: false });
+        this.setState({ questions: results })
+        if (results.length > 2) {
+          const topTwoQuestions = results.slice(0, 2);
+          this.setState({ displayedQuestions: topTwoQuestions, numberDisplayed: 2, moreQuestions: true });
+        } else {
+          this.setState({ displayedQuestions: results, numberDisplayed: results.length, moreQuestions: false });
+        }
       }
-    })
-    .catch(err => {
-      console.error('err: ', err);
     })
   }
 
   onShowMoreQuestionsClick() {
     const numberDisplayed = this.state.numberDisplayed;
-    const newDisplayedQuestions = this.state.questions.slice(0, numberDisplayed + 2);
-    if (this.state.questions.length <= numberDisplayed + 2) {
-      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2, moreQuestions: false });
-    } else {
-      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2, moreQuestions: true });
+    const totalQuestions = this.state.questions.length;
+    let numberToAdd;
+    let moreQuestionsLeft;
 
+    if (numberDisplayed + 2 < totalQuestions) {
+      numberToAdd = 2;
+      moreQuestionsLeft = true;
+    } else if (numberDisplayed + 2 === totalQuestions) {
+      numberToAdd = 2;
+      moreQuestionsLeft = false;
+    } else if (numberDisplayed + 1 === totalQuestions) {
+      numberToAdd = 1;
+      moreQuestionsLeft = false;
+    } else {
+      numberToAdd = 0;
+      moreQuestionsLeft = false;
     }
+    const newDisplayedQuestions = this.state.questions.slice(0, numberDisplayed + numberToAdd);
+      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + numberToAdd, moreQuestions: moreQuestionsLeft });
   }
 
   onShowMoreAnswersClick(questionId) {
@@ -58,24 +70,24 @@ class QuestionWidget extends Component {
     })})
   }
 
+  updateQuestionState() {
+    helpers.orderData(testProductId, (err, results) => {
+      if (err) {
+        console.error('An error occured fetching the data: ', err);
+      } else {
+        const newDisplayedData = results.slice(0, this.state.numberDisplayed);
+        this.setState({ questions: results, displayedQuestions: newDisplayedData })
+      }
+    })
+  }
+
   onHelpfulClick(type, id) {
     axios({
       url: `/${type}/${id}/helpful`,
       method: 'put'
     })
     .then(() => {
-      axios(`/questions/${testProductId}`)
-      .then(results => {
-        const qaData = results.data.results;
-        const displayedQaData = qaData.slice(0, this.state.numberDisplayed);
-        this.setState({ displayedQuestions: displayedQaData })
-      })
-      .catch(err => {
-        console.error(err);
-      })
-    })
-    .catch(err => {
-      console.error(err);
+      this.updateQuestionState();
     })
   }
 
@@ -111,6 +123,7 @@ class QuestionWidget extends Component {
           onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
           productName={testProductName}
           productId={testProductId}
+          updateQuestionState={this.updateQuestionState.bind(this)}
         />
       </div>
     )

@@ -32,8 +32,8 @@ class Footer extends Component {
         product_id: this.props.productId
       }
     })
-    .then(results => {
-      console.log(results);
+    .then(() => {
+      this.props.updateQuestionState();
     })
     .catch(err => {
       console.error('err ', err);
@@ -89,7 +89,7 @@ class Footer extends Component {
                 id="question"
                 name="question"
                 onChange={this.onChangeInput}
-                placeholder="Why did you like the product or not?"
+                placeholder="What would you like to know about this product?"
               >
               </textarea>
             </div>
@@ -107,7 +107,8 @@ Footer.propTypes = {
   onShowMoreQuestionsClick: PropTypes.func.isRequired,
   moreQuestions: PropTypes.bool.isRequired,
   productName: PropTypes.string.isRequired,
-  productId: PropTypes.number.isRequired
+  productId: PropTypes.number.isRequired,
+  updateQuestionState: PropTypes.func.isRequired
 }
 
 export default Footer;

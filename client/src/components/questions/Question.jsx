@@ -32,11 +32,11 @@ const Question = ({
     answers = question.answers;
     buttonText = 'COLLAPSE ANSWERS';
     displayButton = true;
-  } else if (Object.keys(question.answers).length <= 2) {
+  } else if (question.answers.length <= 2) {
     answers = question.answers;
     displayButton = false;
-  } else if (Object.keys(question.answers).length > 2) {
-    answers = Object.fromEntries(Object.entries(question.answers).slice(0, 2));
+  } else if (question.answers.length > 2) {
+    answers = question.answers.slice(0, 2);
     buttonText = 'LOAD MORE ANSWERS';
     displayButton = true;
   }
@@ -53,7 +53,14 @@ const Question = ({
       </div>
       <div className="question-body">
         <p className="answer-icon">A: </p>
-        <AnswerList answers={answers} onHelpfulClick={onHelpfulClick} onReport={onReport} reportedAnswers={reportedAnswers}/>
+        {Object.keys(question.answers[0]).length !== 0 && (
+          <AnswerList
+          answers={answers}
+          onHelpfulClick={onHelpfulClick}
+          onReport={onReport}
+          reportedAnswers={reportedAnswers}
+        />
+        )}
       </div>
       <div className="question-footer">
         {displayButton

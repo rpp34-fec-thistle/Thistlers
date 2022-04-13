@@ -7,13 +7,17 @@ class SelectSize extends React.Component {
     this.state ={
       selectedSize: ''
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.test = this.test.bind(this);
+  }
+
+  test() {
+   document.getElementById('sizes').focus()
+   document.getElementById('sizes').click()
+
   }
 
   handleChange(e) {
-    this.setState({
-      selectedSize: e.target.innerText
-    })
     this.props.changeSize(e.target.innerText, e.target.value)
   }
 
@@ -21,7 +25,6 @@ class SelectSize extends React.Component {
     let options =[<option key="select" value="select-size" >Select Size</option>]
     if(this.props.sizes) {
       Object.keys(this.props.sizes).forEach((sku) => {
-        if (this.props.sizes[sku].quantity > 0) {
           options.push(
             <option
               key={sku}
@@ -29,12 +32,11 @@ class SelectSize extends React.Component {
               {this.props.sizes[sku].size}
             </option>
           )
-        }
       })
     }
     return(
       <div className="select-size">
-       <form>
+       <form id="sizes-form">
         <select name="sizes" id="sizes" onChange={this.handleChange}>
           {options}
         </select>

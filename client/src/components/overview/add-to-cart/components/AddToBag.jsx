@@ -11,23 +11,35 @@ function AddToBag(props) {
       }
       Promise.all(promises)
         .then(()=> {
-          console.log('good')
+
         })
         .catch((err) => {
           console.log('CLIENT: AddtoBag ERROR:', err)
         })
     }
   }
-    return(
-      <div className="add-to-bag">
-       <button onClick={add}>Add To Bag</button>
+  let pageElement = <></>
+  if(props.stock <= 0 || props.stock === undefined) {
+    pageElement = (
+      <div>
       </div>
+    )
+  } else {
+    pageElement = (
+      <div className="add-to-bag">
+         <button id="add" onClick={add}>Add To Bag</button>
+      </div>
+    )
+  }
+    return(
+      pageElement
     )
 }
 
 AddToBag.propTypes = {
   sku: PropTypes.string,
-  quantity: PropTypes.number
+  quantity: PropTypes.string,
+  stock: PropTypes.number
 }
 
 export default AddToBag;

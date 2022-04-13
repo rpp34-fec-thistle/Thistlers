@@ -9,7 +9,7 @@ class AddToCart extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      selectedQuantity: 0,
+      selectedQuantity: "0",
       sku: ''
     }
 
@@ -20,7 +20,7 @@ class AddToCart extends React.Component {
   changeSize(size, sku) {
     this.setState({
       sku: sku,
-      selectedQuantity: 1
+      selectedQuantity: "1"
     })
   }
 
@@ -42,7 +42,11 @@ class AddToCart extends React.Component {
         sku={this.state.sku}
         stock={this.props.styles[this.props.styleIndex]?.skus[this.state.sku]?.quantity}
        />
-       <AddToBag sku={this.state.sku} quantity={this.state.selectedQuantity}/>
+       <AddToBag
+       sku={this.state.sku}
+       quantity={this.state.selectedQuantity}
+       stock={this.props.styles[this.props.styleIndex]?.skus[this.state.sku]?.quantity}
+       />
       </div>
     )
   }

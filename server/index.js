@@ -73,7 +73,27 @@ app.get('/questions/:id', (req, res) => {
     res.json(results.data);
   })
   .catch(err => {
-    console.error('err: ', err);
+    res.status(500).send(err);
+  })
+})
+
+app.post('/questions', (req, res) => {
+  const { body, name, email, product_id } = req.body;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions`,
+    method: 'post',
+    headers: {'Authorization': API_KEY},
+    data: {
+      body,
+      name,
+      email,
+      product_id
+    }
+  })
+  .then(() => {
+    res.status(201).send('question created successfully');
+  })
+  .catch(err => {
     res.status(500).send(err);
   })
 })
@@ -89,7 +109,6 @@ app.put('/answers/:answer_id/helpful', (req, res) => {
     res.end();
   })
   .catch(err => {
-    console.error('err', err);
     res.status(500).send(err);
   })
 })
@@ -105,7 +124,6 @@ app.put('/questions/:question_id/helpful', (req, res) => {
     res.end();
   })
   .catch(err => {
-    console.error('err', err);
     res.status(500).send(err);
   })
 })
@@ -121,7 +139,6 @@ app.put('/questions/:question_id/report', (req, res) => {
     res.end();
   })
   .catch(err => {
-    console.error('err', err);
     res.status(500).send(err);
   })
 })
@@ -137,7 +154,6 @@ app.put('/answers/:answer_id/report', (req, res) => {
     res.end();
   })
   .catch(err => {
-    console.error('err', err);
     res.status(500).send(err);
   })
 })

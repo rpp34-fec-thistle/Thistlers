@@ -106,25 +106,27 @@ class QuestionWidget extends Component {
 
   render() {
     return (
-      <div className="question-widget">
-        <p>QUESTIONS & ANSWERS</p>
-        <Search/>
-        <QuestionList
-          questions={this.state.displayedQuestions}
-          onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
-          allAnswersDisplayed={this.state.allAnswersDisplayed}
-          onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
-          onHelpfulClick={this.onHelpfulClick.bind(this)}
-          onReport={this.onReport.bind(this)}
-          reportedAnswers={this.state.reportedAnswers}
-        />
-        <Footer
-          moreQuestions={this.state.moreQuestions}
-          onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
-          productName={testProductName}
-          productId={testProductId}
-          updateQuestionState={this.updateQuestionState.bind(this)}
-        />
+      <div className="question-widget-container">
+        <div className="question-widget">
+          <p>QUESTIONS & ANSWERS</p>
+          <Search/>
+          <QuestionList
+            questions={this.state.displayedQuestions}
+            onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
+            allAnswersDisplayed={this.state.allAnswersDisplayed}
+            onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
+            onHelpfulClick={this.onHelpfulClick.bind(this)}
+            onReport={this.onReport.bind(this)}
+            reportedAnswers={this.state.reportedAnswers}
+          />
+          <Footer
+            moreQuestions={this.state.moreQuestions}
+            onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
+            productName={testProductName}
+            productId={testProductId}
+            updateQuestionState={this.updateQuestionState.bind(this)}
+          />
+        </div>
       </div>
     )
   }

@@ -53,8 +53,8 @@
   position: relative;
   text-align: center;
   height: 500px;
-  width: auto;
   max-width: fit-content;
+  width: auto;
 }
 
 .all-image-tns {
@@ -159,7 +159,7 @@
 
   position: static;
   width: 493px;
-  height: 25%;
+  height: fit-content;
   left: 44px;
   top: 332.5px;
 

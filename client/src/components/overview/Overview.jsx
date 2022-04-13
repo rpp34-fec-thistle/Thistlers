@@ -51,15 +51,26 @@ class Overview extends React.Component {
   render() {
     return (
       <div className="overview-main">
-        <ImageGallery styleIndex={this.state.styleIndex} stylesData={this.state.styles} view={this.state.view}/>
+        <ImageGallery
+          styleIndex={this.state.styleIndex}
+          stylesData={this.state.styles}
+          view={this.state.view}
+        />
         <div className="right-pane">
           <ProductInfo
-          ratings={this.state.ratings}
-          info={this.state.info}
-          sale_price={this.state.styles[this.state.styleIndex]?.sale_price}
+            ratings={this.state.ratings}
+            info={this.state.info}
+            sale_price={this.state.styles[this.state.styleIndex]?.sale_price}
           />
-          <StyleSelector updateStyle={this.updateStyle} styleIndex={this.state.styleIndex} styles={this.state.styles}/>
-          <AddToCart/>
+          <StyleSelector
+            updateStyle={this.updateStyle}
+            styleIndex={this.state.styleIndex}
+            styles={this.state.styles}
+          />
+          <AddToCart
+            styles={this.state.styles}
+            styleIndex={this.state.styleIndex}
+          />
         </div>
       </div>
     )

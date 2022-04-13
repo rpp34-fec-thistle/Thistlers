@@ -15,7 +15,8 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
     onHelpfulClick('answers', answer.id);
   }
 
-  const onAnswerReport = () => {
+  const onAnswerReport = (e) => {
+    e.currentTarget.classList.add('disabled');
     onReport('answers', answer.id);
   }
 
@@ -29,7 +30,7 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
           <p className="reaction-button-break">|</p>
           <p> Helpful? <span className="helpful-button" onClick={onAnswerLike}>Yes</span> ({answer.helpfulness})</p>
           <p className="reaction-button-break">|</p>
-          <p onClick={onAnswerReport}> {reportedAnswers.includes(answer.id) ? <span className="reported-text">Reported</span> : <span>Report</span>}</p>
+          <p className="report-button" onClick={onAnswerReport}> {reportedAnswers.includes(answer.id) ? <span className="reported-text">Reported</span> : <span>Report</span>}</p>
         </div>
     </div>
   )

@@ -40,19 +40,24 @@ class QuestionWidget extends Component {
   onShowMoreQuestionsClick() {
     const numberDisplayed = this.state.numberDisplayed;
     const totalQuestions = this.state.questions.length;
+    let numberToAdd;
+    let moreQuestionsLeft;
 
     if (numberDisplayed + 2 < totalQuestions) {
-      const newDisplayedQuestions = this.state.questions.slice(0, numberDisplayed + 2);
-      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 2, moreQuestions: true });
+      numberToAdd = 2;
+      moreQuestionsLeft = true;
     } else if (numberDisplayed + 2 === totalQuestions) {
-      const newDisplayedQuestions = this.state.questions.slice(0, numberDisplayed + 2);
-      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 1, moreQuestions: false });
+      numberToAdd = 2;
+      moreQuestionsLeft = false;
     } else if (numberDisplayed + 1 === totalQuestions) {
-      const newDisplayedQuestions = this.state.questions.slice(0, numberDisplayed + 1);
-      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + 1, moreQuestions: false });
+      numberToAdd = 1;
+      moreQuestionsLeft = false;
     } else {
-      this.setState({ moreQuestions: false })
+      numberToAdd = 0;
+      moreQuestionsLeft = false;
     }
+    const newDisplayedQuestions = this.state.questions.slice(0, numberDisplayed + numberToAdd);
+      this.setState({ displayedQuestions: newDisplayedQuestions, numberDisplayed: numberDisplayed + numberToAdd, moreQuestions: moreQuestionsLeft });
   }
 
   onShowMoreAnswersClick(questionId) {
@@ -82,17 +87,7 @@ class QuestionWidget extends Component {
       method: 'put'
     })
     .then(() => {
-      helpers.orderData(testProductId, (err, results) => {
-        if (err) {
-          console.error('An error occured fetching the data: ', err);
-        } else {
-          const newDisplayedData = results.slice(0, this.state.numberDisplayed);
-          this.setState({ questions: results, displayedQuestions: newDisplayedData })
-        }
-      })
-    })
-    .catch(err => {
-      console.error(err);
+      this.updateQuestionState();
     })
   }
 

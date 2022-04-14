@@ -77,15 +77,18 @@ class DefaultView extends React.Component {
     let pageElement = <></>
     if (this.state.styles.length === 0) {
       pageElement = (
-      <div className="selected-image">
+      <div data-testid="s" className="selected-image">
         Selected Image
         <AllImagesThumbnails/>
       </div>
       )
     } else {
       pageElement = (
-      <>
-        <img className="selected-image" src={this.state.currentPhoto}></img>
+      <div data-testid="s-image">
+        <img
+        className="selected-image"
+        src={this.state.currentPhoto}>
+        </img>
         <div>
         <button onClick={this.cyclePhotos} name="Prev">Prev</button>
         <button onClick={this.cyclePhotos} name="Next">Next</button>
@@ -95,12 +98,12 @@ class DefaultView extends React.Component {
           currentImage={this.state.image_id}
           selectedPhoto={this.selectedPhoto}
         />
-      </>
+      </div>
       )
     }
 
     return(
-      <div className="default-view">
+      <div data-testid="default-view" className="default-view">
           {pageElement}
       </div>
     )

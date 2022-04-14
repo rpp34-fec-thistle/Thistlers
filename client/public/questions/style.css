@@ -1,3 +1,12 @@
+.question-widget-container {
+
+}
+
+.question-widget {
+  overflow: auto;
+  height: 50vw;
+}
+
 .question-widget {
   border: 2px solid black;
   margin: 5px;
@@ -9,16 +18,15 @@
 }
 
 .question-list {
-  border: 2px solid black;
-  margin: 5px;
-  padding: 5px;
+  margin: 10px 5px;
+  padding: 10px 5px;
 
 }
 
 .question {
   border: 2px solid black;
-  margin: 5px;
-  padding: 5px;
+  margin: 0px 5px;
+  padding: 0px 5px;
 }
 
 .question-header {
@@ -40,15 +48,14 @@
 
 .answer-list {
   width: 100%;
-  border: 2px solid black;
-  margin: 5px;
-  padding: 5px;
+  margin: 0px 5px;
+  padding: 0px 5px;
 }
 
 .answer {
   border: 2px solid black;
-  margin: 5px;
-  padding: 5px;
+  margin: 0px 5px;
+  padding: 0px 5px;
 }
 
 .more-questions-btn {
@@ -73,9 +80,16 @@
   text-decoration: underline;
 }
 
-.reported-text {
+.report-button.disabled {
+  pointer-events: none;
   color: red;
-  font-style: italic;
+  font-weight: bold;
+}
+
+.reported-text {
+  pointer-events: none;
+  color: red;
+  font-weight: bold;
 }
 
 .question-footer {

@@ -1,39 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Info extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      category: '',
-      price: ''
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if(prevProps.info !== this.props.info) {
-      this.setState({
-        name: this.props.info.name,
-        category: this.props.info.category,
-        price: this.props.info.default_price
-      })
-    }
-  }
-
-  render() {
-    return(
-      <div className="info">
-        {this.state.category}
-        <h4>{this.state.name}</h4>
-        <p>{this.state.price}</p>
+function Info(props) {
+  let price = (<p>${props.info.default_price}</p>)
+  if(props.sale_price) {
+    price = (
+      <div>
+        <p className="old-price">${props.info.default_price}</p>
+        <p className="sale-price">${props.sale_price}</p>
       </div>
     )
   }
+    return(
+      <div className="info">
+        {props.info.category}
+        <h4>{props.info.name}</h4>
+        {price}
+      </div>
+    )
 }
 
 Info.propTypes ={
-  info: PropTypes.object
+  info: PropTypes.object,
+  sale_price: PropTypes.string
 }
 
 export default Info;

@@ -1,38 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import DefaultView from './DefaultView.jsx';
 import ExpandedView from './ExpandedView.jsx';
 
-class ImageGallery extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      product_id: '64620',
-      data: []
-    }
-  }
-
-  componentDidMount() {
-    axios.get(`http://localhost:8080/styles/${this.state.product_id}`)
-      .then((response) => {
-        this.setState({
-          data: response.data.results
-        })
-      })
-      .catch((err) => {
-        console.log('CLIENT: Get Styles ERROR:', err)
-      })
-  }
-
-  render() {
+function ImageGallery(props) {
     let view;
-
-    if(this.props.view === 'default') {
-      view = <DefaultView styles={this.state.data}/>;
+    if(props.view === 'default') {
+      view = <DefaultView styleIndex={props.styleIndex} styles={props.stylesData}/>;
     }
-    if(this.props.view === 'expanded') {
+    if(props.view === 'expanded') {
       view = <ExpandedView />;
     }
     return (
@@ -40,11 +17,12 @@ class ImageGallery extends React.Component {
         {view}
       </div>
     )
-  }
 }
 
 ImageGallery.propTypes = {
-  view: PropTypes.string
+  view: PropTypes.string,
+  stylesData: PropTypes.array,
+  styleIndex: PropTypes.number
 }
 
 export default ImageGallery;

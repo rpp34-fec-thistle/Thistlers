@@ -8,7 +8,8 @@ class DefaultView extends React.Component {
     super(props);
     this.state = {
       styles: [],
-      currentPhoto: ''
+      currentPhoto: '',
+      currentStyle: 0
     }
 
     this.cyclePhotos = this.cyclePhotos.bind(this);
@@ -16,16 +17,16 @@ class DefaultView extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.styles !== prevProps.styles) {
-      let thumbnails = this.props.styles[0].photos.map((photo) => {
+    if(this.props.styles !== prevProps.styles || this.props.styleIndex !== prevProps.styleIndex) {
+      let thumbnails = this.props.styles[this.props.styleIndex].photos.map((photo) => {
         return photo.thumbnail_url
       });
-      let image_id = this.props.styles[0].photos[0].url.split('-')[1];
+      let image_id = this.props.styles[this.props.styleIndex].photos[0].url.split('-')[1];
       this.setState({
         styles: this.props.styles,
-        currentPhoto: this.props.styles[0].photos[0].url,
+        currentPhoto: this.props.styles[this.props.styleIndex].photos[0].url,
         imageIndex: 0,
-        currentStyle: 0,
+        currentStyle: this.props.styleIndex,
         thumbnails: thumbnails,
         image_id: image_id
       });
@@ -33,8 +34,8 @@ class DefaultView extends React.Component {
   }
 
   selectedPhoto(selectedIndex) {
-    let currentStyleIndex = this.state.currentStyle;
-    let selectedPhoto = this.state.styles[currentStyleIndex].photos[selectedIndex]?.url;
+    let currentStyleIndex = this.props.styleIndex;
+    let selectedPhoto = this.props.styles[currentStyleIndex].photos[selectedIndex]?.url;
     let image_id = selectedPhoto.split('-')[1];
     this.setState({
       imageIndex: selectedIndex,
@@ -44,11 +45,11 @@ class DefaultView extends React.Component {
   }
 
   cyclePhotos(dir) {
-    let currentStyleIndex = this.state.currentStyle;
+    let currentStyleIndex = this.props.styleIndex;
     let photoIndex = this.state.imageIndex;
 
     if(dir.target.name === 'Next') {
-      let nextPhoto = this.state.styles[currentStyleIndex].photos[photoIndex + 1]?.url;
+      let nextPhoto = this.props.styles[currentStyleIndex].photos[photoIndex + 1]?.url;
       let image_id = nextPhoto.split('-')[1];
 
       if (nextPhoto !== undefined) {
@@ -59,7 +60,7 @@ class DefaultView extends React.Component {
         })
       }
     } else {
-      let prevPhoto = this.state.styles[currentStyleIndex].photos[photoIndex - 1]?.url;
+      let prevPhoto = this.props.styles[currentStyleIndex].photos[photoIndex - 1]?.url;
       let image_id = prevPhoto.split('-')[1];
 
       if (prevPhoto !== undefined) {
@@ -85,8 +86,10 @@ class DefaultView extends React.Component {
       pageElement = (
       <>
         <img className="selected-image" src={this.state.currentPhoto}></img>
+        <div>
         <button onClick={this.cyclePhotos} name="Prev">Prev</button>
         <button onClick={this.cyclePhotos} name="Next">Next</button>
+        </div>
         <AllImagesThumbnails
           thumbnails={this.state.thumbnails}
           currentImage={this.state.image_id}
@@ -106,6 +109,7 @@ class DefaultView extends React.Component {
 
 DefaultView.propTypes = {
   styles: PropTypes.array,
+  styleIndex: PropTypes.number
 }
 
 

@@ -1,3 +1,12 @@
+.question-widget-container {
+
+}
+
+.question-widget {
+  overflow: auto;
+  height: 50vw;
+}
+
 .question-widget {
   border: 2px solid black;
   margin: 5px;
@@ -9,16 +18,15 @@
 }
 
 .question-list {
-  border: 2px solid black;
-  margin: 5px;
-  padding: 5px;
+  margin: 10px 5px;
+  padding: 10px 5px;
 
 }
 
 .question {
   border: 2px solid black;
-  margin: 5px;
-  padding: 5px;
+  margin: 0px 5px;
+  padding: 0px 5px;
 }
 
 .question-header {
@@ -40,15 +48,14 @@
 
 .answer-list {
   width: 100%;
-  border: 2px solid black;
-  margin: 5px;
-  padding: 5px;
+  margin: 0px 5px;
+  padding: 0px 5px;
 }
 
 .answer {
   border: 2px solid black;
-  margin: 5px;
-  padding: 5px;
+  margin: 0px 5px;
+  padding: 0px 5px;
 }
 
 .more-questions-btn {
@@ -73,6 +80,112 @@
   text-decoration: underline;
 }
 
-.reported-text {
+.report-button.disabled {
+  pointer-events: none;
   color: red;
+  font-weight: bold;
+}
+
+.reported-text {
+  pointer-events: none;
+  color: red;
+  font-weight: bold;
+}
+
+.question-footer {
+  width: 100%;
+}
+
+.add-question-form {
+  background-color: #eeee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  max-width: 100%;
+  margin: auto;
+  border-radius: 5px;
+  border: 5px black solid;
+}
+
+.add-question-title {
+  font-size: 35px;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+
+.add-question-subtitle {
+  font-size: 20px;
+  padding-top: 2px;
+  margin-top: 2px;
+}
+
+.add-question-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  display: none;
+}
+
+.submit-question-button {
+  margin: 10px 0px 15px 0px;
+  background-color: rgb(141, 140, 140);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+.submit-question-button:hover {
+  background-color: rgb(119, 118, 118);
+  color: rgb(243, 240, 240);
+}
+
+.product-name {
+  color: rgb(80, 135, 80);
+  font-size: 23px;
+}
+
+.form-input {
+  margin: 5px;
+}
+
+.add-question-form input {
+  width: 350px;
+}
+
+.question-input textarea {
+  height: 50px;
+  width: 350px;
+  resize: none;
+}
+
+.close-modal-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0px 15px 0px 0px;
+  margin: 0px 15px 0px 0px;
+}
+
+.close-modal {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1px 4px;
+}
+
+.close-modal:hover {
+  background-color: rgb(141, 140, 140);
+  color: white;
+  cursor: pointer;
+}
+
+.answer-from-seller {
+  font-weight: bold;
 }

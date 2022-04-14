@@ -31,6 +31,21 @@ app.get('/styles/:id', (req, res) => {
     })
 });
 
+app.post('/cart', (req, res) => {
+  let options = {
+    headers: {'Authorization': API_KEY}
+  }
+  let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/cart';
+  axios.post(url, req.body, options)
+    .then(() => {
+      res.sendStatus(201)
+    })
+    .catch((err) => {
+      console.log('Add to Cart ERROR:', err);
+      res.sendStatus(500)
+    })
+})
+
 app.get('/avgstars/:id', (req, res) => {
   const id = req.params.id;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/meta?product_id=${id}`;
@@ -50,7 +65,7 @@ app.get('/avgstars/:id', (req, res) => {
 app.get('/questions/:id', (req, res) => {
   const id = req.params.id;
   axios({
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${id}`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions?product_id=${id}&count=100`,
     method: 'get',
     headers: {'Authorization': API_KEY}
   })
@@ -58,7 +73,27 @@ app.get('/questions/:id', (req, res) => {
     res.json(results.data);
   })
   .catch(err => {
-    console.error('err: ', err);
+    res.status(500).send(err);
+  })
+})
+
+app.post('/questions', (req, res) => {
+  const { body, name, email, product_id } = req.body;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions`,
+    method: 'post',
+    headers: {'Authorization': API_KEY},
+    data: {
+      body,
+      name,
+      email,
+      product_id
+    }
+  })
+  .then(() => {
+    res.status(201).send('question created successfully');
+  })
+  .catch(err => {
     res.status(500).send(err);
   })
 })
@@ -74,7 +109,6 @@ app.put('/answers/:answer_id/helpful', (req, res) => {
     res.end();
   })
   .catch(err => {
-    console.error('err', err);
     res.status(500).send(err);
   })
 })
@@ -90,7 +124,6 @@ app.put('/questions/:question_id/helpful', (req, res) => {
     res.end();
   })
   .catch(err => {
-    console.error('err', err);
     res.status(500).send(err);
   })
 })
@@ -106,7 +139,6 @@ app.put('/questions/:question_id/report', (req, res) => {
     res.end();
   })
   .catch(err => {
-    console.error('err', err);
     res.status(500).send(err);
   })
 })
@@ -122,7 +154,6 @@ app.put('/answers/:answer_id/report', (req, res) => {
     res.end();
   })
   .catch(err => {
-    console.error('err', err);
     res.status(500).send(err);
   })
 })

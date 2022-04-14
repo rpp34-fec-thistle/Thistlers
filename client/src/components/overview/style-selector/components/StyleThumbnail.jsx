@@ -1,18 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class StyleThumbnail extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
+function StyleThumbnail(props) {
+  let handleClick = () => {
+    props.updateStyle(props.imageindex)
   }
-
-  render() {
-    return(
-      <div className="style-tn">
-        StyleThumbnail [Placeholder]
-      </div>
+  let pageElement = <></>
+  if (props.imageindex === props.currentStyle) {
+    pageElement = (
+      <img onClick={handleClick} className="selected-style-tn" src={props.image}></img>
+    )
+  } else {
+    pageElement = (
+      <img onClick={handleClick} className="style-tn" src={props.image}></img>
     )
   }
+    return(
+      pageElement
+    )
+}
+
+StyleThumbnail.propTypes = {
+  image: PropTypes.string,
+  updateStyle: PropTypes.func,
+  imageindex: PropTypes.number,
+  currentStyle: PropTypes.number
 }
 
 export default StyleThumbnail;

@@ -25,6 +25,7 @@ class Reviews extends Component {
           <Breakdown metadata={this.state.metadata} rating={this.state.overallRating} recomend={this.state.recomend/ this.state.reviews.length}/>
           <CustomerReviews reviews={this.state.reviews} totalReviews={this.state.reviews.length} refresh={() => this.refresh.call(this, this.state.productId)}/>
         </div>
+        {/* Reviews Uncomment here and Comment code above for Testing */}
       </section>
     );
   }

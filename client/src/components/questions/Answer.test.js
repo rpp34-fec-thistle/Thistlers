@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react'
 import {render} from '@testing-library/react'
 import {jsdom} from '@testing-library/jest-dom'
@@ -24,7 +25,7 @@ const reportedAnswers = [];
 
 describe('Answer Component Unit Tests', () => {
   it('renders the Report button', () => {
-    const {getByText} = render(
+    const getByText = render(
       <Answer
         answer={answer}
         onHelpfulClick={onHelpfulClick}

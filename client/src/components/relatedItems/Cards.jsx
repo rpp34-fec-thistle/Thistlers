@@ -60,19 +60,16 @@ class Cards extends Component {
 
   }
 
-
-
-
   render() {
 
     return (
       <>
       {this.state.image !== null &&
-        <div className="related-item-card" key={this.props.id}>
-          <div className="related-item-card-image">
+        <div className="card" key={this.props.id}>
+          <div className="card-image">
             <img src={this.state.image}/>
           </div>
-          <div className="related-item-card-description">
+          <div className="card-description">
             {this.state.category}<br />
             {this.state.name}<br />
             {this.state.price}<br />

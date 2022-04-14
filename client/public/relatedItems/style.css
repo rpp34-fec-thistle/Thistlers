@@ -15,7 +15,7 @@
   overflow: auto
 }
 
-.related-item-card {
+.card {
   width: 200px;
   height: 350px;
   border: 5px solid cornflowerblue;
@@ -26,13 +26,13 @@
   flex-wrap: wrap;
 }
 
-.related-item-card-image {
+.card-image {
   width: 220px;
   height: 250px;
   border: 5px solid indianred;
 }
 
-.related-item-card-description {
+.card-description {
   width: 220px;
   height: 80px;
   border: 5px solid darkcyan;
@@ -46,7 +46,7 @@
   clear: both;
 }
 
-.related-item-card-image img {
+.card-image img {
   display: block;
   margin-left: auto;
   margin-right: auto;

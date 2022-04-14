@@ -1,9 +1,13 @@
 /* eslint-disable no-undef */
-console.log('jest');
 
-describe('filter function', () => {
-  console.log('working!');
-  test('xxx', () => {
-    expect(2).toEqual(2);
-  })
-});
+import React from 'react';
+import Reviews from './Reviews.jsx';
+import {render} from '@testing-library/react';
+import {jsdom} from '@testing-library/jest-dom';
+
+describe('Render Components', () => {
+  test('It should Render the Reviews Component', () => {
+    const {getByText} = render(<Reviews/>);
+    expect(getByText('Reviews').toBeInTheDocument);
+  });
+}); 

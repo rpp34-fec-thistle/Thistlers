@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "test-qa": "jest client/src/components/questions",
-    "test-r": "jest client/src/components/relatedItems --watch",
+    "test-r": "jest client/src/components/relatedItems --watch --detectOpenHandles",
     "react-dev": "webpack --mode development --watch",
     "server-dev": "nodemon server/index.js",
     "test-overview": "jest --silent client/src/components/overview",

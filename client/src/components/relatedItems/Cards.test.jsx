@@ -5,11 +5,27 @@ import Cards from './Cards.jsx';
 
 console.log('test Widget: ', Cards);
 
-test('Fake Test', () => {
-  expect(true).toBeTruthy();
+const key = {
+  overviewId: 64628,
+  style_id: 398240,
+  image: 'https://images.unsplash.com/photo-1550338300-f9a475b50ba2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
+  price: 59.00,
+  salePrice: null,
+  category: 'Kicks',
+  name: 'Summer Shoes'
+}
+
+describe('Cards.jsx Unit Tests', () => {
+  it('renders Alt Text in Card component', () => {
+    render(<Cards/>);
+    const element = screen.getByAltText('This is an image of the product as described below.');
+    expect(element).toBeInTheDocument();
+  })
+
+  it('renders Card id', () => {
+    render(<Cards />);
+    const element = screen.getByTestId('test-id')
+    expect(element).toBeInTheDocument();
 })
 
-test('renders Widget', () => {
-  const {getByText} = render(<Cards />);
-  expect(getByText('henlo')).toBeInTheDocument();
-})
+});

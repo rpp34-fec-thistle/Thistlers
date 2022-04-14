@@ -29,6 +29,7 @@ class Cards extends Component {
     axios.get(stylesAPI)
       .then((data) => {
         var result = data.data;
+        console.log(result.results[0].photos[0]);
         this.setState({
           style: result.results.style_id,
           image: result.results[0].photos[0].thumbnail_url,
@@ -66,18 +67,18 @@ class Cards extends Component {
 
     return (
       <>
+      {this.state.image !== null &&
         <div className="related-item-card" key={this.props.id}>
           <div className="related-item-card-image">
-            <img src={this.state.image} />
+            <img src={this.state.image}/>
           </div>
           <div className="related-item-card-description">
-            {this.state.category}
-            {this.state.name}
-            {this.state.price}
-            henlo
+            {this.state.category}<br />
+            {this.state.name}<br />
+            {this.state.price}<br />
             <Ratings id={this.props.id} />
           </div>
-        </div>
+        </div>}
       </>
     )
   }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
+
 
 class Ratings extends Component {
   constructor(props) {
@@ -50,11 +52,18 @@ class Ratings extends Component {
   render() {
 
     return (
+      <>
       <div className="ratings">
         {this.state.ratings}
       </div>
+      </>
     )
+
   }
+}
+
+Ratings.propTypes = {
+  id: PropTypes.number
 }
 
 export default Ratings;

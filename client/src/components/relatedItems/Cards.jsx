@@ -75,7 +75,7 @@ class Cards extends Component {
             {this.state.name}
             {this.state.price}
             henlo
-            <Ratings />
+            <Ratings id={this.props.id} />
           </div>
         </div>
       </>

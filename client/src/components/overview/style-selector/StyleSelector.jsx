@@ -6,7 +6,7 @@ import AllStyleThumbnails from './components/AllStyleThumbnails.jsx';
 
 function StyleSelector(props) {
     return(
-      <div className="style-selector">
+      <div data-testid="style-selector" className="style-selector">
         <SelectedStyle styleName={props.styles[props.styleIndex]?.name}/>
         <AllStyleThumbnails currentStyle={props.styleIndex} updateStyle={props.updateStyle} data={props.styles}/>
       </div>

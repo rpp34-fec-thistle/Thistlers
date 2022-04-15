@@ -102,7 +102,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 40%;
   max-width: 100%;
   margin: auto;
   border-radius: 5px;
@@ -157,8 +157,8 @@
 
 .input-container {
   display: flex;
-  align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .form-input {
@@ -181,6 +181,7 @@
   width: 350px;
   max-width: 95%;
   resize: none;
+  margin: auto;
 }
 
 .close-modal-container {
@@ -214,4 +215,19 @@
 
 .answer-from-seller {
   font-weight: bold;
+}
+
+.error-message {
+  padding: 0px;
+  margin: 0px 4px;
+  color: red;
+  font-size: 0.8rem;
+  font-weight: bold;
+  visibility: hidden;
+}
+
+.form-message {
+  padding: 3px;
+  margin:3px;
+  font-size: 0.8rem;
 }

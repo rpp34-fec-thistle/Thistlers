@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import helpers from './helpers.js';
 
 class Footer extends Component {
   constructor(props) {
@@ -21,7 +22,20 @@ class Footer extends Component {
     document.querySelector('.add-question-modal').style.display = 'flex';
   }
 
-  onQuestionSubmit = () => {
+  onQuestionSubmit = (e) => {
+    e.preventDefault();
+    ['nickname', 'email', 'question'].forEach(input => {
+      document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
+    })
+
+    const validationErrors = helpers.validateForm(this.state);
+    if (validationErrors.length > 0) {
+      for (let i = 0; i < validationErrors.length; i++) {
+        document.querySelector(`.${validationErrors[i]}-error-message`).style.visibility = 'visible';
+      }
+      return;
+    }
+    console.log('does this run?');
     axios({
       url: '/questions',
       method: 'post',
@@ -60,6 +74,7 @@ class Footer extends Component {
             <p className="add-question-subtitle">About the product <span className="product-name">{this.props.productName}</span></p>
             <div className="nickname-input form-input">
               <div>
+                <p className="nickname-error-message error-message">You must enter the following:</p>
                 <label htmlFor="nickname">Nickname *</label>
               </div>
               <div className="input-container">
@@ -72,15 +87,18 @@ class Footer extends Component {
                   maxLength="60"
                   >
                   </input>
+                  <p className="form-message">For privacy reasons, do not use your full name or email address</p>
+
               </div>
             </div>
-            <div className="nickname-input form-input">
+            <div className="email-input form-input">
               <div>
+                <p className="email-error-message error-message">You must enter the following:</p>
                 <label htmlFor="email">Email *</label>
               </div>
               <div className="input-container">
                 <input
-                  type="email"
+                  type="text"
                   id="email"
                   name="email"
                   onChange={this.onChangeInput}
@@ -88,10 +106,12 @@ class Footer extends Component {
                   maxLength="60"
                   >
                 </input>
+                <p className="form-message">For authentication reasons, you will not be emailed</p>
               </div>
             </div>
             <div className="question-input form-input">
               <div>
+                <p className="question-error-message error-message">You must enter the following:</p>
                 <label htmlFor="question">Question *</label>
               </div>
               <div className="input-container">
@@ -101,7 +121,7 @@ class Footer extends Component {
                   name="question"
                   onChange={this.onChangeInput}
                   placeholder="What would you like to know about this product?"
-                  maxLength="60"
+                  maxLength="1000"
                 >
                 </textarea>
               </div>

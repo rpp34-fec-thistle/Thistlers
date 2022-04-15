@@ -44,11 +44,11 @@ const Question = ({
   return (
     <div className="question">
       <div className="question-header">
-        <p className="question-text">Q: {question.question_body}</p>
+        <p className="question-text">Q: <span className="question-text-body">{question.question_body}</span></p>
         <div className="reaction-buttons">
           <p> Helpful? <span className="helpful-button" onClick={onQuestionLike}>Yes</span> ({question.question_helpfulness})</p>
           <p className="reaction-button-break">|</p>
-          <p> Add Answer</p>
+          <p className="add-answer-button"> Add Answer</p>
         </div>
       </div>
       <div className="question-body">

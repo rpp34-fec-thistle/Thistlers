@@ -1,16 +1,9 @@
-.question-widget-container {
-
-}
-
-.question-widget {
-  overflow: auto;
-  height: 50vw;
-}
-
 .question-widget {
   border: 2px solid black;
   margin: 5px;
   padding: 5px;
+  overflow: auto;
+  max-height: 50vw;
 }
 
 .question-search input {
@@ -18,20 +11,19 @@
 }
 
 .question-list {
-  margin: 10px 5px;
-  padding: 10px 5px;
-
+  margin: 10px 0px;
+  padding: 10px 0px;
 }
 
 .question {
-  border: 2px solid black;
-  margin: 0px 5px;
-  padding: 0px 5px;
+  margin-top: 6px;
+  padding-top: 6px;
 }
 
 .question-header {
   display: flex;
   justify-content: space-between;
+  height: 1rem;
 }
 
 .question-body {
@@ -40,22 +32,44 @@
 
 .question-text {
   font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.question-text-body {
+  margin-left: 7px;
+}
+
+.question-footer {
+  margin-left: 27px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.add-answer-button {
+  text-decoration: underline;
 }
 
 .answer-icon {
   font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .answer-list {
   width: 100%;
-  margin: 0px 5px;
-  padding: 0px 5px;
 }
 
 .answer {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   margin: 0px 5px;
   padding: 0px 5px;
+  color: rgb(70, 70, 70);
+}
+
+.answer p {
+  margin-top: 19px;
+  margin-bottom: 8px;
 }
 
 .more-questions-btn {
@@ -70,6 +84,8 @@
 
 .reaction-buttons {
   display: flex;
+  font-size: 0.8rem;
+  color: rgb(149, 149, 149);
 }
 
 .reaction-button-break {
@@ -77,6 +93,10 @@
 }
 
 .helpful-button {
+  text-decoration: underline;
+}
+
+.report-button {
   text-decoration: underline;
 }
 
@@ -102,7 +122,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 40%;
   max-width: 100%;
   margin: auto;
   border-radius: 5px;
@@ -113,6 +133,8 @@
   font-size: 35px;
   padding-bottom: 2px;
   margin-bottom: 2px;
+  padding-top: 0px;
+  margin-top: 0px;
 }
 
 .add-question-subtitle {
@@ -135,7 +157,7 @@
 }
 
 .submit-question-button {
-  margin: 10px 0px 15px 0px;
+  margin: 15px 0px 25px 0px;
   background-color: rgb(141, 140, 140);
   color: white;
   padding: 5px 8px;
@@ -145,6 +167,7 @@
 .submit-question-button:hover {
   background-color: rgb(119, 118, 118);
   color: rgb(243, 240, 240);
+  cursor: pointer;
 }
 
 .product-name {
@@ -152,18 +175,33 @@
   font-size: 23px;
 }
 
+.input-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .form-input {
-  margin: 5px;
+  margin: 9px 5px;
+  max-width: 100%;
+}
+
+.add-question-form label {
+  margin-left: 5px;
 }
 
 .add-question-form input {
   width: 350px;
+  max-width: 95%;
+  margin: auto;
 }
 
 .question-input textarea {
   height: 50px;
   width: 350px;
+  max-width: 95%;
   resize: none;
+  margin: auto;
 }
 
 .close-modal-container {
@@ -174,18 +212,42 @@
   margin: 0px 15px 0px 0px;
 }
 
+.close-modal-contents {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .close-modal {
+  font-size: small;
   border: 1px solid black;
   border-radius: 5px;
-  padding: 1px 4px;
+  padding: 0px 4px;
+  background-color: rgb(141, 140, 140);
+  color: white;
 }
 
 .close-modal:hover {
-  background-color: rgb(141, 140, 140);
-  color: white;
+  background-color: rgb(119, 118, 118);
+  color: rgb(243, 240, 240);
   cursor: pointer;
 }
 
 .answer-from-seller {
   font-weight: bold;
+}
+
+.error-message {
+  padding: 0px;
+  margin: 0px 4px;
+  color: red;
+  font-size: 0.8rem;
+  font-weight: bold;
+  visibility: hidden;
+}
+
+.form-message {
+  padding: 3px;
+  margin:3px;
+  font-size: 0.8rem;
 }

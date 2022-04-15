@@ -6,15 +6,29 @@ class YourOutfit extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // yourOutfitIds: [64624, 64628, 64626, 64621, 64620]
       yourOutfitIds: []
     }
     this.onSetItem = this.onSetItem.bind(this);
     this.onDeleteItem = this.onDeleteItem.bind(this);
   }
 
-  onSetItem(e) {
-    e.preventDefault();
-    localStorage.setItem('yourOutfitIds', this.state.yourOutfitIds);
+  componentDidMount() {
+    this.onSetItem()
+  }
+
+  onSetItem() {
+    window.localStorage.clear();
+    window.localStorage.setItem('yourOutfits', [64624, 64628, 64626, 64621, 64620]);
+    let testArray = window.localStorage.getItem('yourOutfits');
+    testArray = testArray.split(',').map(x => parseInt(x));
+    this.setState({
+      yourOutfitIds: testArray
+    })
+  }
+
+  onGetItem(){
+    JSON.parse(window.localStorage.getItem('yourOutfits'));
   }
 
   onDeleteItem(e) {
@@ -30,7 +44,7 @@ class YourOutfit extends Component {
     this.setState({
       yourOutfitIds: newArray
     })
-    localStorage.setItem('yourOutfitIds', this.state.yourOutfitIds);
+    window.localStorage.setItem('yourOutfits', this.state.yourOutfitIds);
   }
 
   render() {

@@ -16,13 +16,13 @@
 }
 
 .card {
-  width: 200px;
+  /* width: 200px; */
   height: 350px;
   border: 5px solid cornflowerblue;
   width: 22%;
   padding: 5px;
   clear: both;
-  display: flex;
+  display: block;
   flex-wrap: wrap;
 }
 
@@ -30,19 +30,21 @@
   width: 220px;
   height: 250px;
   border: 5px solid indianred;
+  display: block
 }
 
 .card-description {
   width: 220px;
   height: 80px;
   border: 5px solid darkcyan;
-  display: grid;
+  display: block;
 }
 
 .relatedProducts {
   border: 3px solid palevioletred;
   float: left;
   width: 90%;
+  display: block;
   clear: both;
 }
 
@@ -50,5 +52,5 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  height: 100%;
 }

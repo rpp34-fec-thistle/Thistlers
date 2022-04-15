@@ -13,7 +13,7 @@ function ImageGallery(props) {
       view = <ExpandedView />;
     }
     return (
-      <div className="image-gallery">
+      <div data-testid="image-gallery" className="image-gallery">
         {view}
       </div>
     )

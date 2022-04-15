@@ -32,7 +32,7 @@ class AddToCart extends React.Component {
 
   render() {
     return(
-      <div className="add-to-cart">
+      <div data-testid="add-to-cart" className="add-to-cart">
        <SelectSize
         changeSize={this.changeSize}
         sizes={this.props.styles[this.props.styleIndex]?.skus}

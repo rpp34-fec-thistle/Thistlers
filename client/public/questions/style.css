@@ -1,16 +1,9 @@
-.question-widget-container {
-
-}
-
-.question-widget {
-  overflow: auto;
-  height: 50vw;
-}
-
 .question-widget {
   border: 2px solid black;
   margin: 5px;
   padding: 5px;
+  overflow: auto;
+  max-height: 50vw;
 }
 
 .question-search input {
@@ -20,7 +13,6 @@
 .question-list {
   margin: 10px 5px;
   padding: 10px 5px;
-
 }
 
 .question {

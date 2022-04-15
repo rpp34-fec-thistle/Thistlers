@@ -11,19 +11,19 @@
 }
 
 .question-list {
-  margin: 10px 5px;
-  padding: 10px 5px;
+  margin: 10px 0px;
+  padding: 10px 0px;
 }
 
 .question {
-  border: 2px solid black;
-  margin: 0px 5px;
-  padding: 0px 5px;
+  margin-top: 6px;
+  padding-top: 6px;
 }
 
 .question-header {
   display: flex;
   justify-content: space-between;
+  height: 1rem;
 }
 
 .question-body {
@@ -32,22 +32,44 @@
 
 .question-text {
   font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.question-text-body {
+  margin-left: 7px;
+}
+
+.question-footer {
+  margin-left: 27px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.add-answer-button {
+  text-decoration: underline;
 }
 
 .answer-icon {
   font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .answer-list {
   width: 100%;
-  margin: 0px 5px;
-  padding: 0px 5px;
 }
 
 .answer {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   margin: 0px 5px;
   padding: 0px 5px;
+  color: rgb(70, 70, 70);
+}
+
+.answer p {
+  margin-top: 19px;
+  margin-bottom: 8px;
 }
 
 .more-questions-btn {
@@ -62,6 +84,8 @@
 
 .reaction-buttons {
   display: flex;
+  font-size: 0.8rem;
+  color: rgb(149, 149, 149);
 }
 
 .reaction-button-break {
@@ -69,6 +93,10 @@
 }
 
 .helpful-button {
+  text-decoration: underline;
+}
+
+.report-button {
   text-decoration: underline;
 }
 

@@ -113,6 +113,8 @@
   font-size: 35px;
   padding-bottom: 2px;
   margin-bottom: 2px;
+  padding-top: 0px;
+  margin-top: 0px;
 }
 
 .add-question-subtitle {
@@ -135,7 +137,7 @@
 }
 
 .submit-question-button {
-  margin: 10px 0px 15px 0px;
+  margin: 15px 0px 25px 0px;
   background-color: rgb(141, 140, 140);
   color: white;
   padding: 5px 8px;
@@ -145,6 +147,7 @@
 .submit-question-button:hover {
   background-color: rgb(119, 118, 118);
   color: rgb(243, 240, 240);
+  cursor: pointer;
 }
 
 .product-name {
@@ -152,17 +155,31 @@
   font-size: 23px;
 }
 
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .form-input {
-  margin: 5px;
+  margin: 9px 5px;
+  max-width: 100%;
+}
+
+.add-question-form label {
+  margin-left: 5px;
 }
 
 .add-question-form input {
   width: 350px;
+  max-width: 95%;
+  margin: auto;
 }
 
 .question-input textarea {
   height: 50px;
   width: 350px;
+  max-width: 95%;
   resize: none;
 }
 
@@ -174,15 +191,24 @@
   margin: 0px 15px 0px 0px;
 }
 
+.close-modal-contents {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .close-modal {
+  font-size: small;
   border: 1px solid black;
   border-radius: 5px;
-  padding: 1px 4px;
+  padding: 0px 4px;
+  background-color: rgb(141, 140, 140);
+  color: white;
 }
 
 .close-modal:hover {
-  background-color: rgb(141, 140, 140);
-  color: white;
+  background-color: rgb(119, 118, 118);
+  color: rgb(243, 240, 240);
   cursor: pointer;
 }
 

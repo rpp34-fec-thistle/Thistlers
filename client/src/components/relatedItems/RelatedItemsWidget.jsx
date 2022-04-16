@@ -12,7 +12,9 @@ class RelatedItemsWidget extends Component {
     return (
       <>
       <div className="relatedItemsWidget">
+        <h3>Related Products</h3>
         <RelatedProducts />
+        <h3>Your Outfit</h3>
         <YourOutfit />
       </div>
       </>

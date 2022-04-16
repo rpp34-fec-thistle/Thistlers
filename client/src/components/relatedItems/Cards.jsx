@@ -66,12 +66,28 @@ class Cards extends Component {
       {this.state.image !== null &&
         <div className="card" key={this.props.id} data-testid='test-id'>
           <div className="card-image">
+
+          <div className="actions">
+            <a href="{{ url('/image/'.$image->id.'/delete') }}">
+              <button type="button" className="btn btn-default delete-image-btn pull-right">
+                <span className="glyphicon glyphicon-trash"></span>
+              </button>
+            </a>
+          </div>
+
             <img src={this.state.image} alt='This is an image of the product as described below.'/>
           </div>
           <div className="card-description">
-            {this.state.category}<br />
-            {this.state.name}<br />
-            {this.state.price}<br />
+            <br />
+            <div className="text-category">
+              {this.state.category}
+            </div>
+            <div className="text-name">
+              {this.state.name}
+            </div>
+            <div className="text-price">
+              {this.state.price}
+            </div>
             <Ratings id={this.props.id} />
           </div>
         </div>}

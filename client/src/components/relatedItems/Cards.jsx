@@ -68,11 +68,8 @@ class Cards extends Component {
           <div className="card-image">
 
           <div className="actions">
-            <a href="{{ url('/image/'.$image->id.'/delete') }}">
-              <button type="button" className="btn btn-default delete-image-btn pull-right">
-                <span className="glyphicon glyphicon-trash"></span>
+              <button type="button" className="card-button">
               </button>
-            </a>
           </div>
 
             <img src={this.state.image} alt='This is an image of the product as described below.'/>
@@ -88,6 +85,7 @@ class Cards extends Component {
             <div className="text-price">
               {this.state.price}
             </div>
+            <br />
             <Ratings id={this.props.id} />
           </div>
         </div>}

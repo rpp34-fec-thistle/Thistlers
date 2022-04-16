@@ -11,9 +11,11 @@ class RelatedItemsWidget extends Component {
   render() {
     return (
       <>
-      <div className="relatedItemsWidget">
+      <div className="related-items-widget">
         <h3>Related Products</h3>
         <RelatedProducts />
+      </div>
+      <div className="related-items-widget">
         <h3>Your Outfit</h3>
         <YourOutfit />
       </div>

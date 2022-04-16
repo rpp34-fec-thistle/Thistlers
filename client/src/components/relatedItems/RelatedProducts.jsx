@@ -11,6 +11,14 @@ class RelatedProducts extends Component {
       relatedProductsIds: []
     };
     this.setRelatedProductsIds = this.setRelatedProductsIds.bind(this);
+    this.handleOverviewIdChange = this.handleOverviewIdChange.bind(this);
+  }
+
+  handleOverviewIdChange = (id) => {
+    this.setState({
+      overviewId: id
+    })
+    this.setRelatedProductsIds();
   }
 
   componentDidMount() {
@@ -30,7 +38,7 @@ class RelatedProducts extends Component {
         return result;
       })
       .catch((err) => {
-        console.log('error in setRelatedProductsIds');
+        // console.log('error in setRelatedProductsIds');
         return err;
       })
 
@@ -44,9 +52,10 @@ class RelatedProducts extends Component {
 
       <div className="related-products-carousel">
         {items.map((eachId) =>
-          <Cards key={eachId} id={eachId} />
+          <Cards key={eachId} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
         )}
       </div>
+
 
     )
   }

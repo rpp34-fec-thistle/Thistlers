@@ -53,7 +53,7 @@ class Ratings extends Component {
 
     return (
       <>
-      <div className="ratings">
+      <div className="ratings" data-testid='ratings-id'>
         {this.state.ratings}
       </div>
       </>
@@ -67,6 +67,7 @@ Ratings.propTypes = {
 }
 
 export default Ratings;
+
 
 
 

@@ -55,7 +55,7 @@ class YourOutfit extends Component {
         <>
         <div className="your-outfit-carousel">
           {items.map((eachId) =>
-            <Cards key={eachId} id={eachId} />
+            <Cards key={eachId} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
           )}
         </div>
         </>

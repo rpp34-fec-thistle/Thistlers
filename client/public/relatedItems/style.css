@@ -1,54 +1,96 @@
+.related-items-widget {
+  padding-top: 100px;
+  padding-left: 200px
+}
+
 .your-outfit-carousel {
-  border: 3px solid plum;
-  float: left;
-  width: 90%;
+  /* border: .5px solid transparent; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   clear: both;
   display: flex;
-  flex-wrap: wrap;
-  overflow: auto
+  overflow-x: auto;
+  scroll-behavior: smooth
 }
 
 .related-products-carousel {
-  border: 3px solid plum;
+  /* border: .5px solid transparent; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   clear: both;
   display: flex;
-  overflow: auto
+  overflow-x: auto;
+  scroll-behavior: smooth
+}
+
+.your-outfit-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.related-products-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+h3 {
+  font-family: 'Montserrat', 'Roboto', sans-serif;
+  font-weight: 600;
 }
 
 .card {
-  width: 200px;
-  height: 350px;
-  border: 5px solid cornflowerblue;
-  width: 22%;
-  padding: 5px;
+  width: 250px;
+  height: 370px;
   clear: both;
-  display: flex;
+  display: block;
   flex-wrap: wrap;
+  position: relative;
+  padding-right: 20px;
+  font-size: small;
+  font-family: DM Sans, 'Montserrat', sans-serif;
+  font-weight: 400
 }
 
 .card-image {
-  width: 220px;
-  height: 250px;
-  border: 5px solid indianred;
-}
-
-.card-description {
-  width: 220px;
-  height: 80px;
-  border: 5px solid darkcyan;
-  display: grid;
-}
-
-.relatedProducts {
-  border: 3px solid palevioletred;
-  float: left;
-  width: 90%;
-  clear: both;
+  width: 250px;
+  height: 255px;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
 }
 
 .card-image img {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
+  height: 100%;
+}
+
+.card-image .actions {
+  right: 20px;
+  top: 5px;
+  display: block;
+  position: absolute;
+}
+
+.card-image .actions a {
+  display: inline-block;
+}
+
+.card-description {
+  width: 240px;
+  height: 105px;
+  padding-left: 10px;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  display: block;
+  position: relative
+}
+
+.text-name {
+  font-family: DM Sans, Roboto, sans-serif;
+  font-weight: bold;
 }

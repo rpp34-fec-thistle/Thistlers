@@ -101,3 +101,18 @@
   outline: none;
   border: none;
 }
+
+.new-review-modle {
+  width: 800px;
+  height: 600px;
+  border: 1px solid black;
+  position: fixed;
+  top: calc(50% - 300px);
+  left: calc(50% - 400px);
+  filter: blur(100%);
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  box-sizing: content-box;
+  padding: 10px;
+  border-radius: 10px;
+}

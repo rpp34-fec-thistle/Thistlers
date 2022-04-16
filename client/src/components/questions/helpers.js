@@ -43,6 +43,16 @@ const sortAllData = (unsortedData) => {
   })
 }
 
+
+const validateEmail = (email) => {
+  const regex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+  return regex.test(email);
+}
+
+const checkLength = (input, min, max) => {
+  return input.length >= min && input.length <= max;
+}
+
 export default {
   orderData: (productId, cb) => {
     axios(`/questions/${productId}`)
@@ -54,5 +64,26 @@ export default {
       .catch(err => {
         cb(err);
       })
+  },
+
+  validateForm: ({ question, nickname, email }) => {
+    const errors = [];
+    if (!validateEmail(email) || !checkLength(email, 1, 60)) {
+      errors.push('email');
+    }
+    if (!checkLength(nickname, 1, 60)) {
+      errors.push('nickname');
+    }
+    if (!checkLength(question, 1, 1000)) {
+      errors.push('question');
+    }
+    return errors;
+  },
+
+  filterQuestions: (questions, searchTerm) => {
+    const regex = new RegExp(searchTerm, 'ig');
+    return questions.filter(question => {
+      return regex.test(question.question_body);
+    })
   }
 }

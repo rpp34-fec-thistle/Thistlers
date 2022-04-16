@@ -26,6 +26,7 @@ class QuestionWidget extends Component {
       if (err) {
         console.error('An error occured fetching the data: ', err);
       } else {
+        console.log('data: ', results);
         this.setState({ questions: results })
         if (results.length > 2) {
           const topTwoQuestions = results.slice(0, 2);
@@ -104,12 +105,23 @@ class QuestionWidget extends Component {
     })
   }
 
+  onSearch(filteredQuestions, clearSearch) {
+    if (clearSearch) {
+      this.setState({ displayedQuestions: this.state.questions.slice(0, this.state.numberDisplayed) })
+    } else {
+      this.setState({ displayedQuestions: filteredQuestions });
+    }
+  }
+
   render() {
     return (
       <div className="question-widget-container">
         <div className="question-widget">
           <p>QUESTIONS & ANSWERS</p>
-          <Search/>
+          <Search
+            questions={this.state.questions}
+            onSearch={this.onSearch.bind(this)}
+          />
           <QuestionList
             questions={this.state.displayedQuestions}
             onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}

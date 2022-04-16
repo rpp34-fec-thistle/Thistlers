@@ -208,14 +208,18 @@ app.post('/newReview', (req, res) => {
 
   const testData = {
     product_id: 2, 
-    rating: 3,
-    summary: 'it was good',
+    rating: 4,
+    summary: 'it was nice',
     body: 'test, test, etst',
     recommend: true, 
-    name: 'darian',
-    email: 'dh0324@gmail.com',
-    photos: ["", ""],
-    characteristics: {"14": 1}
+    name: 'john',
+    email: 'dh03w4@gmail.com',
+    photos: ["www.somethimg.com", "www.somethingelse.com"],
+    characteristics: {
+      14: 5,
+      15: 2,
+      16: 3
+    }
   }
 
   axios({

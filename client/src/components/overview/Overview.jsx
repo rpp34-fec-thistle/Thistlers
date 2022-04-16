@@ -15,7 +15,8 @@ class Overview extends React.Component {
       styleIndex: 0,
       styles: [],
       info: {},
-      ratings: {}
+      ratings: {},
+      loaded: false
     }
     this.updateStyle = this.updateStyle.bind(this);
   }
@@ -38,7 +39,8 @@ class Overview extends React.Component {
           this.setState({
             styles: styles.data.results,
             info: products.data,
-            ratings: avgstars.data.ratings
+            ratings: avgstars.data.ratings,
+            loaded: true
           })
         })
       )
@@ -49,31 +51,35 @@ class Overview extends React.Component {
   }
 
   render() {
-    return (
-      <div className="overview-main">
-        <ImageGallery
-          styleIndex={this.state.styleIndex}
-          stylesData={this.state.styles}
-          view={this.state.view}
-        />
-        <div className="right-pane">
-          <ProductInfo
-            ratings={this.state.ratings}
-            info={this.state.info}
-            sale_price={this.state.styles[this.state.styleIndex]?.sale_price}
-          />
-          <StyleSelector
-            updateStyle={this.updateStyle}
+    let page = <div></div>
+    if (this.state.loaded) {
+      page = (
+        <div className="overview-main">
+          <ImageGallery
             styleIndex={this.state.styleIndex}
-            styles={this.state.styles}
+            stylesData={this.state.styles}
+            view={this.state.view}
           />
-          <AddToCart
-            styles={this.state.styles}
-            styleIndex={this.state.styleIndex}
-          />
+          <div className="right-pane">
+            <ProductInfo
+              ratings={this.state.ratings}
+              info={this.state.info}
+              sale_price={this.state.styles[this.state.styleIndex]?.sale_price}
+            />
+            <StyleSelector
+              updateStyle={this.updateStyle}
+              styleIndex={this.state.styleIndex}
+              styles={this.state.styles}
+            />
+            <AddToCart
+              styles={this.state.styles}
+              styleIndex={this.state.styleIndex}
+            />
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
+    return (page)
   }
 }
 

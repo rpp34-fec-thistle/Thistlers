@@ -16,8 +16,7 @@ class DefaultView extends React.Component {
     this.selectedPhoto = this.selectedPhoto.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    if(this.props.styles !== prevProps.styles || this.props.styleIndex !== prevProps.styleIndex) {
+  componentDidMount() {
       let thumbnails = this.props.styles[this.props.styleIndex].photos.map((photo) => {
         return photo.thumbnail_url
       });
@@ -30,6 +29,11 @@ class DefaultView extends React.Component {
         thumbnails: thumbnails,
         image_id: image_id
       });
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.styles !== prevProps.styles || this.props.styleIndex !== prevProps.styleIndex) {
+      this.componentDidMount()
     }
   }
 
@@ -74,20 +78,12 @@ class DefaultView extends React.Component {
   }
 
   render() {
-    let pageElement = <></>
-    if (this.state.styles.length === 0) {
-      pageElement = (
-      <div data-testid="s" className="selected-image">
-        Selected Image
-        <AllImagesThumbnails/>
-      </div>
-      )
-    } else {
-      pageElement = (
-      <div data-testid="s-image">
+    return(
+      <div data-testid="default-view" className="default-view">
         <img
         className="selected-image"
-        src={this.state.currentPhoto}>
+        src={this.state.currentPhoto}
+        alt="s-image">
         </img>
         <div>
         <button onClick={this.cyclePhotos} name="Prev">Prev</button>
@@ -98,13 +94,6 @@ class DefaultView extends React.Component {
           currentImage={this.state.image_id}
           selectedPhoto={this.selectedPhoto}
         />
-      </div>
-      )
-    }
-
-    return(
-      <div data-testid="default-view" className="default-view">
-          {pageElement}
       </div>
     )
   }

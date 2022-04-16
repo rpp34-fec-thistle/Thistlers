@@ -26,7 +26,7 @@ class Reviews extends Component {
           <CustomerReviews reviews={this.state.reviews} totalReviews={this.state.reviews.length} refresh={() => this.refresh.call(this, this.state.productId)}/>
         </div>
         {/* Reviews Uncomment here and Comment code above for Testing */}
-      </section>
+        </section>
     );
   }
 

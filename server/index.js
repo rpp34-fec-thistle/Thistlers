@@ -203,3 +203,37 @@ app.get('/reviews/:id', (req, res) => {
     res.status(500).send(err);
   })
 });
+
+app.post('/newReview', (req, res) => {
+
+  const testData = {
+    product_id: 2, 
+    rating: 4,
+    summary: 'it was nice',
+    body: 'test, test, etst',
+    recommend: true, 
+    name: 'john',
+    email: 'dh03w4@gmail.com',
+    photos: ["www.somethimg.com", "www.somethingelse.com"],
+    characteristics: {
+      14: 5,
+      15: 2,
+      16: 3
+    }
+  }
+
+  axios({
+    method: 'post',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews`,
+    headers: {'Authorization': API_KEY},
+    data: testData
+  })
+  .then((response) => {
+    console.log('success posting data');
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in reviews post request', err);
+    res.status(500).send(err);
+  })
+});

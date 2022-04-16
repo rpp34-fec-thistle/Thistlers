@@ -1,15 +1,39 @@
+.related-items-widget {
+  padding-top: 100px;
+  padding-left: 200px
+}
+
 .your-outfit-carousel {
-  border: .5px solid transparent;
+  /* border: .5px solid transparent; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   clear: both;
   display: flex;
-  overflow: auto;
+  overflow-x: auto;
+  scroll-behavior: smooth
 }
 
 .related-products-carousel {
   /* border: .5px solid transparent; */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   clear: both;
   display: flex;
-  overflow: auto;
+  overflow-x: auto;
+  scroll-behavior: smooth
+}
+
+.your-outfit-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.related-products-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+h3 {
+  font-family: 'Montserrat', 'Roboto', sans-serif;
+  font-weight: 600;
 }
 
 .card {
@@ -20,6 +44,9 @@
   flex-wrap: wrap;
   position: relative;
   padding-right: 20px;
+  font-size: small;
+  font-family: DM Sans, 'Montserrat', sans-serif;
+  font-weight: 400
 }
 
 .card-image {
@@ -53,8 +80,9 @@
 }
 
 .card-description {
-  width: 250px;
+  width: 240px;
   height: 105px;
+  padding-left: 10px;
   border-bottom: 1px solid gray;
   border-right: 1px solid gray;
   border-left: 1px solid gray;
@@ -62,4 +90,7 @@
   position: relative
 }
 
-
+.text-name {
+  font-family: DM Sans, Roboto, sans-serif;
+  font-weight: bold;
+}

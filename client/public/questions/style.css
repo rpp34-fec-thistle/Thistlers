@@ -8,6 +8,14 @@
 
 .question-search input {
   width: 99%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.question-search input::placeholder {
+  color: black;
 }
 
 .question-list {
@@ -75,11 +83,15 @@
 .more-questions-btn {
   margin: 5px;
   padding: 10px 8px;
+  background-color: white;
+  border: 1px solid black;
 }
 
 .add-question-btn {
   margin: 5px;
   padding: 10px 8px;
+  background-color: white;
+  border: 1px solid black;
 }
 
 .reaction-buttons {

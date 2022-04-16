@@ -53,7 +53,7 @@ class YourOutfit extends Component {
 
       return(
         <>
-        <div className="your-outfit-carousel">
+        <div className="your-outfit-carousel" data-testid="your-outfit-id">
           {items.map((eachId) =>
             <Cards key={eachId} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
           )}

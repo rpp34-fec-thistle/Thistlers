@@ -1,51 +1,37 @@
 .your-outfit-carousel {
-  border: 3px solid plum;
-  float: left;
-  width: 90%;
+  border: .5px solid transparent;
   clear: both;
   display: flex;
-  flex-wrap: wrap;
-  overflow: auto
+  overflow: auto;
 }
 
 .related-products-carousel {
-  border: 3px solid plum;
+  /* border: .5px solid transparent; */
   clear: both;
   display: flex;
-  overflow: auto
+  overflow: auto;
 }
 
 .card {
-  /* width: 200px; */
-  height: 350px;
-  border: 5px solid cornflowerblue;
-  width: 22%;
-  padding: 5px;
+  width: 250px;
+  height: 370px;
   clear: both;
   display: block;
   flex-wrap: wrap;
+  position: relative;
+  padding-right: 20px;
 }
 
 .card-image {
-  width: 220px;
-  height: 250px;
-  border: 5px solid indianred;
-  display: block
-}
-
-.card-description {
-  width: 220px;
-  height: 80px;
-  border: 5px solid darkcyan;
+  width: 250px;
+  height: 255px;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
   display: block;
-}
-
-.relatedProducts {
-  border: 3px solid palevioletred;
-  float: left;
-  width: 90%;
-  display: block;
-  clear: both;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
 }
 
 .card-image img {
@@ -54,3 +40,26 @@
   margin-right: auto;
   height: 100%;
 }
+
+.card-image .actions {
+  right: 20px;
+  top: 5px;
+  display: block;
+  position: absolute;
+}
+
+.card-image .actions a {
+  display: inline-block;
+}
+
+.card-description {
+  width: 250px;
+  height: 105px;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  display: block;
+  position: relative
+}
+
+

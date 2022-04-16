@@ -78,5 +78,12 @@ export default {
       errors.push('question');
     }
     return errors;
+  },
+
+  filterQuestions: (questions, searchTerm) => {
+    const regex = new RegExp(searchTerm, 'g');
+    return questions.filter(question => {
+      return regex.test(question.question_body);
+    })
   }
 }

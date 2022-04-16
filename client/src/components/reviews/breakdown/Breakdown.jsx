@@ -10,16 +10,14 @@ class Breakdown extends Component {
     super(props);
     this.state = {
       metadata: this.props.metadata,
-      rating: this.props.rating,
-      recommend: this.props.recomend,
     }
   }
 
   render() {
     return (
       <div className="reviews-breakdown">
-        <RatingDisplay rating={this.state.rating}/>
-        <Recommendation recommend={this.state.recommend}/>
+        <RatingDisplay rating={5}/>
+        <Recommendation metadata={this.props.metadata}/>
         <StarDistribution metadata={this.state.metadata}/>
         <CustomerComments metadata={this.state.metadata.characteristics}/>
       </div>
@@ -30,8 +28,6 @@ class Breakdown extends Component {
 //PROPS
 Breakdown.propTypes = {
   metadata: PropTypes.object,
-  rating: PropTypes.number,
-  recomend: PropTypes.number,
 }
 
 export default Breakdown;

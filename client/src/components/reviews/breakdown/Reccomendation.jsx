@@ -4,29 +4,33 @@ import PropTypes from 'prop-types';
 class Recommendation extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      recommend: true || props.recommend
-    };
   }
 
   render() {
-    if (this.state.recommend) {
+    console.log('rednering recom');
       return (
         <div className="reviews-breakdown-recommendation">
-          100% OF CUSTOMERS RECCOMEND THIS PRODUCT!
+          {this.getRecommendPercentage.call(this)}
         </div>
       );
-    }
 
-    return (
-      <div className="reviews-breakdown-recommendation"></div>
-    );
+  }
+
+  getRecommendPercentage() {
+    console.log(this.props);
+    if (this.props.metadata.recommended !== undefined) {
+      var recommends = this.props.metadata.recommended.true;
+      var total = parseInt(recommends) + parseInt(this.props.metadata.recommended.false);
+      return `${Math.floor(recommends/ total * 100)}% Recommend this Product!`;
+    } else {
+      return 'Retrieving Recommendations %';
+    }
   }
 }
 
 //PROPS
 Recommendation.propTypes = {
-  recommend: PropTypes.number
+  metadata: PropTypes.object
 }
 
 export default Recommendation;

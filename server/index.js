@@ -189,6 +189,7 @@ app.get('/products/:id/related', (req, res) => {
   })
 });
 
+//Reviews
 app.get('/reviews/:id', (req, res) => {
   let { id } = req.params;
   axios({

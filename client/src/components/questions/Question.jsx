@@ -21,6 +21,7 @@ const Question = ({
   }
 
   const onQuestionLike = () => {
+    console.log('does this run?');
     onHelpfulClick('questions', question.question_id)
   }
 

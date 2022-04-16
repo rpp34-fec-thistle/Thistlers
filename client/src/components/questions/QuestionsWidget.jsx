@@ -105,12 +105,23 @@ class QuestionWidget extends Component {
     })
   }
 
+  onSearch(filteredQuestions, clearSearch) {
+    if (clearSearch) {
+      this.setState({ displayedQuestions: this.state.questions.slice(0, this.state.numberDisplayed) })
+    } else {
+      this.setState({ displayedQuestions: filteredQuestions });
+    }
+  }
+
   render() {
     return (
       <div className="question-widget-container">
         <div className="question-widget">
           <p>QUESTIONS & ANSWERS</p>
-          <Search questions={this.state.questions}/>
+          <Search
+            questions={this.state.questions}
+            onSearch={this.onSearch.bind(this)}
+          />
           <QuestionList
             questions={this.state.displayedQuestions}
             onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}

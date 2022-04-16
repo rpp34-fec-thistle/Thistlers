@@ -81,7 +81,7 @@ export default {
   },
 
   filterQuestions: (questions, searchTerm) => {
-    const regex = new RegExp(searchTerm, 'g');
+    const regex = new RegExp(searchTerm, 'ig');
     return questions.filter(question => {
       return regex.test(question.question_body);
     })

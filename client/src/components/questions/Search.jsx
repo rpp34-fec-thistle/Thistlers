@@ -11,10 +11,11 @@ class Search extends Component {
   }
 
   onSearchInputChange(e) {
-    // this.setState({ searchInput: e.target.value })
     if (e.target.value.length > 2) {
       const filteredQuestions = helpers.filterQuestions(this.props.questions, e.target.value);
-      console.log('fq: ', filteredQuestions);
+      this.props.onSearch(filteredQuestions);
+    } else {
+      this.props.onSearch(null, true);
     }
   }
 
@@ -29,7 +30,8 @@ class Search extends Component {
 
 
 Search.propTypes = {
-  questions: PropTypes.array.isRequired
+  questions: PropTypes.array.isRequired,
+  onSearch: PropTypes.func.isRequired
 }
 
 export default Search;

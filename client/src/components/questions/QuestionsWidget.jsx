@@ -26,7 +26,6 @@ class QuestionWidget extends Component {
       if (err) {
         console.error('An error occured fetching the data: ', err);
       } else {
-        console.log('data: ', results);
         this.setState({ questions: results })
         if (results.length > 2) {
           const topTwoQuestions = results.slice(0, 2);

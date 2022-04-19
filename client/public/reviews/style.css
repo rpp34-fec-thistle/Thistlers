@@ -26,7 +26,7 @@
 }
 
 .reviews-breakdown-star-distribution {
-  background-color: orange;
+  /* background-color: orange; */
   min-height: 150px;
 }
 
@@ -56,7 +56,8 @@
 
 .indiv-star-percentage {
   height: 100%;
-  background-color: yellow;
+  /* background-color: yellow; */
+  color: black;
   width: 50%;
 }
 

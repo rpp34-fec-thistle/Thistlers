@@ -10,28 +10,34 @@ class Breakdown extends Component {
     super(props);
     this.state = {
       metadata: this.props.metadata,
-      rating: this.props.rating,
-      recommend: this.props.recomend,
     }
   }
 
   render() {
     return (
       <div className="reviews-breakdown">
-        <RatingDisplay rating={this.state.rating}/>
-        <Recommendation recommend={this.state.recommend}/>
-        <StarDistribution metadata={this.state.metadata}/>
+        <RatingDisplay rating={this.getAverageRating(this.props.metadata.ratings)}/>
+        <Recommendation metadata={this.props.metadata}/>
+        <StarDistribution metadata={this.props.metadata}/>
         <CustomerComments metadata={this.state.metadata.characteristics}/>
       </div>
     );
+  }
+
+  getAverageRating(ratings) {
+    var sum = 0;
+    var ct = 0;
+    for (var i in ratings) {
+      sum += parseFloat(i) * parseFloat(ratings[i]);
+      ct+= parseFloat(ratings[i]);
+    }
+    return (sum/ct).toString();
   }
 }
 
 //PROPS
 Breakdown.propTypes = {
   metadata: PropTypes.object,
-  rating: PropTypes.number,
-  recomend: PropTypes.number,
 }
 
 export default Breakdown;

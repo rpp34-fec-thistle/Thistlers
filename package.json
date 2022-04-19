@@ -10,7 +10,7 @@
     "react-dev": "webpack --mode development --watch",
     "server-dev": "nodemon server/index.js",
     "test-overview": "jest --silent client/src/components/overview",
-    "test:reviews": "jest /client/src/components/reviews"
+    "test:reviews": "jest /client/src/components/reviewszz"
   },
   "repository": {
     "type": "git",

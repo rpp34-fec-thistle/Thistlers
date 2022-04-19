@@ -7,7 +7,6 @@ class Recommendation extends Component {
   }
 
   render() {
-    console.log('rednering recom');
       return (
         <div className="reviews-breakdown-recommendation">
           {this.getRecommendPercentage.call(this)}
@@ -17,7 +16,6 @@ class Recommendation extends Component {
   }
 
   getRecommendPercentage() {
-    console.log(this.props);
     if (this.props.metadata.recommended !== undefined) {
       var recommends = this.props.metadata.recommended.true;
       var total = parseInt(recommends) + parseInt(this.props.metadata.recommended.false);

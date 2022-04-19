@@ -4,24 +4,15 @@ import PropTypes from 'prop-types';
 class IndividualStar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      starData: this.props.starData,
-      //   HARD CODED! {for testing}
-      amtOfReviews: 100,
-      totalReviews: 130,
-      starNum: 5
-    }
   }
 
   render() {
+    var percentage = Math.floor(parseInt(this.props.value) / this.props.total * 100);
     return (
-      <div className="star-distribution-indiv-star">
-        <a href="#" className="indiv-star-name">{this.state.starNum}</a>
-        <div className="indiv-star-box">
-          <div className={`indiv-star-percentage i-s-p-${this.state.starNum}`}>
-            50
-          </div>
-        </div>
+      <div>
+        {`${this.props.keyVal}: ${this.props.value}`}
+        <br />
+        Percentage: {percentage}
       </div>
     )
   }
@@ -29,7 +20,9 @@ class IndividualStar extends Component {
 
 //PROPS
 IndividualStar.propTypes = {
-  starData: PropTypes.string
+  keyVal: PropTypes.string,
+  value: PropTypes.string,
+  total: PropTypes.number
 };
 
 export default IndividualStar;

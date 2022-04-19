@@ -16,12 +16,22 @@ class Breakdown extends Component {
   render() {
     return (
       <div className="reviews-breakdown">
-        <RatingDisplay rating={5}/>
+        <RatingDisplay rating={this.getAverageRating(this.props.metadata.ratings)}/>
         <Recommendation metadata={this.props.metadata}/>
-        <StarDistribution metadata={this.state.metadata}/>
+        <StarDistribution metadata={this.props.metadata}/>
         <CustomerComments metadata={this.state.metadata.characteristics}/>
       </div>
     );
+  }
+
+  getAverageRating(ratings) {
+    var sum = 0;
+    var ct = 0;
+    for (var i in ratings) {
+      sum += parseFloat(i) * parseFloat(ratings[i]);
+      ct+= parseFloat(ratings[i]);
+    }
+    return (sum/ct).toString();
   }
 }
 

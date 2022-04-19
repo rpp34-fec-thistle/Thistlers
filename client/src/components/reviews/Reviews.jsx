@@ -14,6 +14,7 @@ class Reviews extends Component {
       metadata: {},
     }
     // this.refresh(this.state.productId);
+    this.parseReviewsMetaInfo(this.state.productId);
     this.parseReviewsInfo(this.state.productId);
   }
 
@@ -34,7 +35,7 @@ class Reviews extends Component {
     console.log(id);
   }
 
-  parseReviewsInfo(id) {
+  parseReviewsMetaInfo(id) {
     axios({
       method: 'get',
       url: `/reviews/${id}`,
@@ -47,14 +48,17 @@ class Reviews extends Component {
     });
   }
 
-  parseReviewsMetaInfo(id) {
-    console.log(id);
-    /*  
-    GET ALL REVIEWS META DATA
-    | SELECT METADATA WHICH HAVE THE SAME PRODUCT ID
-      | ADD THE METADATA TO AN ARRAY
-        | SET STATE [...] (METADATA)
-    */
+  parseReviewsInfo(id) {
+    axios({
+      method: 'get',
+      url: `/reviews-meta/${id}`
+    })
+    .then(res => {
+      this.setState({reviews: res.data.results});
+    })
+    .catch(err => {
+      console.log('err: ', err);
+    });
   }
 }
 

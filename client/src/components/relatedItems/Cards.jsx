@@ -71,7 +71,10 @@ class Cards extends Component {
 
           <div className="card-image">
             <img src={this.state.image} alt='This is an image of the product as described below.' onMouseDown={this.setNewItem}/>
+            <span className="overlay">
+            </span>
           </div>
+
 
           <div className="card-description">
             <br />

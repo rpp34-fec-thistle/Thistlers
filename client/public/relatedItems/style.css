@@ -14,7 +14,6 @@
 }
 
 .related-products-carousel {
-  /* border: .5px solid transparent; */
   -ms-overflow-style: none;
   scrollbar-width: none;
   clear: both;
@@ -30,6 +29,43 @@
 .related-products-carousel::-webkit-scrollbar {
   display: none;
 }
+
+.your-outfit-carousel > .card > .card-image > .overlay {
+  background-color: white;
+  opacity: .9;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+
+.related-products-carousel > .card > .card-image > .overlay::before {
+  background: rgba(255, 255, 255, 0);
+  opacity: 1;
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  text-align: right;
+  font-size: 17px;
+  content: "\2606";
+}
+
+.your-outfit-carousel > .card > .card-image > .overlay::before {
+  text-align: right;
+  content: " ";
+  position: absolute;
+  display: block;
+  background-color: blue;
+  width: 2px;
+  left: 12px;
+  top: 5px;
+  bottom: 5px;
+  transform: rotate(45deg);
+}
+
+
 
 h3 {
   font-family: 'Montserrat', 'Roboto', sans-serif;

@@ -7,7 +7,6 @@ class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      style_id: null,
       image: '',
       price: null,
       salePrice: null,
@@ -15,6 +14,7 @@ class Cards extends Component {
       name: ''
     };
     this.setCard = this.setCard.bind(this);
+    this.setNewItem = this.setNewItem.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +30,6 @@ class Cards extends Component {
       .then((data) => {
         var result = data.data;
         this.setState({
-          style_id: result.results[0].style_id,
           image: result.results[0].photos[0].thumbnail_url,
           price: result.results[0].original_price,
           salePrice: result.results[0].sale_price
@@ -59,32 +58,33 @@ class Cards extends Component {
 
   }
 
+  setNewItem () {
+    this.props.handleOverviewIdChange(this.props.id);
+  }
+
   render() {
 
     return (
       <>
       {this.state.image !== null &&
-        <div className="card" key={this.props.id} data-testid='test-id'>
+        <div className="card" data-testid='test-id'>
+
           <div className="card-image">
-
-          <div className="actions">
-              <button type="button" className="card-button">
-              </button>
+            <img src={this.state.image} alt='This is an image of the product as described below.' onMouseDown={this.setNewItem}/>
           </div>
 
-            <img src={this.state.image} alt='This is an image of the product as described below.'/>
-          </div>
           <div className="card-description">
             <br />
             <div className="text-category">
               {this.state.category}
             </div>
-            <div className="text-name">
-              {this.state.name}
-            </div>
+
+              <button onMouseDown={this.setNewItem} className="set-text-name">{this.state.name}</button>
+
             <div className="text-price">
               {this.state.price}
             </div>
+
             <br />
             <Ratings id={this.props.id} />
           </div>
@@ -96,7 +96,9 @@ class Cards extends Component {
 }
 
 Cards.propTypes = {
-    id: PropTypes.number
+    id: PropTypes.number,
+    overviewId: PropTypes.number,
+    handleOverviewIdChange: PropTypes.func
 }
 
 

@@ -68,6 +68,7 @@ h3 {
   height: 100%;
 }
 
+
 .card-image .actions {
   right: 20px;
   top: 5px;
@@ -90,7 +91,10 @@ h3 {
   position: relative
 }
 
-.text-name {
+button.set-text-name {
+  background:none;
+  border:none;
+  padding: 0%;
   font-family: DM Sans, Roboto, sans-serif;
   font-weight: bold;
 }

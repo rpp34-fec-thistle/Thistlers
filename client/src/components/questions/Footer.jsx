@@ -9,8 +9,10 @@ class Footer extends Component {
 
     this.state = {
       question: "",
+      answer: "",
       nickname: "",
-      email: ""
+      email: "",
+      photos: ""
     }
   }
 
@@ -28,7 +30,7 @@ class Footer extends Component {
       document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
     })
 
-    const validationErrors = helpers.validateForm(this.state);
+    const validationErrors = helpers.validateQuestionForm(this.state.question, this.state.nickname, this.state.email);
     if (validationErrors.length > 0) {
       for (let i = 0; i < validationErrors.length; i++) {
         document.querySelector(`.${validationErrors[i]}-error-message`).style.visibility = 'visible';
@@ -54,23 +56,126 @@ class Footer extends Component {
     document.querySelector('.add-question-modal').style.display = 'none';
   }
 
-  onFormClose = () => {
+  onAnswerSubmit = (e) => {
+    e.preventDefault();
+    ['nickname', 'email', 'answer'].forEach(input => {
+      document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
+    })
+
+    const validationErrors = helpers.validateAnswerForm(this.state.answer, this.state.nickname, this.state.email);
+    if (validationErrors.length > 0) {
+      for (let i = 0; i < validationErrors.length; i++) {
+        document.querySelector(`.${validationErrors[i]}-error-message`).style.visibility = 'visible';
+      }
+      return;
+    }
+    axios({
+      url: `/questions/${this.props.selectedQuestion.question_id}/answers`,
+      method: 'post',
+      data: {
+        body: this.state.answer,
+        name: this.state.nickname,
+        email: this.state.email
+      }
+    })
+    .then(() => {
+      this.props.updateQuestionState();
+    })
+    .catch(err => {
+      console.error('err ', err);
+    })
+    document.querySelector('.add-answer-modal').style.display = 'none';
+  }
+
+  onQuestionFormClose = () => {
     document.querySelector('.add-question-modal').style.display = 'none';
+  }
+
+  onAnswerFormClose = () => {
+    document.querySelector('.add-answer-modal').style.display = 'none';
   }
 
   render() {
     return (
       <div className="question-footer">
         <div className="add-question-modal">
-          <form className="add-question-form">
+        <form className="add-qa-form">
+          <div className="close-modal-container">
+            <p> </p>
+            <div className="close-modal-contents">
+              <p onClick={this.onQuestionFormClose} className="close-modal">X</p>
+            </div>
+          </div>
+          <p className="add-qa-title">Ask Your Question</p>
+          <p className="add-qa-subtitle">About the product <span className="product-name">{this.props.productName}</span></p>
+          <div className="nickname-input form-input">
+            <div>
+              <p className="nickname-error-message error-message">You must enter the following:</p>
+              <label htmlFor="nickname">Nickname *</label>
+            </div>
+            <div className="input-container">
+              <input
+                type="text"
+                id="nickname"
+                name="nickname"
+                onChange={this.onChangeInput}
+                placeholder="Example: jackson11!"
+                maxLength="60"
+                >
+                </input>
+                <p className="form-message">For privacy reasons, do not use your full name or email address</p>
+
+            </div>
+          </div>
+          <div className="email-input form-input">
+            <div>
+              <p className="email-error-message error-message">You must enter the following:</p>
+              <label htmlFor="email">Email *</label>
+            </div>
+            <div className="input-container">
+              <input
+                type="text"
+                id="email"
+                name="email"
+                onChange={this.onChangeInput}
+                placeholder="sample@email.com"
+                maxLength="60"
+                >
+              </input>
+              <p className="form-message">For authentication reasons, you will not be emailed</p>
+            </div>
+          </div>
+          <div className="question-input form-input">
+            <div>
+              <p className="question-error-message error-message">You must enter the following:</p>
+              <label htmlFor="question">Question *</label>
+            </div>
+            <div className="input-container">
+              <textarea
+                type="text"
+                id="question"
+                name="question"
+                onChange={this.onChangeInput}
+                placeholder="What would you like to know about this product?"
+                maxLength="1000"
+              >
+              </textarea>
+            </div>
+          </div>
+          <button className="submit-qa-button" onClick={this.onQuestionSubmit}>Submit</button>
+        </form>
+      </div>
+
+        <div className="add-answer-modal">
+          <form className="add-qa-form">
             <div className="close-modal-container">
               <p> </p>
               <div className="close-modal-contents">
-                <p onClick={this.onFormClose} className="close-modal">X</p>
+                <p onClick={this.onAnswerFormClose} className="close-modal">X</p>
               </div>
             </div>
-            <p className="add-question-title">Ask Your Question</p>
-            <p className="add-question-subtitle">About the product <span className="product-name">{this.props.productName}</span></p>
+            <p className="add-qa-title">Submit Your Answer</p>
+            <p className="product-name">{this.props.productName} <span className="add-qa-subtitle">{this.props.selectedQuestion.question_body}</span></p>
             <div className="nickname-input form-input">
               <div>
                 <p className="nickname-error-message error-message">You must enter the following:</p>
@@ -108,24 +213,24 @@ class Footer extends Component {
                 <p className="form-message">For authentication reasons, you will not be emailed</p>
               </div>
             </div>
-            <div className="question-input form-input">
+            <div className="answer-input form-input">
               <div>
-                <p className="question-error-message error-message">You must enter the following:</p>
-                <label htmlFor="question">Question *</label>
+                <p className="answer-error-message error-message">You must enter the following:</p>
+                <label htmlFor="answer">Answer *</label>
               </div>
               <div className="input-container">
                 <textarea
                   type="text"
-                  id="question"
-                  name="question"
+                  id="answer"
+                  name="answer"
                   onChange={this.onChangeInput}
-                  placeholder="What would you like to know about this product?"
+                  placeholder="Write your answer here"
                   maxLength="1000"
                 >
                 </textarea>
               </div>
             </div>
-            <button className="submit-question-button" onClick={this.onQuestionSubmit}>Submit</button>
+            <button className="submit-qa-button" onClick={this.onAnswerSubmit}>Submit</button>
           </form>
         </div>
         {this.props.moreQuestions && <button onClick={this.props.onShowMoreQuestionsClick} className="more-questions-btn">MORE ANSWERED QUESTIONS</button>}
@@ -140,7 +245,8 @@ Footer.propTypes = {
   moreQuestions: PropTypes.bool.isRequired,
   productName: PropTypes.string.isRequired,
   productId: PropTypes.number.isRequired,
-  updateQuestionState: PropTypes.func.isRequired
+  updateQuestionState: PropTypes.func.isRequired,
+  selectedQuestion: PropTypes.object.isRequired
 }
 
 export default Footer;

@@ -9,7 +9,8 @@ const Question = ({
   allAnswersDisplayed,
   onHelpfulClick,
   onReport,
-  reportedAnswers
+  reportedAnswers,
+  onAddAnswer
 }) => {
 
   const onMoreAnswersClick = () => {
@@ -21,7 +22,12 @@ const Question = ({
   }
 
   const onQuestionLike = () => {
-    onHelpfulClick('questions', question.question_id)
+    onHelpfulClick('questions', question.question_id);
+  }
+
+  const onAddAnswerClick = () => {
+    onAddAnswer(question);
+    document.querySelector('.add-answer-modal').style.display = 'flex';
   }
 
   let answers;
@@ -48,7 +54,7 @@ const Question = ({
         <div className="reaction-buttons">
           <p> Helpful? <span className="helpful-button" onClick={onQuestionLike}>Yes</span> ({question.question_helpfulness})</p>
           <p className="reaction-button-break">|</p>
-          <p className="add-answer-button"> Add Answer</p>
+          <p onClick={onAddAnswerClick} className="add-answer-button"> Add Answer</p>
         </div>
       </div>
       <div className="question-body">
@@ -77,7 +83,8 @@ Question.propTypes = {
   onCollapseAnswersClick: PropTypes.func.isRequired,
   onHelpfulClick: PropTypes.func.isRequired,
   onReport: PropTypes.func.isRequired,
-  reportedAnswers: PropTypes.array.isRequired
+  reportedAnswers: PropTypes.array.isRequired,
+  onAddAnswer: PropTypes.func.isRequired
 };
 
 export default Question;

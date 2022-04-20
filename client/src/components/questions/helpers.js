@@ -66,7 +66,7 @@ export default {
       })
   },
 
-  validateForm: ({ question, nickname, email }) => {
+  validateQuestionForm: ( question, nickname, email ) => {
     const errors = [];
     if (!validateEmail(email) || !checkLength(email, 1, 60)) {
       errors.push('email');
@@ -75,6 +75,20 @@ export default {
       errors.push('nickname');
     }
     if (!checkLength(question, 1, 1000)) {
+      errors.push('question');
+    }
+    return errors;
+  },
+
+  validateAnswerForm: ( answer, nickname, email ) => {
+    const errors = [];
+    if (!validateEmail(email) || !checkLength(email, 1, 60)) {
+      errors.push('email');
+    }
+    if (!checkLength(nickname, 1, 60)) {
+      errors.push('nickname');
+    }
+    if (!checkLength(answer, 1, 1000)) {
       errors.push('question');
     }
     return errors;

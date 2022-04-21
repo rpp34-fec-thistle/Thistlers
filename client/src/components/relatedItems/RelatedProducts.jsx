@@ -14,13 +14,12 @@ class RelatedProducts extends Component {
   }
 
   componentDidMount() {
-    if (this.props.overviewId) {
-      this.setRelatedProductsIds()
-    }
+    this.setRelatedProductsIds()
   }
 
   setRelatedProductsIds = () => {
 
+    console.log('overview ID',this.props.overviewId)
     const relatedIdsAPI = `http://localhost:8080/products/${this.props.overviewId}/related`;
 
     axios(relatedIdsAPI)
@@ -32,7 +31,7 @@ class RelatedProducts extends Component {
         return result;
       })
       .catch((err) => {
-        // console.log('error in setRelatedProductsIds');
+        console.log('error in setRelatedProductsIds');
         return err;
       })
 
@@ -46,7 +45,7 @@ class RelatedProducts extends Component {
       <>
       <div className="related-products-carousel"  data-testid='related-products-id'>
         {items && items.map((eachId) =>
-          <Cards key={eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} handleOverviewIdChange={this.props.handleOverviewIdChange}/>
+          <Cards key={eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds}/>
         )}
       </div>
       </>
@@ -56,9 +55,7 @@ class RelatedProducts extends Component {
 
 RelatedProducts.propTypes = {
   overviewId: PropTypes.number,
-  displayButton: PropTypes.string,
-  id: PropTypes.number,
-  handleOverviewIdChange: PropTypes.func
+  setOverviewId: PropTypes.func
 }
 
 export default RelatedProducts;

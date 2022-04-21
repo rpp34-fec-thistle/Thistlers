@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import IndividualReview from './IndividualReview.jsx';
 
 class ReviewList extends Component {
   constructor(props) {
@@ -12,7 +13,9 @@ class ReviewList extends Component {
   render() {
     return (
       <div className="review-list">
-          Review list!
+          {this.props.reviews.map(review => {
+            return <IndividualReview key={JSON.stringify(review)}  review={review}/>
+          })}
       </div>
     )
   }

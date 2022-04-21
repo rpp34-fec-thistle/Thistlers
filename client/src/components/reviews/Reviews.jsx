@@ -24,7 +24,7 @@ class Reviews extends Component {
         <h1 className="reviews-title">Ratings & Reviews</h1>
         <div className="reviews">
           <Breakdown metadata={this.state.metadata}/>
-          <CustomerReviews reviews={this.state.reviews} totalReviews={this.state.reviews.length} refresh={() => this.refresh.call(this, this.state.productId)}/>
+          <CustomerReviews productId={this.state.productId} metadata = {this.state.metadata} reviews={this.state.reviews} totalReviews={this.state.reviews.length} refresh={() => this.refresh.call(this, this.state.productId)}/>
         </div>
         {/* Reviews Uncomment here and Comment code above for Testing */}
         </section>

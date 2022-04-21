@@ -52,7 +52,7 @@ class RelatedProducts extends Component {
 
       <div className="related-products-carousel"  data-testid='related-products-id'>
         {items.map((eachId) =>
-          <Cards key={eachId} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
+          <Cards key={eachId} id={eachId} displayButton={'related-products'} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
         )}
       </div>
 

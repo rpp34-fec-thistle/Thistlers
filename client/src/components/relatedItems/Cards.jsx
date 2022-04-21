@@ -75,7 +75,7 @@ class Cards extends Component {
 
   clickDelete(e) {
     e.preventDefault();
-    console.log(this.props.onDeleteItem);
+    // console.log(this.props.onDeleteItem);
     console.log('item will delete');
   }
 

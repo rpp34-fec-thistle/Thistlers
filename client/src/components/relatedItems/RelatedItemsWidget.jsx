@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RelatedProducts from './OldRelatedProducts.jsx';
+import OldRelatedProducts from './OldRelatedProducts.jsx';
 import YourOutfit from './YourOutfit.jsx'
 
 class RelatedItemsWidget extends Component {
@@ -13,7 +13,7 @@ class RelatedItemsWidget extends Component {
       <>
       <div className="related-items-widget">
         <h3>Related Products</h3>
-        <RelatedProducts />
+        <OldRelatedProducts />
       </div>
       <div className="related-items-widget">
         <h3>Your Outfit</h3>

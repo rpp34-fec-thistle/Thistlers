@@ -66,16 +66,30 @@ export default {
       })
   },
 
-  validateForm: ({ question, nickname, email }) => {
+  validateQuestionForm: ( question, nickname, email ) => {
     const errors = [];
     if (!validateEmail(email) || !checkLength(email, 1, 60)) {
-      errors.push('email');
+      errors.push('question-email');
     }
     if (!checkLength(nickname, 1, 60)) {
-      errors.push('nickname');
+      errors.push('question-nickname');
     }
     if (!checkLength(question, 1, 1000)) {
       errors.push('question');
+    }
+    return errors;
+  },
+
+  validateAnswerForm: ( answer, nickname, email ) => {
+    const errors = [];
+    if (!validateEmail(email) || !checkLength(email, 1, 60)) {
+      errors.push('answer-email');
+    }
+    if (!checkLength(nickname, 1, 60)) {
+      errors.push('answer-nickname');
+    }
+    if (!checkLength(answer, 1, 1000)) {
+      errors.push('answer');
     }
     return errors;
   },

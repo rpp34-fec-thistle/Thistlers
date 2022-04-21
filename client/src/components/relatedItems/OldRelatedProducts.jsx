@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Cards from './Cards.jsx';
-import PropTypes from 'prop-types';
 
 
 class RelatedProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      overviewId: 64626,
       relatedProductsIds: []
     };
     this.setRelatedProductsIds = this.setRelatedProductsIds.bind(this);
+    this.handleOverviewIdChange = this.handleOverviewIdChange.bind(this);
+  }
+
+  handleOverviewIdChange = (id) => {
+    this.setState({
+      overviewId: id
+    })
+    this.setRelatedProductsIds();
   }
 
   componentDidMount() {
-    if (this.props.overviewId) {
-      this.setRelatedProductsIds()
-    }
+    this.setRelatedProductsIds()
   }
 
   setRelatedProductsIds = () => {
 
-    const relatedIdsAPI = `http://localhost:8080/products/${this.props.overviewId}/related`;
+    const relatedIdsAPI = `http://localhost:8080/products/${this.state.overviewId}/related`;
 
     axios(relatedIdsAPI)
       .then((data) => {
@@ -43,22 +49,17 @@ class RelatedProducts extends Component {
     const items = this.state.relatedProductsIds;
 
     return(
-      <>
+
       <div className="related-products-carousel"  data-testid='related-products-id'>
-        {items && items.map((eachId) =>
-          <Cards key={eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} handleOverviewIdChange={this.props.handleOverviewIdChange}/>
+        {items.map((eachId) =>
+          <Cards key={eachId} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
         )}
       </div>
-      </>
+
+
     )
-}
+  }
 }
 
-RelatedProducts.propTypes = {
-  overviewId: PropTypes.number,
-  displayButton: PropTypes.string,
-  id: PropTypes.number,
-  handleOverviewIdChange: PropTypes.func
-}
 
 export default RelatedProducts;

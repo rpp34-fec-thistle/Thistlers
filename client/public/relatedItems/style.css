@@ -53,16 +53,16 @@
 }
 
 .your-outfit-carousel > .card > .card-image > .overlay::before {
-  text-align: right;
-  content: " ";
-  position: absolute;
+  background: rgba(255, 255, 255, 0);
+  opacity: 1;
   display: block;
-  background-color: blue;
-  width: 2px;
-  left: 12px;
-  top: 5px;
-  bottom: 5px;
-  transform: rotate(45deg);
+  height: 100%;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  text-align: right;
+  font-size: 17px;
+  content: "\2795";
 }
 
 

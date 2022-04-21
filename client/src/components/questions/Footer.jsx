@@ -71,10 +71,8 @@ class Footer extends Component {
     })
 
     const validationErrors = helpers.validateAnswerForm(this.state.answer, this.state.nickname, this.state.email);
-    console.log('validation errors: ', validationErrors);
     if (validationErrors.length > 0) {
       for (let i = 0; i < validationErrors.length; i++) {
-        console.log('#: ', document.querySelector(`.${validationErrors[i]}-error-message`));
         document.querySelector(`.${validationErrors[i]}-error-message`).style.visibility = 'visible';
       }
       return;

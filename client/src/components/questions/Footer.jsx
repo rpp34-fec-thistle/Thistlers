@@ -26,7 +26,7 @@ class Footer extends Component {
 
   onQuestionSubmit = (e) => {
     e.preventDefault();
-    ['nickname', 'email', 'question'].forEach(input => {
+    ['question-nickname', 'question-email', 'question'].forEach(input => {
       document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
     })
 
@@ -53,18 +53,28 @@ class Footer extends Component {
     .catch(err => {
       console.error('err ', err);
     })
+    document.querySelector('.question-form').reset();
     document.querySelector('.add-question-modal').style.display = 'none';
+    this.setState({
+      question: "",
+      answer: "",
+      nickname: "",
+      email: "",
+      photos: ""
+    })
   }
 
   onAnswerSubmit = (e) => {
     e.preventDefault();
-    ['nickname', 'email', 'answer'].forEach(input => {
+    ['answer-nickname', 'answer-email', 'answer'].forEach(input => {
       document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
     })
 
     const validationErrors = helpers.validateAnswerForm(this.state.answer, this.state.nickname, this.state.email);
+    console.log('validation errors: ', validationErrors);
     if (validationErrors.length > 0) {
       for (let i = 0; i < validationErrors.length; i++) {
+        console.log('#: ', document.querySelector(`.${validationErrors[i]}-error-message`));
         document.querySelector(`.${validationErrors[i]}-error-message`).style.visibility = 'visible';
       }
       return;
@@ -84,22 +94,36 @@ class Footer extends Component {
     .catch(err => {
       console.error('err ', err);
     })
+    document.querySelector('.answer-form').reset();
     document.querySelector('.add-answer-modal').style.display = 'none';
+    this.setState({
+      question: "",
+      answer: "",
+      nickname: "",
+      email: "",
+      photos: ""
+    })
   }
 
   onQuestionFormClose = () => {
     document.querySelector('.add-question-modal').style.display = 'none';
+    ['question-nickname', 'question-email', 'question'].forEach(input => {
+      document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
+    })
   }
 
   onAnswerFormClose = () => {
     document.querySelector('.add-answer-modal').style.display = 'none';
+    ['answer-nickname', 'answer-email', 'answer'].forEach(input => {
+      document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
+    })
   }
 
   render() {
     return (
       <div className="question-footer">
         <div className="add-question-modal">
-        <form className="add-qa-form">
+        <form className="add-qa-form question-form">
           <div className="close-modal-container">
             <p> </p>
             <div className="close-modal-contents">
@@ -110,7 +134,7 @@ class Footer extends Component {
           <p className="add-qa-subtitle">About the product <span className="product-name">{this.props.productName}</span></p>
           <div className="nickname-input form-input">
             <div>
-              <p className="nickname-error-message error-message">You must enter the following:</p>
+              <p className="question-nickname-error-message error-message">You must enter the following:</p>
               <label htmlFor="nickname">Nickname *</label>
             </div>
             <div className="input-container">
@@ -129,7 +153,7 @@ class Footer extends Component {
           </div>
           <div className="email-input form-input">
             <div>
-              <p className="email-error-message error-message">You must enter the following:</p>
+              <p className="question-email-error-message error-message">You must enter the following:</p>
               <label htmlFor="email">Email *</label>
             </div>
             <div className="input-container">
@@ -145,7 +169,7 @@ class Footer extends Component {
               <p className="form-message">For authentication reasons, you will not be emailed</p>
             </div>
           </div>
-          <div className="question-input form-input">
+          <div className="qa-input form-input">
             <div>
               <p className="question-error-message error-message">You must enter the following:</p>
               <label htmlFor="question">Question *</label>
@@ -167,7 +191,7 @@ class Footer extends Component {
       </div>
 
         <div className="add-answer-modal">
-          <form className="add-qa-form">
+          <form className="add-qa-form answer-form">
             <div className="close-modal-container">
               <p> </p>
               <div className="close-modal-contents">
@@ -178,7 +202,7 @@ class Footer extends Component {
             <p className="product-name">{this.props.productName} <span className="add-qa-subtitle">{this.props.selectedQuestion.question_body}</span></p>
             <div className="nickname-input form-input">
               <div>
-                <p className="nickname-error-message error-message">You must enter the following:</p>
+                <p className="answer-nickname-error-message error-message">You must enter the following:</p>
                 <label htmlFor="nickname">Nickname *</label>
               </div>
               <div className="input-container">
@@ -197,7 +221,7 @@ class Footer extends Component {
             </div>
             <div className="email-input form-input">
               <div>
-                <p className="email-error-message error-message">You must enter the following:</p>
+                <p className="answer-email-error-message error-message">You must enter the following:</p>
                 <label htmlFor="email">Email *</label>
               </div>
               <div className="input-container">
@@ -213,7 +237,7 @@ class Footer extends Component {
                 <p className="form-message">For authentication reasons, you will not be emailed</p>
               </div>
             </div>
-            <div className="answer-input form-input">
+            <div className="qa-input form-input">
               <div>
                 <p className="answer-error-message error-message">You must enter the following:</p>
                 <label htmlFor="answer">Answer *</label>

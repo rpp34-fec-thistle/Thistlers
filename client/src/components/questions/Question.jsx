@@ -54,7 +54,7 @@ const Question = ({
         <div className="reaction-buttons">
           <p> Helpful? <span className="helpful-button" onClick={onQuestionLike}>Yes</span> ({question.question_helpfulness})</p>
           <p className="reaction-button-break">|</p>
-          <p onClick={onAddAnswerClick} className="add-answer-button"> Add Answer</p>
+          <p onClick={onAddAnswerClick} className="add-answer-button">Add Answer</p>
         </div>
       </div>
       <div className="question-body">

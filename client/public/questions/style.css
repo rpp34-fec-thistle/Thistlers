@@ -59,6 +59,12 @@
   text-decoration: underline;
 }
 
+.add-answer-button:hover {
+  /* font-weight: bold; */
+  color:rgb(70, 70, 70);
+  cursor: pointer;
+}
+
 .answer-icon {
   font-weight: bold;
   font-size: 1.1rem;
@@ -113,12 +119,17 @@
 }
 
 .helpful-button:hover {
-  font-weight: bold;
+  color:rgb(70, 70, 70);
   cursor: pointer;
 }
 
 .report-button {
   text-decoration: underline;
+}
+
+.report-button:hover {
+  color:rgb(70, 70, 70);
+  cursor: pointer;
 }
 
 .report-button.disabled {
@@ -148,6 +159,7 @@
   margin: auto;
   border-radius: 5px;
   border: 5px black solid;
+  padding: 20px;
 }
 
 .add-qa-title {
@@ -190,15 +202,15 @@
   display: none;
 }
 
-.submit-question-button {
-  margin: 15px 0px 25px 0px;
+.submit-qa-button {
+  margin: 25px 0px 25px 0px;
   background-color: rgb(141, 140, 140);
   color: white;
   padding: 5px 8px;
   border-radius: 5px;
 }
 
-.submit-question-button:hover {
+.submit-qa-button:hover {
   background-color: rgb(119, 118, 118);
   color: rgb(243, 240, 240);
   cursor: pointer;
@@ -207,6 +219,10 @@
 .product-name {
   color: rgb(80, 135, 80);
   font-size: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .input-container {
@@ -230,7 +246,7 @@
   margin: auto;
 }
 
-.question-input textarea {
+.qa-input textarea {
   height: 50px;
   width: 350px;
   max-width: 95%;
@@ -284,4 +300,5 @@
   padding: 3px;
   margin:3px;
   font-size: 0.8rem;
+  font-weight: 100;
 }

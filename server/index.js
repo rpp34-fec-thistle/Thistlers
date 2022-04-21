@@ -253,3 +253,39 @@ app.post('/newReview', (req, res) => {
     res.status(500).send(err);
   })
 });
+
+app.get('/review-helpful/:id', (req, res) => {
+  let {id} = req.params;
+
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${id}/helpful`,
+    headers: {'Authorization': API_KEY},
+  })
+  .then((response) => {
+    console.log('success posting data');
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in reviews post request', err);
+    res.status(500).send(err);
+  });
+});
+
+app.get('/review-report/:id', (req, res) => {
+  let {id} = req.params;
+
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${id}/report`,
+    headers: {'Authorization': API_KEY},
+  })
+  .then((response) => {
+    console.log('success posting data');
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in reviews post request', err);
+    res.status(500).send(err);
+  });
+});

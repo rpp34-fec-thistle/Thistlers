@@ -18,6 +18,7 @@ class DefaultView extends React.Component {
     this.selectedPhoto = this.selectedPhoto.bind(this);
     this.nextImage = this.nextImage.bind(this);
     this.prevImage = this.prevImage.bind(this);
+    this.zoomImage = this.zoomImage.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +41,20 @@ class DefaultView extends React.Component {
       this.componentDidMount()
       this.selectedPhoto(0)
     }
+  }
+
+  zoomImage(e) {
+    console.log(e.target)
+    let image = e.target;
+    let width = image.offsetWidth;
+    let height = image.offsetHeight;
+    let mouseX = e.offsetX;
+    let mouseY = e.offsetY;
+
+    let bgPosX = (mouseX / width * 100);
+    let bgPosY = (mouseY / height * 100);
+
+    image.style.backgroundPosition = `${bgPosX}% ${bgPosY}%`;
   }
 
   selectedPhoto(selectedIndex) {
@@ -160,6 +175,12 @@ class DefaultView extends React.Component {
     } else {
       prevButton = (<button onClick={this.cyclePhotos} name="Prev">⬅️</button>)
     }
+    let viewClassName;
+    if (this.props.currentView === 'default') {
+      viewClassName = 'selected-image';
+    } else {
+      viewClassName = 'selected-image-expanded';
+    }
     return(
       <div data-testid="default-view" className="default-view">
         <div className="overview-images">
@@ -173,7 +194,8 @@ class DefaultView extends React.Component {
           />
           {prevButton}
           <img
-          className="selected-image"
+          onClick={this.zoomImage}
+          className={viewClassName}
           src={this.state.currentPhoto}
           alt="s-image">
           </img>
@@ -186,7 +208,8 @@ class DefaultView extends React.Component {
 
 DefaultView.propTypes = {
   styles: PropTypes.array,
-  styleIndex: PropTypes.number
+  styleIndex: PropTypes.number,
+  currentView: PropTypes.string
 }
 
 

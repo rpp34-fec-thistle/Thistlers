@@ -63,6 +63,15 @@
   max-width: fit-content;
   width: auto;
 }
+.selected-image-expanded {
+  border-style: solid;
+  margin: 10px;
+  position: relative;
+  text-align: center;
+  height: 800px;
+  width: auto;
+  cursor: zoom-in;
+}
 
 .all-image-tns {
   border-style: dashed;

@@ -131,7 +131,7 @@ class Footer extends Component {
             </div>
           </div>
           <p className="add-qa-title">Ask Your Question</p>
-          <p className="add-qa-subtitle">About the product <span className="product-name">{this.props.productName}</span></p>
+          <p className="add-question-subtitle">About the product <span className="add-question-product-name">{this.props.productName}</span></p>
           <div className="nickname-input form-input">
             <div>
               <p className="question-nickname-error-message error-message">You must enter the following:</p>
@@ -199,7 +199,7 @@ class Footer extends Component {
               </div>
             </div>
             <p className="add-qa-title">Submit Your Answer</p>
-            <p className="product-name">{this.props.productName} <span className="add-qa-subtitle">{this.props.selectedQuestion.question_body}</span></p>
+            <p className="add-answer-product-name">{this.props.productName} <span className="add-answer-subtitle">{this.props.selectedQuestion.question_body}</span></p>
             <div className="nickname-input form-input">
               <div>
                 <p className="answer-nickname-error-message error-message">You must enter the following:</p>

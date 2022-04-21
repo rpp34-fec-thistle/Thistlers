@@ -4,19 +4,32 @@ import PropTypes from 'prop-types';
 class RatingDisplay extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rating: this.props.rating
-    }
   }
 
   render() {
+    var ratingNum = parseFloat(this.props.rating);
+    var ratingArr = [];
+    while (ratingNum > 0) {
+      ratingArr.push(1);
+      ratingNum--
+      if (ratingNum < 1 && ratingNum !== 0) {
+        ratingArr.push(parseFloat(ratingNum.toString().slice(0, 4)));
+        ratingNum = 0;
+      }
+    }
+    console.log(ratingArr);
+
     return (
       <div className="reviews-breakdown-rating">
         <h2 className="breakdown-rating-num">
-          5
+          {this.props.rating}
         </h2>
         <div className="breakdown-rating-stars">
-          star1 star2 star3 star4 star5
+          {ratingArr.map(rating => {
+            return (
+              <span className="rating" key={rating + Math.random()*1000}> {rating} </span>
+            )
+          })}
         </div>
       </div>
     );
@@ -25,7 +38,7 @@ class RatingDisplay extends Component {
 
 //PROPS
 RatingDisplay.propTypes = {
-  rating: PropTypes.number
+  rating: PropTypes.string
 };
 
 export default RatingDisplay;

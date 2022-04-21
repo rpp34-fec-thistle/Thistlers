@@ -35,7 +35,6 @@ class Footer extends Component {
       }
       return;
     }
-    console.log('does this run?');
     axios({
       url: '/questions',
       method: 'post',

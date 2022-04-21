@@ -189,6 +189,7 @@ app.get('/products/:id/related', (req, res) => {
   })
 });
 
+//Reviews
 app.get('/reviews/:id', (req, res) => {
   let { id } = req.params;
   axios({
@@ -202,6 +203,21 @@ app.get('/reviews/:id', (req, res) => {
     console.log('error in reviews GET request');
     res.status(500).send(err);
   })
+});
+
+app.get('/reviews-meta/:id', (req, res) => {
+  let {id} = req.params;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${id}`,
+    headers: {'Authorization': API_KEY}
+  })
+  .then((response) => {
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in reviews GET request');
+    res.status(500).send(err);
+  });
 });
 
 app.post('/newReview', (req, res) => {
@@ -236,4 +252,40 @@ app.post('/newReview', (req, res) => {
     console.log('error in reviews post request', err);
     res.status(500).send(err);
   })
+});
+
+app.get('/review-helpful/:id', (req, res) => {
+  let {id} = req.params;
+
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${id}/helpful`,
+    headers: {'Authorization': API_KEY},
+  })
+  .then((response) => {
+    console.log('success posting data');
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in reviews post request', err);
+    res.status(500).send(err);
+  });
+});
+
+app.get('/review-report/:id', (req, res) => {
+  let {id} = req.params;
+
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews/${id}/report`,
+    headers: {'Authorization': API_KEY},
+  })
+  .then((response) => {
+    console.log('success posting data');
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in reviews post request', err);
+    res.status(500).send(err);
+  });
 });

@@ -65,7 +65,7 @@
 }
 
 .answer-list {
-  width: 100%;
+  width: 80%;
 }
 
 .answer {
@@ -100,12 +100,21 @@
   color: rgb(149, 149, 149);
 }
 
+.reaction-buttons p {
+  margin-top: 4px;
+}
+
 .reaction-button-break {
   padding: 0px 10px;
 }
 
 .helpful-button {
   text-decoration: underline;
+}
+
+.helpful-button:hover {
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .report-button {

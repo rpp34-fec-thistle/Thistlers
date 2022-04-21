@@ -55,7 +55,7 @@ class YourOutfit extends Component {
         <>
         <div className="your-outfit-carousel" data-testid="your-outfit-id">
           {items.map((eachId) =>
-            <Cards key={eachId} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
+            <Cards key={eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange} onDeleteItem={this.onDeleteItem}/>
           )}
         </div>
         </>

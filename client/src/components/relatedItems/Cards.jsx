@@ -7,6 +7,8 @@ class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // overviewId: 64626,
+      // relatedProductsIds: [],
       image: '',
       price: null,
       salePrice: null,
@@ -15,10 +17,14 @@ class Cards extends Component {
     };
     this.setCard = this.setCard.bind(this);
     this.setNewItem = this.setNewItem.bind(this);
+    this.clickModal = this.clickModal.bind(this);
+    this.clickDelete = this.clickDelete.bind(this);
+    // this.setRelatedProductsIds = this.setRelatedProductsIds.bind(this);
+    // this.handleOverviewIdChange = this.handleOverviewIdChange.bind(this);
   }
 
   componentDidMount() {
-    this.setCard()
+    this.setCard();
   }
 
   setCard() {
@@ -62,6 +68,43 @@ class Cards extends Component {
     this.props.handleOverviewIdChange(this.props.id);
   }
 
+  clickModal(e) {
+    e.preventDefault();
+    console.log('modal will render')
+  }
+
+  clickDelete(e) {
+    e.preventDefault();
+    // console.log(this.props.onDeleteItem);
+    console.log('item will delete');
+  }
+
+  // setRelatedProductsIds = () => {
+
+  //   const relatedIdsAPI = `http://localhost:8080/products/${this.state.overviewId}/related`;
+
+  //   axios(relatedIdsAPI)
+  //     .then((data) => {
+  //       var result = data.data;
+  //       this.setState({
+  //         relatedProductsIds: result
+  //       });
+  //       return result;
+  //     })
+  //     .catch((err) => {
+  //       // console.log('error in setRelatedProductsIds');
+  //       return err;
+  //     })
+
+  // }
+
+  // handleOverviewIdChange = (id) => {
+  //   this.setState({
+  //     overviewId: id
+  //   })
+  //   this.setRelatedProductsIds();
+  // }
+
   render() {
 
     return (
@@ -70,8 +113,11 @@ class Cards extends Component {
         <div className="card" data-testid='test-id'>
 
           <div className="card-image">
-            <img src={this.state.image} alt='This is an image of the product as described below.' onMouseDown={this.setNewItem}/>
+            <img src={this.state.image} alt='This is an image of the product as described below.' onClick={this.setNewItem}/>
+
+            {this.props.displayButton === 'related-products' ? <button className="overlay" onClick={this.clickModal}></button> : <button className="overlay" onClick={this.clickDelete}></button> }
           </div>
+
 
           <div className="card-description">
             <br />
@@ -79,7 +125,7 @@ class Cards extends Component {
               {this.state.category}
             </div>
 
-              <button onMouseDown={this.setNewItem} className="set-text-name">{this.state.name}</button>
+              <button onClick={this.setNewItem} className="set-text-name">{this.state.name}</button>
 
             <div className="text-price">
               {this.state.price}
@@ -98,7 +144,9 @@ class Cards extends Component {
 Cards.propTypes = {
     id: PropTypes.number,
     overviewId: PropTypes.number,
-    handleOverviewIdChange: PropTypes.func
+    handleOverviewIdChange: PropTypes.func,
+    displayButton: PropTypes.string,
+    onDeleteItem: PropTypes.func
 }
 
 

@@ -13,7 +13,7 @@ class ReviewCount extends Component {
     return (
       <div className="review-count">
         <span className="total-reviews">
-          248 reviews sorted by,  
+          {this.props.totalReviews} reviews sorted by,  
         </span>
         <span className="sort-by">
           <select name="sorted-by" id="sort-by">

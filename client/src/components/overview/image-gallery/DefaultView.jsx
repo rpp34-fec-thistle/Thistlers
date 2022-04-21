@@ -81,13 +81,6 @@ class DefaultView extends React.Component {
         hiddenPrev: false
       })
     }
-
-
-    // this.setState({
-    //   imageIndex: selectedIndex,
-    //   currentPhoto: selectedPhoto,
-    //   image_id: image_id
-    // })
   }
 
   prevImage() {
@@ -158,13 +151,11 @@ class DefaultView extends React.Component {
     let nextButton;
     let prevButton;
     if (this.state.hiddenNext) {
-      console.log('next')
       nextButton = <></>
     } else {
       nextButton = (<button onClick={this.cyclePhotos} name="Next">➡️</button>)
     }
     if (this.state.hiddenPrev) {
-      console.log('prev')
       prevButton = <></>
     } else {
       prevButton = (<button onClick={this.cyclePhotos} name="Prev">⬅️</button>)

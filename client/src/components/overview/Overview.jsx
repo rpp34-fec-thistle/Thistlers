@@ -30,7 +30,7 @@ class Overview extends React.Component {
 
   changeView() {
     if (this.state.view === 'default') {
-      this.setState({view: 'expaned'})
+      this.setState({view: 'expanded'})
     } else {
       this.setState({view: 'default'})
     }

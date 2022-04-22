@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Ratings from './Ratings.jsx';
 import PropTypes from 'prop-types';
+import ComparisonModal from './ComparisonModal.jsx'
 
 class Cards extends Component {
   constructor(props) {
@@ -11,14 +12,18 @@ class Cards extends Component {
       price: null,
       salePrice: null,
       category: '',
-      name: ''
-    };
+      name: '',
+      features: [],
+      combinedFeatures: []
+    }
     this.setCard = this.setCard.bind(this);
-    this.setNewItem = this.setNewItem.bind(this);
+    this.clickModal = this.clickModal.bind(this);
+    this.clickDelete = this.clickDelete.bind(this);
+    this.setFeaturesArray = this.setFeaturesArray.bind(this)
   }
 
   componentDidMount() {
-    this.setCard()
+    this.setCard();
   }
 
   setCard() {
@@ -40,38 +45,89 @@ class Cards extends Component {
         axios.get(productsAPI)
           .then((data) => {
             var result = data.data;
+
+            const valueArrayMaker = (objArr) => {
+              let newArray = [];
+              objArr.forEach((obj) => {
+                if (obj.value !== null) {
+                  newArray.push(obj.value);
+                }
+              })
+              return newArray;
+            }
+
+            var itemFeatures = valueArrayMaker(result.features)
+
             this.setState({
               category: result.category,
-              name: result.name
+              name: result.name,
+              features: itemFeatures
             });
             return result;
           })
           .catch((err) => {
-            // console.log('API call to /products error');
+            console.log('API call to /products error');
             return err;
           })
       })
       .catch((err) => {
-        // console.log('API call to /styles error');
+        console.log('API call to /styles error');
         return err;
       })
 
   }
 
-  setNewItem () {
-    this.props.handleOverviewIdChange(this.props.id);
+  clickModal(e) {
+    e.preventDefault();
+    console.log('modal will render')
+  }
+
+  clickDelete() {
+    this.props.deleteYourOutfits(this.props.id);
+  }
+
+  setFeaturesArray() {
+
+    // let newFeaturesArray = [...new Set([...originalArr, ...currentArr])];
+    this.setState({
+      combinedFeatures: newFeaturesArray
+    })
   }
 
   render() {
-
     return (
       <>
-      {this.state.image !== null &&
-        <div className="card" data-testid='test-id'>
+      {this.state.image && this.state.image !== null &&
+        <div className="card" data-testid='test-id' id={this.props.id}>
 
           <div className="card-image">
-            <img src={this.state.image} alt='This is an image of the product as described below.' onMouseDown={this.setNewItem}/>
+            <img src={this.state.image} alt='This is an image of the product as described below.' onClick={()=> this.props.setOverviewId(this.props.id)}/>
+
+            {this.props.displayButton === 'related-products' ?
+              <>
+              <button className="overlay" onClick={this.clickModal}></button>
+                <div className="comparison-modal" id="comparison-modal">
+                  <div className="comparison-modal-header">
+                    <div className="comparison-modal-title">COMPARING</div>
+                    <button className="comparison-modal-close-button">&times;</button>
+                  </div>
+                  <div className="comparison-modal-header">
+                    <div className="comparison-overview-name">{this.props.overviewIdName}</div>
+                    <div className="comparison-current-item-name">{this.state.name}</div>
+                  </div>
+                  <div className="comparison-modal-body">
+                    <ComparisonModal />
+                  </div>
+                </div>
+              <div className="comparison-modal-overlay"></div>
+
+              </>
+
+              : <button className="overlay" onClick={this.clickDelete}></button> }
+
+
           </div>
+
 
           <div className="card-description">
             <br />
@@ -79,7 +135,7 @@ class Cards extends Component {
               {this.state.category}
             </div>
 
-              <button onMouseDown={this.setNewItem} className="set-text-name">{this.state.name}</button>
+              <button onClick={()=> this.props.setOverviewId(this.props.id)} className="set-text-name">{this.state.name}</button>
 
             <div className="text-price">
               {this.state.price}
@@ -98,7 +154,12 @@ class Cards extends Component {
 Cards.propTypes = {
     id: PropTypes.number,
     overviewId: PropTypes.number,
-    handleOverviewIdChange: PropTypes.func
+    overviewIdName: PropTypes.string,
+    overviewIdFeatures: PropTypes.array,
+    setOverviewId: PropTypes.func,
+    displayButton: PropTypes.string,
+    deleteYourOutfits: PropTypes.func,
+    setRelatedProductsIds: PropTypes.func
 }
 
 

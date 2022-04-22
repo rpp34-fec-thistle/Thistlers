@@ -1,65 +1,36 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Cards from './Cards.jsx';
+import PropTypes from 'prop-types';
 
 
 class RelatedProducts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      overviewId: 64626,
-      relatedProductsIds: []
-    };
-    this.setRelatedProductsIds = this.setRelatedProductsIds.bind(this);
-    this.handleOverviewIdChange = this.handleOverviewIdChange.bind(this);
-  }
-
-  handleOverviewIdChange = (id) => {
-    this.setState({
-      overviewId: id
-    })
-    this.setRelatedProductsIds();
-  }
-
-  componentDidMount() {
-    this.setRelatedProductsIds()
-  }
-
-  setRelatedProductsIds = () => {
-
-    const relatedIdsAPI = `http://localhost:8080/products/${this.state.overviewId}/related`;
-
-    axios(relatedIdsAPI)
-      .then((data) => {
-        var result = data.data;
-        this.setState({
-          relatedProductsIds: result
-        });
-        return result;
-      })
-      .catch((err) => {
-        // console.log('error in setRelatedProductsIds');
-        return err;
-      })
-
-  }
 
   render() {
 
-    const items = this.state.relatedProductsIds;
+    const items = this.props.relatedProductsIds;
 
     return(
-
-      <div className="related-products-carousel"  data-testid='related-products-id'>
-        {items.map((eachId) =>
-          <Cards key={eachId} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
+      <>
+      <div className="related-products-container">
+        <h3>Related Products</h3>
+        <div className="related-products-carousel"  data-testid='related-products-id'>
+        {items.length > 0 && items.map((eachId) =>
+          <Cards key={'rp-' + eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} overviewIdFeatures={this.props.overviewIdFeatures} setOverviewId={this.props.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds}/>
         )}
       </div>
-
-
+      </div>
+      </>
     )
   }
 }
 
+RelatedProducts.propTypes = {
+  overviewId: PropTypes.number,
+  overviewIdName: PropTypes.string,
+  overviewIdFeatures: PropTypes.array,
+  setOverviewId: PropTypes.func,
+  relatedProductsIds: PropTypes.array,
+  setRelatedProductsIds: PropTypes.func
+}
 
 export default RelatedProducts;

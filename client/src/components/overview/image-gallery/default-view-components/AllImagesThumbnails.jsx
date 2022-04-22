@@ -5,6 +5,8 @@ import ImageThumbnail from './ImageThumbnail.jsx';
 
 function AllImagesThumbnails(props) {
     let pageElement;
+    let nextButton;
+    let prevButton;
     if (props.thumbnails === undefined) {
      pageElement = (
      <div className="all-image-tns">
@@ -12,8 +14,20 @@ function AllImagesThumbnails(props) {
      </div>
      )
     } else {
+      if (props.next) {
+        nextButton = <></>
+      } else {
+        nextButton = (<button onClick={props.cycle} name="Next">🔽</button>)
+      }
+
+      if(props.prev) {
+        prevButton = <></>
+      } else {
+        prevButton = (<button onClick={props.cycle} name="Prev">🔼</button>)
+      }
       pageElement = (
       <div className="all-image-tns">
+         {prevButton}
         {props.thumbnails.map((tn, index) => {
           let key = tn.split('-')[1];
           return (<ImageThumbnail
@@ -24,6 +38,7 @@ function AllImagesThumbnails(props) {
           key={key}
           thumbnail={tn}/>)
         })}
+          {nextButton}
       </div>
       )
     }

@@ -4,7 +4,6 @@
 }
 
 .your-outfit-carousel {
-  /* border: .5px solid transparent; */
   -ms-overflow-style: none;
   scrollbar-width: none;
   clear: both;
@@ -14,10 +13,8 @@
 }
 
 .related-products-carousel {
-  /* border: .5px solid transparent; */
   -ms-overflow-style: none;
   scrollbar-width: none;
-  clear: both;
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth
@@ -29,6 +26,41 @@
 
 .related-products-carousel::-webkit-scrollbar {
   display: none;
+}
+
+.your-outfit-carousel > .card > .card-image > .overlay {
+  background-color: white;
+  opacity: .9;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+
+.related-products-carousel > .card > .card-image > .overlay::before {
+  background: rgba(255, 255, 255, 0);
+  opacity: 1;
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  text-align: right;
+  font-size: 17px;
+  content: "\2606";
+}
+
+.your-outfit-carousel > .card > .card-image > .overlay::before {
+  background: rgba(255, 255, 255, 0);
+  opacity: 1;
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  text-align: right;
+  font-size: 17px;
+  content: "\2715";
 }
 
 h3 {
@@ -68,7 +100,6 @@ h3 {
   height: 100%;
 }
 
-
 .card-image .actions {
   right: 20px;
   top: 5px;
@@ -97,4 +128,49 @@ button.set-text-name {
   padding: 0%;
   font-family: DM Sans, Roboto, sans-serif;
   font-weight: bold;
+}
+
+.comparison-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+
+.comparison-modal-header {
+  padding: 15px 20px 0px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comparison-overview-name {
+  font-weight: bold;
+}
+
+.comparison-current-item-name {
+  font-weight: bold;
+}
+
+.comparison-modal-header .comparison-modal-close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.comparison-modal-body {
+  padding: 30px 10px 30px 10px;
+}
+
+.comparison-modal-items {
+  padding: 15px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

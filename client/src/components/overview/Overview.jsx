@@ -19,12 +19,21 @@ class Overview extends React.Component {
       loaded: false
     }
     this.updateStyle = this.updateStyle.bind(this);
+    this.changeView = this.changeView.bind(this);
   }
 
   updateStyle(index) {
     this.setState({
       styleIndex: index
     })
+  }
+
+  changeView() {
+    if (this.state.view === 'default') {
+      this.setState({view: 'expanded'})
+    } else {
+      this.setState({view: 'default'})
+    }
   }
 
   componentDidMount() {
@@ -53,31 +62,45 @@ class Overview extends React.Component {
   render() {
     let page = <div></div>
     if (this.state.loaded) {
-      page = (
-        <div className="overview-main">
-          <ImageGallery
-            styleIndex={this.state.styleIndex}
-            stylesData={this.state.styles}
-            view={this.state.view}
-          />
-          <div className="right-pane">
-            <ProductInfo
-              ratings={this.state.ratings}
-              info={this.state.info}
-              sale_price={this.state.styles[this.state.styleIndex]?.sale_price}
-            />
-            <StyleSelector
-              updateStyle={this.updateStyle}
+      if (this.state.view === 'default') {
+        page = (
+          <div className="overview-main">
+            <ImageGallery
               styleIndex={this.state.styleIndex}
-              styles={this.state.styles}
+              stylesData={this.state.styles}
+              view={this.state.view}
+              changeView={this.changeView}
             />
-            <AddToCart
-              styles={this.state.styles}
+            <div className="right-pane">
+              <ProductInfo
+                ratings={this.state.ratings}
+                info={this.state.info}
+                sale_price={this.state.styles[this.state.styleIndex]?.sale_price}
+              />
+              <StyleSelector
+                updateStyle={this.updateStyle}
+                styleIndex={this.state.styleIndex}
+                styles={this.state.styles}
+              />
+              <AddToCart
+                styles={this.state.styles}
+                styleIndex={this.state.styleIndex}
+              />
+            </div>
+          </div>
+        )
+      } else {
+        page = (
+          <div className="overview-main">
+            <ImageGallery
               styleIndex={this.state.styleIndex}
+              stylesData={this.state.styles}
+              view={this.state.view}
+              changeView={this.changeView}
             />
           </div>
-        </div>
-      )
+        )
+      }
     }
     return (page)
   }

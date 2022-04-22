@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import Cards from './Cards.jsx';
+import PropTypes from 'prop-types';
 
 
 class YourOutfit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // yourOutfitIds: [64624, 64628, 64626, 64621, 64620]
       yourOutfitIds: []
     }
-    this.onSetItem = this.onSetItem.bind(this);
-    this.onDeleteItem = this.onDeleteItem.bind(this);
+    this.setYourOutfits = this.setYourOutfits.bind(this);
+    this.getYourOutfits = this.getYourOutfits.bind(this);
+    this.deleteYourOutfits = this.deleteYourOutfits.bind(this);
   }
 
   componentDidMount() {
-    this.onSetItem()
+    this.setYourOutfits()
   }
 
-  onSetItem() {
+  setYourOutfits() {
     window.localStorage.clear();
     window.localStorage.setItem('yourOutfits', [64624, 64628, 64626, 64621, 64620]);
     let testArray = window.localStorage.getItem('yourOutfits');
@@ -27,13 +28,11 @@ class YourOutfit extends Component {
     })
   }
 
-  onGetItem(){
+  getYourOutfits(){
     JSON.parse(window.localStorage.getItem('yourOutfits'));
   }
 
-  onDeleteItem(e) {
-    e.preventDefault();
-    let id = e.target.value;
+  deleteYourOutfits(id) {
     let originalArray = this.state.yourOutfitIds;
     let newArray = [];
     for (var i = 0; i < originalArray.length; i++) {
@@ -53,14 +52,23 @@ class YourOutfit extends Component {
 
       return(
         <>
-        <div className="your-outfit-carousel" data-testid="your-outfit-id">
-          {items.map((eachId) =>
-            <Cards key={eachId} id={eachId} overviewId={this.state.overviewId} handleOverviewIdChange={this.handleOverviewIdChange}/>
-          )}
+        <div className="your-outfit-container">
+          <h3>Your Outfit</h3>
+          <div className="your-outfit-carousel" data-testid="your-outfit-id">
+            {items.map((eachId) =>
+              <Cards key={'yo-' + eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits}/>
+            )}
+          </div>
         </div>
         </>
     )
   }
+}
+
+YourOutfit.propTypes = {
+  overviewId: PropTypes.number,
+  setOverviewId: PropTypes.func,
+  id: PropTypes.number
 }
 
 export default YourOutfit;

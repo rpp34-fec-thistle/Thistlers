@@ -11,13 +11,19 @@ class DefaultView extends React.Component {
       currentPhoto: '',
       currentStyle: 0,
       hiddenPrev: true,
-      hiddenNext: false
+      hiddenNext: false,
+      zoomed: false,
+      x: 0,
+      y: 0
     }
 
     this.cyclePhotos = this.cyclePhotos.bind(this);
     this.selectedPhoto = this.selectedPhoto.bind(this);
     this.nextImage = this.nextImage.bind(this);
     this.prevImage = this.prevImage.bind(this);
+    this.zoomImage = this.zoomImage.bind(this);
+    this.mouseMove = this.mouseMove.bind(this);
+    this.mouseLeave = this.mouseLeave.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +45,41 @@ class DefaultView extends React.Component {
     if(this.props.styles !== prevProps.styles || this.props.styleIndex !== prevProps.styleIndex) {
       this.componentDidMount()
       this.selectedPhoto(0)
+    }
+  }
+
+  zoomImage() {
+    if (this.props.currentView === 'expanded') {
+      if (this.state.zoomed) {
+        this.setState({zoomed: false})
+      } else {
+        this.setState({zoomed: true})
+      }
+    }
+  }
+
+  mouseMove(e){
+    if (this.state.zoomed) {
+      let image = document.querySelector('.image-container');
+      let mouseX = e.nativeEvent.offsetX;
+      let mouseY = e.nativeEvent.offsetY;
+     image.scrollTo({
+       top: (mouseY * 1.5),
+       left: (mouseX * 1.5),
+       behavior: 'auto'
+     })
+    }
+  }
+  mouseLeave() {
+    if (this.state.zoomed) {
+      let image = document.querySelector('.image-container');
+      let width = image.offsetWidth;
+      let height = image.offsetHeight;
+     image.scrollTo({
+       top: (height / 1.5),
+       left: (width / 1.5),
+       behavior: 'auto'
+     })
     }
   }
 
@@ -160,6 +201,14 @@ class DefaultView extends React.Component {
     } else {
       prevButton = (<button onClick={this.cyclePhotos} name="Prev">⬅️</button>)
     }
+    let viewClassName;
+    if (this.props.currentView === 'default') {
+      viewClassName = 'selected-image';
+    } else if (this.state.zoomed) {
+      viewClassName = "expanded-zoom"
+    } else {
+      viewClassName = 'selected-image-expanded';
+    }
     return(
       <div data-testid="default-view" className="default-view">
         <div className="overview-images">
@@ -172,11 +221,17 @@ class DefaultView extends React.Component {
             prev={this.state.hiddenPrev}
           />
           {prevButton}
+          <div className="image-container">
           <img
-          className="selected-image"
+          onMouseEnter={this.mouseMove}
+          onMouseMove={this.mouseMove}
+          onMouseLeave={this.mouseLeave}
+          onClick={this.zoomImage}
+          className={viewClassName}
           src={this.state.currentPhoto}
           alt="s-image">
           </img>
+          </div>
           {nextButton}
         </div>
       </div>
@@ -186,7 +241,8 @@ class DefaultView extends React.Component {
 
 DefaultView.propTypes = {
   styles: PropTypes.array,
-  styleIndex: PropTypes.number
+  styleIndex: PropTypes.number,
+  currentView: PropTypes.string
 }
 
 

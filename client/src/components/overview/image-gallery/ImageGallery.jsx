@@ -8,7 +8,7 @@ import FullScreenExitImage from './svg-icons/fullscreen-exit.svg';
 
 function ImageGallery(props) {
     let view;
-    view = <DefaultView styleIndex={props.styleIndex} styles={props.stylesData}/>;
+    view = <DefaultView currentView={props.view} styleIndex={props.styleIndex} styles={props.stylesData}/>;
     let changeView = () => {
       props.changeView()
     }

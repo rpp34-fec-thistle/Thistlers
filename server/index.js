@@ -98,6 +98,27 @@ app.post('/questions', (req, res) => {
   })
 })
 
+app.post('/questions/:question_id/answers', (req, res) => {
+  const { body, name, email } = req.body;
+  const question_id = req.params.question_id;
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${question_id}/answers`,
+    method: 'post',
+    headers: {'Authorization': API_KEY},
+    data: {
+      body,
+      name,
+      email
+    }
+  })
+  .then(() => {
+    res.status(201).send('answer created successfully');
+  })
+  .catch(err => {
+    res.status(500).send(err);
+  })
+})
+
 app.put('/answers/:answer_id/helpful', (req, res) => {
   const answerId = req.params.answer_id;
   axios({
@@ -223,11 +244,11 @@ app.get('/reviews-meta/:id', (req, res) => {
 app.post('/newReview', (req, res) => {
 
   const testData = {
-    product_id: 2, 
+    product_id: 2,
     rating: 4,
     summary: 'it was nice',
     body: 'test, test, etst',
-    recommend: true, 
+    recommend: true,
     name: 'john',
     email: 'dh03w4@gmail.com',
     photos: ["www.somethimg.com", "www.somethingelse.com"],

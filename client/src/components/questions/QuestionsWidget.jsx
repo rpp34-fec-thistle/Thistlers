@@ -17,7 +17,8 @@ class QuestionWidget extends Component {
       numberDisplayed: 2,
       moreQuestions: false,
       allAnswersDisplayed: [],
-      reportedAnswers: []
+      reportedAnswers: [],
+      selectedQuestion: {}
     }
   }
 
@@ -112,6 +113,10 @@ class QuestionWidget extends Component {
     }
   }
 
+  onAddAnswer(question) {
+    this.setState({ selectedQuestion: question });
+  }
+
   render() {
     return (
       <div className="question-widget-container">
@@ -129,6 +134,7 @@ class QuestionWidget extends Component {
             onHelpfulClick={this.onHelpfulClick.bind(this)}
             onReport={this.onReport.bind(this)}
             reportedAnswers={this.state.reportedAnswers}
+            onAddAnswer={this.onAddAnswer.bind(this)}
           />
           <Footer
             moreQuestions={this.state.moreQuestions}
@@ -136,6 +142,7 @@ class QuestionWidget extends Component {
             productName={testProductName}
             productId={testProductId}
             updateQuestionState={this.updateQuestionState.bind(this)}
+            selectedQuestion={this.state.selectedQuestion}
           />
         </div>
       </div>

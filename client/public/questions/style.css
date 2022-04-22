@@ -59,6 +59,12 @@
   text-decoration: underline;
 }
 
+.add-answer-button:hover {
+  /* font-weight: bold; */
+  color:rgb(70, 70, 70);
+  cursor: pointer;
+}
+
 .answer-icon {
   font-weight: bold;
   font-size: 1.1rem;
@@ -113,12 +119,17 @@
 }
 
 .helpful-button:hover {
-  font-weight: bold;
+  color:rgb(70, 70, 70);
   cursor: pointer;
 }
 
 .report-button {
   text-decoration: underline;
+}
+
+.report-button:hover {
+  color:rgb(70, 70, 70);
+  cursor: pointer;
 }
 
 .report-button.disabled {
@@ -137,7 +148,7 @@
   width: 100%;
 }
 
-.add-question-form {
+.add-qa-form {
   background-color: #eeee;
   display: flex;
   flex-direction: column;
@@ -148,9 +159,10 @@
   margin: auto;
   border-radius: 5px;
   border: 5px black solid;
+  padding: 20px;
 }
 
-.add-question-title {
+.add-qa-title {
   font-size: 35px;
   padding-bottom: 2px;
   margin-bottom: 2px;
@@ -158,10 +170,23 @@
   margin-top: 0px;
 }
 
+.add-qa-subtitle {
+  font-size: 20px;
+  padding-top: 2px;
+  margin-top: 2px;
+}
+
 .add-question-subtitle {
   font-size: 20px;
   padding-top: 2px;
   margin-top: 2px;
+}
+
+.add-answer-subtitle {
+  font-size: 20px;
+  padding-top: 2px;
+  margin-top: 2px;
+  color: black;
 }
 
 .add-question-modal {
@@ -177,23 +202,45 @@
   display: none;
 }
 
-.submit-question-button {
-  margin: 15px 0px 25px 0px;
+.add-answer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  display: none;
+}
+
+.submit-qa-button {
+  margin: 25px 0px 25px 0px;
   background-color: rgb(141, 140, 140);
   color: white;
   padding: 5px 8px;
   border-radius: 5px;
 }
 
-.submit-question-button:hover {
+.submit-qa-button:hover {
   background-color: rgb(119, 118, 118);
   color: rgb(243, 240, 240);
   cursor: pointer;
 }
 
-.product-name {
+.add-question-product-name {
   color: rgb(80, 135, 80);
   font-size: 23px;
+}
+
+.add-answer-product-name {
+  color: rgb(80, 135, 80);
+  font-size: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .input-container {
@@ -207,17 +254,17 @@
   max-width: 100%;
 }
 
-.add-question-form label {
+.add-qa-form label {
   margin-left: 5px;
 }
 
-.add-question-form input {
+.add-qa-form input {
   width: 350px;
   max-width: 95%;
   margin: auto;
 }
 
-.question-input textarea {
+.qa-input textarea {
   height: 50px;
   width: 350px;
   max-width: 95%;
@@ -271,4 +318,5 @@
   padding: 3px;
   margin:3px;
   font-size: 0.8rem;
+  font-weight: 100;
 }

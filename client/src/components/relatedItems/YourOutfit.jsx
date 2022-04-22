@@ -32,9 +32,7 @@ class YourOutfit extends Component {
     JSON.parse(window.localStorage.getItem('yourOutfits'));
   }
 
-  deleteYourOutfits(e) {
-    e.preventDefault();
-    let id = e.target.value;
+  deleteYourOutfits(id) {
     let originalArray = this.state.yourOutfitIds;
     let newArray = [];
     for (var i = 0; i < originalArray.length; i++) {
@@ -56,7 +54,7 @@ class YourOutfit extends Component {
         <>
         <div className="your-outfit-carousel" data-testid="your-outfit-id">
           {items.map((eachId) =>
-            <Cards key={eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits}/>
+            <Cards key={'yo-' + eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits}/>
           )}
         </div>
         </>
@@ -66,7 +64,8 @@ class YourOutfit extends Component {
 
 YourOutfit.propTypes = {
   overviewId: PropTypes.number,
-  setOverviewId: PropTypes.func
+  setOverviewId: PropTypes.func,
+  id: PropTypes.number
 }
 
 export default YourOutfit;

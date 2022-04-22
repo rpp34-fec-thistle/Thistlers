@@ -14,7 +14,7 @@ class Cards extends Component {
       name: ''
     };
     this.setCard = this.setCard.bind(this);
-    this.setNewItem = this.setNewItem.bind(this);
+    // this.setNewItem = this.setNewItem.bind(this);
     this.clickModal = this.clickModal.bind(this);
     this.clickDelete = this.clickDelete.bind(this);
   }
@@ -60,21 +60,13 @@ class Cards extends Component {
 
   }
 
-  setNewItem (e) {
-    e.preventDefault();
-    console.log('this will navigate to detail page', this.props.id);
-    this.props.setOverviewId(this.props.id);
-    this.props.setRelatedProductsIds();
-  }
-
   clickModal(e) {
     e.preventDefault();
     console.log('modal will render')
   }
 
-  clickDelete(e) {
-    e.preventDefault();
-    console.log('item will delete');
+  clickDelete() {
+    this.props.deleteYourOutfits(this.props.id);
   }
 
 
@@ -82,11 +74,11 @@ class Cards extends Component {
 
     return (
       <>
-      {this.state.image !== null &&
+      {this.state.image && this.state.image !== null &&
         <div className="card" data-testid='test-id' id={this.props.id}>
 
           <div className="card-image">
-            <img src={this.state.image} alt='This is an image of the product as described below.' onClick={this.setNewItem}/>
+            <img src={this.state.image} alt='This is an image of the product as described below.' onClick={()=> this.props.setOverviewId(this.props.id)}/>
 
             {this.props.displayButton === 'related-products' ? <button className="overlay" onClick={this.clickModal}></button> : <button className="overlay" onClick={this.clickDelete}></button> }
           </div>
@@ -98,7 +90,7 @@ class Cards extends Component {
               {this.state.category}
             </div>
 
-              <button onClick={this.setNewItem} className="set-text-name">{this.state.name}</button>
+              <button onClick={()=> this.props.setOverviewId(this.props.id)} className="set-text-name">{this.state.name}</button>
 
             <div className="text-price">
               {this.state.price}

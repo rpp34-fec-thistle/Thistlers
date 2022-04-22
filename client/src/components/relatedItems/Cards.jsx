@@ -14,7 +14,6 @@ class Cards extends Component {
       name: ''
     };
     this.setCard = this.setCard.bind(this);
-    // this.setNewItem = this.setNewItem.bind(this);
     this.clickModal = this.clickModal.bind(this);
     this.clickDelete = this.clickDelete.bind(this);
   }

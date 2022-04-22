@@ -137,4 +137,36 @@ button.set-text-name {
   transform: translate(-50%, -50%);
   border: 1px solid black;
   z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+
+.comparison-modal-header {
+  padding: 15px 12px 0px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comparison-modal-header .title {
+  font-size: 1.25rem;
+}
+
+.comparison-modal-header .comparison-modal-close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.comparison-modal-body {
+  padding: 10px;
+}
+
+.comparison-modal-items {
+  padding: 15px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

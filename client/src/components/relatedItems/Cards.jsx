@@ -11,7 +11,8 @@ class Cards extends Component {
       price: null,
       salePrice: null,
       category: '',
-      name: ''
+      name: '',
+      features: []
     };
     this.setCard = this.setCard.bind(this);
     this.clickModal = this.clickModal.bind(this);
@@ -41,9 +42,23 @@ class Cards extends Component {
         axios.get(productsAPI)
           .then((data) => {
             var result = data.data;
+
+            const valueArrayMaker = (objArr) => {
+              let newArray = [];
+              objArr.forEach((obj) => {
+                if (obj.value !== null) {
+                  newArray.push(obj.value);
+                }
+              })
+              return newArray;
+            }
+
+            var itemFeatures = valueArrayMaker(result.features)
+
             this.setState({
               category: result.category,
-              name: result.name
+              name: result.name,
+              features: itemFeatures
             });
             return result;
           })
@@ -70,7 +85,6 @@ class Cards extends Component {
 
 
   render() {
-
     return (
       <>
       {this.state.image && this.state.image !== null &&
@@ -84,10 +98,17 @@ class Cards extends Component {
               <button className="overlay" onClick={this.clickModal}></button>
                 <div className="comparison-modal" id="comparison-modal">
                   <div className="comparison-modal-header">
-                    <div className="comparison-modal-title">Comparison Modal</div>
-                      <button className="comparison-modal-close-button">&times;</button>
-                    </div>
-                    <div className="comparison-modal-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id laborum commodi dolore obcaecati quisquam itaque dignissimos maiores voluptate ducimus, sunt, ea temporibus laudantium atque est enim ratione exercitationem nemo dolores molestiae vitae et explicabo aut praesentium fugiat? Amet, expedita ex?
+                    <div className="comparison-modal-title">COMPARING</div>
+                    <button className="comparison-modal-close-button">&times;</button>
+                  </div>
+                  <div className="comparison-modal-header">
+                    <div className="comparison-overview-name">{this.props.overviewIdName}</div>
+                    <div className="comparison-current-item-name">{this.state.name}</div>
+                  </div>
+                  <div className="comparison-modal-body">
+                    <ul className="comparison-modal-list">
+
+                    </ul>
                   </div>
                 </div>
               <div className="comparison-modal-overlay"></div>
@@ -125,6 +146,8 @@ class Cards extends Component {
 Cards.propTypes = {
     id: PropTypes.number,
     overviewId: PropTypes.number,
+    overviewIdName: PropTypes.string,
+    overviewIdFeatures: PropTypes.array,
     setOverviewId: PropTypes.func,
     displayButton: PropTypes.string,
     deleteYourOutfits: PropTypes.func,

@@ -16,7 +16,6 @@
 .related-products-carousel {
   -ms-overflow-style: none;
   scrollbar-width: none;
-  clear: both;
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth

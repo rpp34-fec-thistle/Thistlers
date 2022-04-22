@@ -7,8 +7,6 @@ class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // overviewId: 64626,
-      // relatedProductsIds: [],
       image: '',
       price: null,
       salePrice: null,
@@ -16,11 +14,8 @@ class Cards extends Component {
       name: ''
     };
     this.setCard = this.setCard.bind(this);
-    this.setNewItem = this.setNewItem.bind(this);
     this.clickModal = this.clickModal.bind(this);
     this.clickDelete = this.clickDelete.bind(this);
-    // this.setRelatedProductsIds = this.setRelatedProductsIds.bind(this);
-    // this.handleOverviewIdChange = this.handleOverviewIdChange.bind(this);
   }
 
   componentDidMount() {
@@ -53,19 +48,15 @@ class Cards extends Component {
             return result;
           })
           .catch((err) => {
-            // console.log('API call to /products error');
+            console.log('API call to /products error');
             return err;
           })
       })
       .catch((err) => {
-        // console.log('API call to /styles error');
+        console.log('API call to /styles error');
         return err;
       })
 
-  }
-
-  setNewItem () {
-    this.props.handleOverviewIdChange(this.props.id);
   }
 
   clickModal(e) {
@@ -73,47 +64,20 @@ class Cards extends Component {
     console.log('modal will render')
   }
 
-  clickDelete(e) {
-    e.preventDefault();
-    // console.log(this.props.onDeleteItem);
-    console.log('item will delete');
+  clickDelete() {
+    this.props.deleteYourOutfits(this.props.id);
   }
 
-  // setRelatedProductsIds = () => {
-
-  //   const relatedIdsAPI = `http://localhost:8080/products/${this.state.overviewId}/related`;
-
-  //   axios(relatedIdsAPI)
-  //     .then((data) => {
-  //       var result = data.data;
-  //       this.setState({
-  //         relatedProductsIds: result
-  //       });
-  //       return result;
-  //     })
-  //     .catch((err) => {
-  //       // console.log('error in setRelatedProductsIds');
-  //       return err;
-  //     })
-
-  // }
-
-  // handleOverviewIdChange = (id) => {
-  //   this.setState({
-  //     overviewId: id
-  //   })
-  //   this.setRelatedProductsIds();
-  // }
 
   render() {
 
     return (
       <>
-      {this.state.image !== null &&
-        <div className="card" data-testid='test-id'>
+      {this.state.image && this.state.image !== null &&
+        <div className="card" data-testid='test-id' id={this.props.id}>
 
           <div className="card-image">
-            <img src={this.state.image} alt='This is an image of the product as described below.' onClick={this.setNewItem}/>
+            <img src={this.state.image} alt='This is an image of the product as described below.' onClick={()=> this.props.setOverviewId(this.props.id)}/>
 
             {this.props.displayButton === 'related-products' ? <button className="overlay" onClick={this.clickModal}></button> : <button className="overlay" onClick={this.clickDelete}></button> }
           </div>
@@ -125,7 +89,7 @@ class Cards extends Component {
               {this.state.category}
             </div>
 
-              <button onClick={this.setNewItem} className="set-text-name">{this.state.name}</button>
+              <button onClick={()=> this.props.setOverviewId(this.props.id)} className="set-text-name">{this.state.name}</button>
 
             <div className="text-price">
               {this.state.price}
@@ -144,9 +108,10 @@ class Cards extends Component {
 Cards.propTypes = {
     id: PropTypes.number,
     overviewId: PropTypes.number,
-    handleOverviewIdChange: PropTypes.func,
+    setOverviewId: PropTypes.func,
     displayButton: PropTypes.string,
-    onDeleteItem: PropTypes.func
+    deleteYourOutfits: PropTypes.func,
+    setRelatedProductsIds: PropTypes.func
 }
 
 

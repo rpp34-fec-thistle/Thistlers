@@ -11,10 +11,13 @@ class RelatedProducts extends Component {
 
     return(
       <>
-      <div className="related-products-carousel"  data-testid='related-products-id'>
+      <div className="related-products-container">
+        <h3>Related Products</h3>
+        <div className="related-products-carousel"  data-testid='related-products-id'>
         {items.length > 0 && items.map((eachId) =>
           <Cards key={'rp-' + eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds}/>
         )}
+      </div>
       </div>
       </>
     )

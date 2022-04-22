@@ -50,11 +50,7 @@ class RelatedItemsWidget extends Component {
     return (
       <>
       <div className="related-items-widget">
-        <h3>Related Products</h3>
         <RelatedProducts overviewId={this.state.overviewId} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds}/>
-      </div>
-      <div className="related-items-widget">
-        <h3>Your Outfit</h3>
         <YourOutfit overviewId={this.state.overviewId} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds}/>
       </div>
       </>

@@ -90,6 +90,7 @@ class Cards extends Component {
                     <div className="comparison-modal-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id laborum commodi dolore obcaecati quisquam itaque dignissimos maiores voluptate ducimus, sunt, ea temporibus laudantium atque est enim ratione exercitationem nemo dolores molestiae vitae et explicabo aut praesentium fugiat? Amet, expedita ex?
                   </div>
                 </div>
+              <div className="comparison-modal-overlay"></div>
 
               </>
 

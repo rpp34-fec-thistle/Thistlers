@@ -79,7 +79,23 @@ class Cards extends Component {
           <div className="card-image">
             <img src={this.state.image} alt='This is an image of the product as described below.' onClick={()=> this.props.setOverviewId(this.props.id)}/>
 
-            {this.props.displayButton === 'related-products' ? <button className="overlay" onClick={this.clickModal}></button> : <button className="overlay" onClick={this.clickDelete}></button> }
+            {this.props.displayButton === 'related-products' ?
+              <>
+              <button className="overlay" onClick={this.clickModal}></button>
+                <div className="comparison-modal" id="comparison-modal">
+                  <div className="comparison-modal-header">
+                    <div className="comparison-modal-title">Comparison Modal</div>
+                      <button className="comparison-modal-close-button">&times;</button>
+                    </div>
+                    <div className="comparison-modal-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id laborum commodi dolore obcaecati quisquam itaque dignissimos maiores voluptate ducimus, sunt, ea temporibus laudantium atque est enim ratione exercitationem nemo dolores molestiae vitae et explicabo aut praesentium fugiat? Amet, expedita ex?
+                  </div>
+                </div>
+
+              </>
+
+              : <button className="overlay" onClick={this.clickDelete}></button> }
+
+
           </div>
 
 

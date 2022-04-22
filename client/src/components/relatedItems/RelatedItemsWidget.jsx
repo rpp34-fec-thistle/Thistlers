@@ -84,7 +84,6 @@ class RelatedItemsWidget extends Component {
   }
 
   render() {
-    console.log('overviewIdFeatures: ', this.state.overviewIdFeatures)
 
     return (
       <>

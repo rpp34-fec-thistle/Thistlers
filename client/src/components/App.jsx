@@ -16,10 +16,10 @@ class App extends Component {
   render() {
     return(
       <>
-      {/* <Overview/> */}
-      <RelatedItems/>
-      {/* <Questions/>
-      <Reviews/> */}
+      <Overview/>
+      {/* <RelatedItems/> */}
+      <Questions/>
+      <Reviews/>
       </>
     )
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Ratings from './Ratings.jsx';
 import PropTypes from 'prop-types';
+import ComparisonModal from './ComparisonModal.jsx'
 
 class Cards extends Component {
   constructor(props) {
@@ -12,11 +13,13 @@ class Cards extends Component {
       salePrice: null,
       category: '',
       name: '',
-      features: []
-    };
+      features: [],
+      combinedFeatures: []
+    }
     this.setCard = this.setCard.bind(this);
     this.clickModal = this.clickModal.bind(this);
     this.clickDelete = this.clickDelete.bind(this);
+    this.setFeaturesArray = this.setFeaturesArray.bind(this)
   }
 
   componentDidMount() {
@@ -83,6 +86,13 @@ class Cards extends Component {
     this.props.deleteYourOutfits(this.props.id);
   }
 
+  setFeaturesArray() {
+
+    // let newFeaturesArray = [...new Set([...originalArr, ...currentArr])];
+    this.setState({
+      combinedFeatures: newFeaturesArray
+    })
+  }
 
   render() {
     return (
@@ -106,9 +116,7 @@ class Cards extends Component {
                     <div className="comparison-current-item-name">{this.state.name}</div>
                   </div>
                   <div className="comparison-modal-body">
-                    <ul className="comparison-modal-list">
-
-                    </ul>
+                    <ComparisonModal />
                   </div>
                 </div>
               <div className="comparison-modal-overlay"></div>

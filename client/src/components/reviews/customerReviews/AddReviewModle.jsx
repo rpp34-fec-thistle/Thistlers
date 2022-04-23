@@ -17,14 +17,35 @@ class NewReviewModle extends Component {
       return (
         <div className="new-review-modle">
           <button onClick = {this.props.toggleModle} className="btn-exit-new-review-modle">Exit</button>
+
+          <div className="new-review-modle-identification-container">
+            <div className="review-name-container">
+              <div className="review-name-next">Username: </div>
+              <input placeholder = "username" type="text" className="review-name-input" />
+            </div>
+
+            <div className="review-email-container">
+              <div className="review-email-text">Email: </div>
+              <input placeholder = "email" type="text" className="review-email-input" />
+            </div>
+          </div>
+
           <input placeholder = "5" type="text" className="review-rating-input" />
-          <input placeholder = "summary" maxLength = "250" type="text" className="review-summary-input" />
-          <input placeholder = "body" type="text" className="review-body-input" />
-          <input type="checkbox" className="review-recommend-input" />
-          <input placeholder = "username" type="text" className="review-name-input" />
-          <input placeholder = "email" type="text" className="review-email-input" />
-          <textarea name="" id="" cols="30" rows="10" className="review-photo-urls"></textarea>
-          characteristics?
+          
+          <div className="review-summary-container">
+            <input placeholder = "summary" maxLength = "250" type="text" className="review-summary-input" />
+          </div>
+
+          <div className="review-body-container">
+            <textarea placeholder = "body" type="text" className="review-body-input"></textarea>
+          </div>
+          
+          <div className="review-recommended-container">
+            <input type="checkbox" className="review-recommend-input" />
+            <span>I Recommend This Product!</span>
+          </div>
+          
+          {/* <textarea name="" id="" cols="30" rows="10" className="review-photo-urls"></textarea> */}
 
           {Object.keys(this.props.metadata.characteristics).map(meta => {
             return (
@@ -59,7 +80,8 @@ class NewReviewModle extends Component {
     var recommend = document.querySelector('.review-recommend-input').checked;
     var name = document.querySelector('.review-name-input').value;
     var email = document.querySelector('.review-email-input').value;
-    var photos = document.querySelector('.review-photo-urls').value;
+    var photos = [];
+    // var photos = document.querySelector('.review-photo-urls').value;
     var characteristics = {};
 
     for (var x in this.props.metadata.characteristics) {

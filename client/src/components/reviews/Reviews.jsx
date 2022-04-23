@@ -21,7 +21,7 @@ class Reviews extends Component {
   render() {
     return (
       <section className="reviews-container">
-        <h1 className="reviews-title">Ratings & Reviews</h1>
+        <h1 className="reviews-title">RATINGS & REVIEWS</h1>
         <div className="reviews">
           <Breakdown metadata={this.state.metadata}/>
           <CustomerReviews productId={this.state.productId} metadata = {this.state.metadata} reviews={this.state.reviews} totalReviews={this.state.reviews.length} refresh={() => this.refresh.call(this, this.state.productId)}/>

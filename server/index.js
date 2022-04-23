@@ -226,10 +226,11 @@ app.get('/reviews/:id', (req, res) => {
   })
 });
 
+//get reviews
 app.get('/reviews-meta/:id', (req, res) => {
   let {id} = req.params;
   axios({
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${id}`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${id}&sort=newest&count=1000`,
     headers: {'Authorization': API_KEY}
   })
   .then((response) => {
@@ -241,40 +242,25 @@ app.get('/reviews-meta/:id', (req, res) => {
   });
 });
 
+//create a new review
 app.post('/newReview', (req, res) => {
-
-  const testData = {
-    product_id: 2,
-    rating: 4,
-    summary: 'it was nice',
-    body: 'test, test, etst',
-    recommend: true,
-    name: 'john',
-    email: 'dh03w4@gmail.com',
-    photos: ["www.somethimg.com", "www.somethingelse.com"],
-    characteristics: {
-      14: 5,
-      15: 2,
-      16: 3
-    }
-  }
-
   axios({
     method: 'post',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews`,
     headers: {'Authorization': API_KEY},
-    data: testData
+    data: req.body
   })
   .then((response) => {
-    console.log('success posting data');
+    console.log('success posting data: ', response.data);
     res.send(response.data);
   })
   .catch((err) => {
     console.log('error in reviews post request', err);
     res.status(500).send(err);
-  })
+  });
 });
 
+//makr a review helpful
 app.get('/review-helpful/:id', (req, res) => {
   let {id} = req.params;
 
@@ -293,6 +279,7 @@ app.get('/review-helpful/:id', (req, res) => {
   });
 });
 
+//report a review
 app.get('/review-report/:id', (req, res) => {
   let {id} = req.params;
 

@@ -13,10 +13,10 @@ class ReviewInteractions extends Component {
 
   render() {
     return (
-      <div className="review-interactions">
-        review Interactions!
-        <button className="more-reviews">more reviews</button>
-        <button onClick = {() => this.toggleReviewModle.call(this)} className="add-review">add review</button>
+      <div className="review-interactions-1">
+        <hr />
+        {/* <button className="more-reviews">more reviews</button> */}
+        <button onClick = {() => this.toggleReviewModle.call(this)} className="add-review">ADD A REVIEW  +</button>
         <NewReviewModle productId={this.props.productId} metadata={this.props.metadata} toggleModle = {() => this.toggleReviewModle.call(this)} render = {this.state.newReviewModle}/>
       </div>
     );

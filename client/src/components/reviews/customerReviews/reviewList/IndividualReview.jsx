@@ -1,15 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Star from '../../Star.jsx';
 
 const IndividualReview = props => {
   const review = props.review;
   const reviewId = review.review_id;
+  var reviewStars = [];
+  for (var i = 1; i <= review.rating; i++) {
+    reviewStars.push(1);
+  }
 
   return ( 
     <div className="individual-review">
       <div className="review-header">
-        <div className="review-stars">{review.rating}</div>
+        <div className="review-stars">
+          {reviewStars.map((review, i) => <Star key={`review-star-${i}`} starVal={1}/>)}
+        </div>
 
         <div className="review-name-and-date">Test, 03/20/10</div>
       </div>

@@ -11,8 +11,6 @@ class NewReviewModle extends Component {
   }
 
   render() {
-    // console.log(this.parseMetadata(this.props.metadata));
-    // console.log("newReviewModle: " ,this.props.metadata);
     if (this.props.render) {
       return (
         <div className="new-review-modle">
@@ -96,6 +94,7 @@ class NewReviewModle extends Component {
     })
     .then(res => {
       console.log('res: ', res.data);
+      this.props.toggleModle();
       this.props.fetchReviews();
     })
     .catch(err => {

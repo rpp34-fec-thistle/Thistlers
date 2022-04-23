@@ -242,6 +242,23 @@ app.get('/reviews-meta/:id', (req, res) => {
   });
 });
 
+app.post('/get-reviews', (req, res) => {
+  const id = req.body.id;
+  const sort = req.body.sort;
+
+  axios({
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews?product_id=${id}&sort=${(sort || 'relevant')}&count=1000`,
+    headers: {'Authorization': API_KEY}
+  })
+  .then((response) => {
+    res.send(response.data);
+  })
+  .catch((err) => {
+    console.log('error in reviews GET request');
+    res.status(500).send(err);
+  });
+});
+
 //create a new review
 app.post('/newReview', (req, res) => {
   axios({

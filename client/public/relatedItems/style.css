@@ -1,6 +1,6 @@
 .related-items-widget {
   padding-top: 100px;
-  padding-left: 200px
+  padding-left: 100px
 }
 
 .your-outfit-carousel {
@@ -28,7 +28,7 @@
   display: none;
 }
 
-.your-outfit-carousel > .card > .card-image > .overlay {
+.your-outfit-carousel>.card>.card-image>.overlay {
   background-color: white;
   opacity: .9;
   display: block;
@@ -37,7 +37,7 @@
   height: 100%;
 }
 
-.related-products-carousel > .card > .card-image > .overlay::before {
+.related-products-carousel>.card>.card-image>.overlay::before {
   background: rgba(255, 255, 255, 0);
   opacity: 1;
   display: block;
@@ -50,7 +50,7 @@
   content: "\2606";
 }
 
-.your-outfit-carousel > .card > .card-image > .overlay::before {
+.your-outfit-carousel>.card>.card-image>.overlay::before {
   background: rgba(255, 255, 255, 0);
   opacity: 1;
   display: block;
@@ -123,8 +123,8 @@ h3 {
 }
 
 button.set-text-name {
-  background:none;
-  border:none;
+  background: none;
+  border: none;
   padding: 0%;
   font-family: DM Sans, Roboto, sans-serif;
   font-weight: bold;
@@ -134,7 +134,8 @@ button.set-text-name {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
   border: 1px solid black;
   z-index: 10;
   background-color: white;
@@ -142,8 +143,12 @@ button.set-text-name {
   max-width: 80%;
 }
 
+.comparison-modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
 .comparison-modal-header {
-  padding: 15px 20px 0px 12px;
+  padding: 20px 20px 0px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -165,12 +170,30 @@ button.set-text-name {
 }
 
 .comparison-modal-body {
-  padding: 30px 10px 30px 10px;
+  padding: 25px 20px 35px 15px;
+  display: flex;
+  flex-direction: column
 }
 
-.comparison-modal-items {
-  padding: 15px 10px;
+.features-compare {
   display: flex;
+  padding-top: 10px;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+}
+
+#comparison-modal-overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .5);
+  pointer-events: none;
+}
+
+#comparison-modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
 }

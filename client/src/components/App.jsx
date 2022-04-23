@@ -17,9 +17,9 @@ class App extends Component {
     return(
       <>
       <Overview/>
-      {/* <RelatedItems/> */}
-      {/* <Questions/> */}
-      {/* <Reviews/> */}
+      <RelatedItems/>
+      <Questions/>
+      <Reviews/>
       </>
     )
   }

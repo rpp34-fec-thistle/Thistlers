@@ -16,7 +16,7 @@ class ComparisonModal extends Component {
 
     const uniqueId = "comparison-modal-" + this.props.id;
 
-    console.log('unique id', uniqueId)
+    // console.log('unique id', uniqueId)
 
     const featuresArr = this.props.features;
     const overviewFeaturesArr = this.props.overviewIdFeatures;

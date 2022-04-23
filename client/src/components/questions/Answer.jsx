@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import helpers from './helpers.js';
 
 const months = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"]
@@ -12,7 +13,12 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
   }
 
   const onAnswerLike = () => {
-    onHelpfulClick('answers', answer.id);
+    if (helpers.checkAnswerInLocalStorage(answer.id)) {
+      return;
+    } else {
+      helpers.addAnswerToLocalStorage(answer.id);
+      onHelpfulClick('answers', answer.id);
+    }
   }
 
   const onAnswerReport = (e) => {

@@ -32,6 +32,7 @@ class AddToCart extends React.Component {
 
   render() {
     return(
+      <>
       <div data-testid="add-to-cart" className="add-to-cart">
        <SelectSize
         changeSize={this.changeSize}
@@ -42,12 +43,15 @@ class AddToCart extends React.Component {
         sku={this.state.sku}
         stock={this.props.styles[this.props.styleIndex]?.skus[this.state.sku]?.quantity}
        />
+      </div>
+       <div className="bag">
        <AddToBag
        sku={this.state.sku}
        quantity={this.state.selectedQuantity}
        stock={this.props.styles[this.props.styleIndex]?.skus[this.state.sku]?.quantity}
        />
-      </div>
+       </div>
+      </>
     )
   }
 }

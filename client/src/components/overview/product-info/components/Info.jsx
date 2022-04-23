@@ -13,8 +13,8 @@ function Info(props) {
   }
     return(
       <div className="info">
-        {props.info.category}
-        <h4>{props.info.name}</h4>
+        <p>{(props.info.category).toUpperCase()}</p>
+        <h1>{props.info.name}</h1>
         {price}
       </div>
     )

@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import AllImagesThumbnails from './default-view-components/AllImagesThumbnails.jsx';
+import LeftArrow from './svg-icons/left-arrow.svg'
+import RightArrow from './svg-icons/right-arrow.svg'
+
 
 class DefaultView extends React.Component {
   constructor(props) {
@@ -194,12 +197,16 @@ class DefaultView extends React.Component {
     if (this.state.hiddenNext) {
       nextButton = <></>
     } else {
-      nextButton = (<button onClick={this.cyclePhotos} name="Next">➡️</button>)
+      nextButton = (<button className="next-button-main" onClick={this.cyclePhotos} name="Next">
+        <img className="next-img" src={RightArrow} onClick={this.cyclePhotos} name="Next"></img>
+      </button>)
     }
     if (this.state.hiddenPrev) {
       prevButton = <></>
     } else {
-      prevButton = (<button onClick={this.cyclePhotos} name="Prev">⬅️</button>)
+      prevButton = (<button  className="prev-button-main" onClick={this.cyclePhotos} name="Prev">
+        <img className="prev-img" src={LeftArrow} onClick={this.cyclePhotos} name="Prev"></img>
+      </button>)
     }
     let viewClassName;
     if (this.props.currentView === 'default') {

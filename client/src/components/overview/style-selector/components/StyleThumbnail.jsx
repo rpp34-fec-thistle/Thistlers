@@ -8,7 +8,10 @@ function StyleThumbnail(props) {
   let pageElement = <></>
   if (props.imageindex === props.currentStyle) {
     pageElement = (
-      <img onClick={handleClick} className="selected-style-tn" src={props.image}></img>
+      <div className="selected-tn-container">
+        <img onClick={handleClick} className="selected-style-tn" src={props.image}></img>
+        <span className="check">✔️</span>
+      </div>
     )
   } else {
     pageElement = (

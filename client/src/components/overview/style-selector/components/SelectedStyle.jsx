@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function SelectedStyle(props) {
     return(
       <div className="selected-style">
-        <p>{props.styleName}</p>
+        <h4>STYLE {'>'} {props.styleName}</h4>
       </div>
     )
 }

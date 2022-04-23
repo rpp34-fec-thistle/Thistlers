@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ImageThumbnail from './ImageThumbnail.jsx';
+import UpArrow from '../svg-icons/up-arrow.svg'
+import DownArrow from '../svg-icons/down-arrow.svg'
 
 function AllImagesThumbnails(props) {
     let pageElement;
@@ -17,13 +19,17 @@ function AllImagesThumbnails(props) {
       if (props.next) {
         nextButton = <></>
       } else {
-        nextButton = (<button onClick={props.cycle} name="Next">🔽</button>)
+        nextButton = (<button className="down-button" onClick={props.cycle} name="Next">
+          <img name="Next" onClick={props.cycle} className="down-img" src={DownArrow}></img>
+        </button>)
       }
 
       if(props.prev) {
         prevButton = <></>
       } else {
-        prevButton = (<button onClick={props.cycle} name="Prev">🔼</button>)
+        prevButton = (<button className="up-button" onClick={props.cycle} name="Prev">
+          <img name="Prev" onClick={props.cycle} className="up-img" src={UpArrow}></img>
+        </button>)
       }
       pageElement = (
       <div className="all-image-tns">

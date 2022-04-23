@@ -23,10 +23,10 @@ const Question = ({
   }
 
   const onQuestionLike = () => {
-    if (helpers.checkQuestionInLocalStorage(question.question_id)) {
+    if (helpers.checkLocalStorage('Questions', question.question_id)) {
       return;
     } else {
-      helpers.addQuestionToLocalStorage(question.question_id);
+      helpers.addToLocalStorage('Questions', question.question_id);
       onHelpfulClick('questions', question.question_id);
     }
   }

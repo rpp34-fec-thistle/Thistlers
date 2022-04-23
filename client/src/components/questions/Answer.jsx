@@ -13,10 +13,10 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
   }
 
   const onAnswerLike = () => {
-    if (helpers.checkAnswerInLocalStorage(answer.id)) {
+    if (helpers.checkLocalStorage('Answers', answer.id)) {
       return;
     } else {
-      helpers.addAnswerToLocalStorage(answer.id);
+      helpers.addToLocalStorage('Answers', answer.id);
       onHelpfulClick('answers', answer.id);
     }
   }

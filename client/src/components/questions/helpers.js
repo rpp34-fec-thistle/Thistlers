@@ -101,49 +101,23 @@ export default {
     })
   },
 
-  addAnswerToLocalStorage: (answerId) => {
-    const likedAnswers = window.localStorage.getItem('likedAnswers');
-    if (likedAnswers) {
-      const likedAnswersObj = JSON.parse(likedAnswers);
-      if (!likedAnswersObj.includes(answerId)) {
-        likedAnswersObj.push(answerId);
-        window.localStorage.setItem('likedAnswers', JSON.stringify(likedAnswersObj));
+  addToLocalStorage: (type, id) => {
+    const liked = window.localStorage.getItem(`liked${type}`);
+    if (liked) {
+      const likedObj = JSON.parse(liked);
+      if (!likedObj.includes(id)) {
+        likedObj.push(id);
+        window.localStorage.setItem(`liked${type}`, JSON.stringify(likedObj));
       }
     } else {
-      window.localStorage.setItem('likedAnswers', JSON.stringify([answerId]));
+      window.localStorage.setItem(`liked${type}`, JSON.stringify([id]));
     }
   },
 
-  checkAnswerInLocalStorage: (answerId) => {
-    const likedAnswers = window.localStorage.getItem('likedAnswers');
-    if (likedAnswers) {
-      if (JSON.parse(likedAnswers).includes(answerId)) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  },
-
-  addQuestionToLocalStorage: (questionId) => {
-    const likedQuestions = window.localStorage.getItem('likedQuestions');
-    if (likedQuestions) {
-      const likedQuestionsObj = JSON.parse(likedQuestions);
-      if (!likedQuestionsObj.includes(questionId)) {
-        likedQuestionsObj.push(questionId);
-        window.localStorage.setItem('likedQuestions', JSON.stringify(likedQuestionsObj));
-      }
-    } else {
-      window.localStorage.setItem('likedQuestions', JSON.stringify([questionId]));
-    }
-  },
-
-  checkQuestionInLocalStorage: (questionId) => {
-    const likedQuestions = window.localStorage.getItem('likedQuestions');
-    if (likedQuestions) {
-      if (JSON.parse(likedQuestions).includes(questionId)) {
+  checkLocalStorage: (type, id) => {
+    const liked = window.localStorage.getItem(`liked${type}`);
+    if (liked) {
+      if (JSON.parse(liked).includes(id)) {
         return true;
       } else {
         return false;

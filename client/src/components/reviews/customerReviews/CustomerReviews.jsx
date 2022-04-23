@@ -5,17 +5,6 @@ import ReviewList from './reviewList/ReviewList.jsx';
 import ReviewInteractions from './ReviewInteractions.jsx';
 import axios from 'axios';
 
-// const CustomerReviews = props => {
-
-//   return (
-//     <div className="customer-reviews">
-//       <ReviewCount totalReviews={props.totalReviews}/>
-//       <ReviewList reviews={props.reviews}/>
-//       <ReviewInteractions productId={props.productId} metadata={props.metadata}/>
-//     </div>
-//   );
-// };
-
 class CustomerReviews extends Component {
   constructor(props) {
     super(props);
@@ -76,12 +65,11 @@ class CustomerReviews extends Component {
       <div className="customer-reviews">
         <ReviewCount totalReviews={this.getTotalReviews()} changeSort={sort => this.changeApiFilter.call(this, sort)}/>
         <ReviewList reviews={this.state.reviews}/>
-        <ReviewInteractions productId={this.props.productId} metadata={this.props.metadata}/>
+        <ReviewInteractions productId={this.props.productId} metadata={this.props.metadata} fetchReviews={() => this.fetchReviews.call(this)}/>
       </div>
     );
   }
 }
-
 
 //PROPS
 CustomerReviews.propTypes = {

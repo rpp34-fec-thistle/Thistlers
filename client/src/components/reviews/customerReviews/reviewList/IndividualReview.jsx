@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import {formatDate, prettifyName} from '../../reviews.help.js';
 import Star from '../../Star.jsx';
 
 const IndividualReview = props => {
@@ -10,6 +11,8 @@ const IndividualReview = props => {
   for (var i = 1; i <= review.rating; i++) {
     reviewStars.push(1);
   }
+  var date = formatDate(review.date);
+  var name = prettifyName(review.reviewer_name);
 
   return ( 
     <div className="individual-review">
@@ -18,7 +21,7 @@ const IndividualReview = props => {
           {reviewStars.map((review, i) => <Star key={`review-star-${i}`} starVal={1}/>)}
         </div>
 
-        <div className="review-name-and-date">Test, 03/20/10</div>
+        <div className="review-name-and-date">{name}, {date}</div>
       </div>
 
       <div className="review-subject">

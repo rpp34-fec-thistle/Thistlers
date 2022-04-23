@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Ratings from './Ratings.jsx';
 import PropTypes from 'prop-types';
+import ComparisonModal from './ComparisonModal.jsx'
 
 class Cards extends Component {
   constructor(props) {
@@ -11,11 +12,14 @@ class Cards extends Component {
       price: null,
       salePrice: null,
       category: '',
-      name: ''
-    };
+      name: '',
+      features: [],
+      combinedFeatures: []
+    }
     this.setCard = this.setCard.bind(this);
     this.clickModal = this.clickModal.bind(this);
     this.clickDelete = this.clickDelete.bind(this);
+    this.setFeaturesArray = this.setFeaturesArray.bind(this)
   }
 
   componentDidMount() {
@@ -41,9 +45,23 @@ class Cards extends Component {
         axios.get(productsAPI)
           .then((data) => {
             var result = data.data;
+
+            const valueArrayMaker = (objArr) => {
+              let newArray = [];
+              objArr.forEach((obj) => {
+                if (obj.value !== null) {
+                  newArray.push(obj.value);
+                }
+              })
+              return newArray;
+            }
+
+            var itemFeatures = valueArrayMaker(result.features)
+
             this.setState({
               category: result.category,
-              name: result.name
+              name: result.name,
+              features: itemFeatures
             });
             return result;
           })
@@ -59,18 +77,24 @@ class Cards extends Component {
 
   }
 
-  clickModal(e) {
-    e.preventDefault();
-    console.log('modal will render')
+  clickModal() {
+    console.log('modal will render', this.props.id)
   }
 
   clickDelete() {
     this.props.deleteYourOutfits(this.props.id);
   }
 
+  setFeaturesArray() {
+    // let newFeaturesArray = [...new Set([...originalArr, ...currentArr])];
+    this.setState({
+      combinedFeatures: newFeaturesArray
+    })
+  }
+
+
 
   render() {
-
     return (
       <>
       {this.state.image && this.state.image !== null &&
@@ -79,7 +103,14 @@ class Cards extends Component {
           <div className="card-image">
             <img src={this.state.image} alt='This is an image of the product as described below.' onClick={()=> this.props.setOverviewId(this.props.id)}/>
 
-            {this.props.displayButton === 'related-products' ? <button className="overlay" onClick={this.clickModal}></button> : <button className="overlay" onClick={this.clickDelete}></button> }
+            {this.props.displayButton === 'related-products' ?
+              <>
+              <ComparisonModal clickModal={this.clickModal} id={this.props.id} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} name={this.state.name} overviewIdFeatures={this.props.overviewIdFeatures} features={this.state.features} setComparisonModal={this.setComparisonModal}/>
+              </>
+
+              : <button className="overlay" onClick={this.clickDelete}></button> }
+
+
           </div>
 
 
@@ -108,10 +139,13 @@ class Cards extends Component {
 Cards.propTypes = {
     id: PropTypes.number,
     overviewId: PropTypes.number,
+    overviewIdName: PropTypes.string,
+    overviewIdFeatures: PropTypes.array,
     setOverviewId: PropTypes.func,
     displayButton: PropTypes.string,
     deleteYourOutfits: PropTypes.func,
-    setRelatedProductsIds: PropTypes.func
+    setRelatedProductsIds: PropTypes.func,
+    setComparisonModal: PropTypes.func
 }
 
 

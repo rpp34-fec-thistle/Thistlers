@@ -22,8 +22,9 @@ class RatingDisplay extends Component {
     return (
       <div className="reviews-breakdown-rating">
         <h2 className="breakdown-rating-num">
-          {this.props.rating}
+          {padNumber(this.props.rating)}
         </h2>
+
         <div className="breakdown-rating-stars">
           {ratingArr.map(rating => {
             return (
@@ -34,6 +35,10 @@ class RatingDisplay extends Component {
       </div>
     );
   }
+}
+
+const padNumber = num => {
+  return num.toString().slice(0, 4);
 }
 
 //PROPS

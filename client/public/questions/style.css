@@ -1,9 +1,15 @@
 .question-widget {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   margin: 5px;
   padding: 5px;
   overflow: auto;
   max-height: 50vw;
+  font-family: DM Sans, 'Montserrat', sans-serif;
+}
+
+.question-widget-title {
+  font-weight: lighter;
+  color: rgb(70, 70, 70);
 }
 
 .question-search input {

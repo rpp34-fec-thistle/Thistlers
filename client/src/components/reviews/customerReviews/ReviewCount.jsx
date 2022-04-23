@@ -9,6 +9,11 @@ class ReviewCount extends Component {
     }
   }
 
+  onSelectChange(option) {
+    console.log('attempting to change');
+    this.props.changeSort(option);
+  }
+
   render() {
     return (
       <div className="review-count">
@@ -16,8 +21,8 @@ class ReviewCount extends Component {
           {this.props.totalReviews} reviews sorted by,  
         </span>
         <span className="sort-by">
-          <select name="sorted-by" id="sort-by">
-          <option value="relevance">relevance</option>
+          <select name="sorted-by" id="sort-by" onChange={e => this.onSelectChange.call(this, e.target.value)}>
+          <option value="relevant">relevance</option>
           <option value="helpful">helpful</option>
           <option value="newest">newest</option>
           </select>
@@ -29,7 +34,8 @@ class ReviewCount extends Component {
 
 //PROPS
 ReviewCount.propTypes = {
-  totalReviews: PropTypes.number
+  totalReviews: PropTypes.number,
+  changeSort: PropTypes.func
 };
 
 export default ReviewCount;

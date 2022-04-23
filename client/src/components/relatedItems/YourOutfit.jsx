@@ -52,10 +52,13 @@ class YourOutfit extends Component {
 
       return(
         <>
-        <div className="your-outfit-carousel" data-testid="your-outfit-id">
-          {items.map((eachId) =>
-            <Cards key={'yo-' + eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits}/>
-          )}
+        <div className="your-outfit-container">
+          <h3>Your Outfit</h3>
+          <div className="your-outfit-carousel" data-testid="your-outfit-id">
+            {items.map((eachId) =>
+              <Cards key={'yo-' + eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits}/>
+            )}
+          </div>
         </div>
         </>
     )

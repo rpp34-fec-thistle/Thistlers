@@ -121,7 +121,7 @@ class QuestionWidget extends Component {
     return (
       <div className="question-widget-container">
         <div className="question-widget">
-          <p>QUESTIONS & ANSWERS</p>
+          <p className="question-widget-title">QUESTIONS & ANSWERS</p>
           <Search
             questions={this.state.questions}
             onSearch={this.onSearch.bind(this)}

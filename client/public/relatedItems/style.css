@@ -123,6 +123,11 @@ h3 {
   position: relative
 }
 
+.price-change {
+  text-decoration: line-through;
+  text-decoration-color: red;
+}
+
 button.set-text-name {
   background: none;
   border: none;

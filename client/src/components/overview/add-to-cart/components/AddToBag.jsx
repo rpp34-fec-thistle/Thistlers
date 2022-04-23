@@ -27,7 +27,7 @@ function AddToBag(props) {
   } else {
     pageElement = (
       <div className="add-to-bag">
-         <button id="add" onClick={add}>Add To Bag</button>
+         <button id="add" onClick={add}>Add To Bag        +</button>
       </div>
     )
   }

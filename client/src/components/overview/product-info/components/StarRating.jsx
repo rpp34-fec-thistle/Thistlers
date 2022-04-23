@@ -44,7 +44,7 @@ function StarRating(props){
 
   return(
     <div className="star-rating">
-      {stars}
+      {stars} <a>Read all reviews</a>
     </div>
   )
 }

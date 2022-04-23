@@ -77,9 +77,8 @@ class Cards extends Component {
 
   }
 
-  clickModal(e) {
-    e.preventDefault();
-    console.log('modal will render')
+  clickModal() {
+    console.log('modal will render', this.props.id)
   }
 
   clickDelete() {
@@ -87,12 +86,13 @@ class Cards extends Component {
   }
 
   setFeaturesArray() {
-
     // let newFeaturesArray = [...new Set([...originalArr, ...currentArr])];
     this.setState({
       combinedFeatures: newFeaturesArray
     })
   }
+
+
 
   render() {
     return (
@@ -105,22 +105,7 @@ class Cards extends Component {
 
             {this.props.displayButton === 'related-products' ?
               <>
-              <button className="overlay" onClick={this.clickModal}></button>
-                <div className="comparison-modal" id="comparison-modal">
-                  <div className="comparison-modal-header">
-                    <div className="comparison-modal-title">COMPARING</div>
-                    <button className="comparison-modal-close-button">&times;</button>
-                  </div>
-                  <div className="comparison-modal-header">
-                    <div className="comparison-overview-name">{this.props.overviewIdName}</div>
-                    <div className="comparison-current-item-name">{this.state.name}</div>
-                  </div>
-                  <div className="comparison-modal-body">
-                    <ComparisonModal />
-                  </div>
-                </div>
-              <div className="comparison-modal-overlay"></div>
-
+              <ComparisonModal clickModal={this.clickModal} id={this.props.id} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} name={this.state.name} overviewIdFeatures={this.props.overviewIdFeatures} features={this.state.features} setComparisonModal={this.setComparisonModal}/>
               </>
 
               : <button className="overlay" onClick={this.clickDelete}></button> }
@@ -159,7 +144,8 @@ Cards.propTypes = {
     setOverviewId: PropTypes.func,
     displayButton: PropTypes.string,
     deleteYourOutfits: PropTypes.func,
-    setRelatedProductsIds: PropTypes.func
+    setRelatedProductsIds: PropTypes.func,
+    setComparisonModal: PropTypes.func
 }
 
 

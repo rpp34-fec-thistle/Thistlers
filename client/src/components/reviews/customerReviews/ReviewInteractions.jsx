@@ -17,7 +17,7 @@ class ReviewInteractions extends Component {
         <hr />
         {/* <button className="more-reviews">more reviews</button> */}
         <button onClick = {() => this.toggleReviewModle.call(this)} className="add-review">ADD A REVIEW  +</button>
-        <NewReviewModle productId={this.props.productId} metadata={this.props.metadata} toggleModle = {() => this.toggleReviewModle.call(this)} render = {this.state.newReviewModle}/>
+        <NewReviewModle fetchReviews={this.props.fetchReviews} productId={this.props.productId} metadata={this.props.metadata} toggleModle = {() => this.toggleReviewModle.call(this)} render = {this.state.newReviewModle}/>
       </div>
     );
   }
@@ -33,7 +33,8 @@ class ReviewInteractions extends Component {
 ReviewInteractions.propTypes = {
   refresh: PropTypes.func,
   metadata: PropTypes.object,
-  productId: PropTypes.number
+  productId: PropTypes.number,
+  fetchReviews: PropTypes.func
 };
 
 export default ReviewInteractions;

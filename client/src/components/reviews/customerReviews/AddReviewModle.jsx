@@ -96,6 +96,7 @@ class NewReviewModle extends Component {
     })
     .then(res => {
       console.log('res: ', res.data);
+      this.props.fetchReviews();
     })
     .catch(err => {
       console.log('err: ', err)
@@ -118,7 +119,8 @@ NewReviewModle.propTypes = {
   render: PropTypes.bool,
   toggleModle: PropTypes.func,
   metadata: PropTypes.object,
-  productId: PropTypes.number
+  productId: PropTypes.number,
+  fetchReviews: PropTypes.func
 };
 
 export default NewReviewModle;

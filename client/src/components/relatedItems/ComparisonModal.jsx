@@ -10,13 +10,21 @@ class ComparisonModal extends Component {
     }
   }
 
+
+
   render() {
+
+    const uniqueId = "comparison-modal-" + this.props.id;
+
+    console.log('unique id', uniqueId)
 
     const featuresArr = this.props.features;
     const overviewFeaturesArr = this.props.overviewIdFeatures;
     const newFeaturesArr = [...new Set([...featuresArr, ...overviewFeaturesArr])];
 
-    const openModalButtons = document.querySelectorAll('[data-modal-target]');
+    const searchString = `[data-modal-target],${uniqueId}`;
+
+    const openModalButtons = document.querySelectorAll(searchString);
     const closeModalButtons = document.querySelectorAll('[data-modal-close]');
     const targetOverlay = document.getElementById('overlay');
 
@@ -50,16 +58,16 @@ class ComparisonModal extends Component {
       })
     })
 
+
     return (
 
       <>
-        <button data-modal-target="#comparison-modal" className="overlay" onClick={() => this.props.clickModal(this.props.id)}></button>
 
         <div className="comparison-modal" id="comparison-modal">
 
           <div className="comparison-modal-header">
             <div className="comparison-modal-title">COMPARING</div>
-            <button data-modal-close className="comparison-modal-close-button">&times;</button>
+            <button data-modal-close id={this.props.id} className="comparison-modal-close-button">&times;</button>
           </div>
 
           <div className="comparison-modal-header">
@@ -76,17 +84,17 @@ class ComparisonModal extends Component {
 
               if (hasOverviewFeature && !hasCompareFeature) {
                 return <div className="features-compare" key={this.props.id.toString() + feature}>
-                          <div className="left-check">✔️</div>  {feature}  <div className="right-check"></div>
+                          <div className="left-check">✔️</div>{feature}<div className="right-check"></div>
                        </div>}
 
               if (hasOverviewFeature && hasCompareFeature) {
                 return <div className="features-compare" key={this.props.id.toString() + feature}>
-                         <div className="left-check">✔️</div>  {feature}  <div className="right-check">✔️</div>
+                         <div className="left-check">✔️</div>{feature}<div className="right-check">✔️</div>
                        </div>}
 
               if (!hasOverviewFeature && hasCompareFeature) {
                 return <div className="features-compare" key={this.props.id.toString() + feature}>
-                         <div className="left-check"></div>   {feature}  <div className="right-check">✔️</div>
+                         <div className="left-check"></div>{feature}<div className="right-check">✔️</div>
                         </div>}
               }
             )}

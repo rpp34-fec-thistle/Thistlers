@@ -1,6 +1,7 @@
 import React from 'react';
 import AnswerList from './AnswerList.jsx';
 import PropTypes from 'prop-types';
+import helpers from './helpers.js';
 
 const Question = ({
   question,
@@ -22,7 +23,12 @@ const Question = ({
   }
 
   const onQuestionLike = () => {
-    onHelpfulClick('questions', question.question_id);
+    if (helpers.checkLocalStorage('Questions', question.question_id)) {
+      return;
+    } else {
+      helpers.addToLocalStorage('Questions', question.question_id);
+      onHelpfulClick('questions', question.question_id);
+    }
   }
 
   const onAddAnswerClick = () => {

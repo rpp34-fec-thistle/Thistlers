@@ -99,5 +99,34 @@ export default {
     return questions.filter(question => {
       return regex.test(question.question_body);
     })
+  },
+
+  addToLocalStorage: (type, id) => {
+    const liked = window.localStorage.getItem(`liked${type}`);
+    if (liked) {
+      const likedObj = JSON.parse(liked);
+      if (!likedObj.includes(id)) {
+        likedObj.push(id);
+        window.localStorage.setItem(`liked${type}`, JSON.stringify(likedObj));
+      }
+    } else {
+      window.localStorage.setItem(`liked${type}`, JSON.stringify([id]));
+    }
+  },
+
+  checkLocalStorage: (type, id) => {
+    const liked = window.localStorage.getItem(`liked${type}`);
+    if (liked) {
+      if (JSON.parse(liked).includes(id)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 }
+
+
+

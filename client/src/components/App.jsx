@@ -18,8 +18,8 @@ class App extends Component {
       <>
       <Overview/>
       <RelatedItems/>
-      <Reviews/>
       <Questions/>
+      <Reviews/>
       </>
     )
   }

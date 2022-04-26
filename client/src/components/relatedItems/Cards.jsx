@@ -76,11 +76,11 @@ class Cards extends Component {
 
 
   render() {
-    // const matchingId = 'comparison-modal-' + this.props.id;
 
     return (
       <>
-        {this.state.image && this.state.image !== null &&
+        {this.state.image && this.state.image !== null && this.props.id && this.props.overviewId &&
+
           <div className="card" data-testid='test-id' id={this.props.id}>
 
             <div className="card-image">
@@ -88,12 +88,13 @@ class Cards extends Component {
 
               {this.props.displayButton === 'related-products' ?
 
-
                 <>
                   <ComparisonModal id={this.props.id} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} name={this.state.name} overviewIdFeatures={this.props.overviewIdFeatures} features={this.state.features} />
                 </>
 
-                : <button className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
+                :
+
+                <button className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
 
 
             </div>

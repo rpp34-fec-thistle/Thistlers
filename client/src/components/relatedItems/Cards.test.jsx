@@ -17,7 +17,9 @@ const data = {
 
 describe('Cards.jsx Unit Tests', () => {
   it('renders Alt Text in Card component', () => {
-    render(<Cards/>);
+    //  <Cards key={'rp-' + eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} overviewIdFeatures={this.props.overviewIdFeatures} setOverviewId={this.props.setOverviewId}/>
+
+    render(<Cards />);
     const element = screen.getByAltText('This is an image of the product as described below.');
     expect(element).toBeInTheDocument();
   })

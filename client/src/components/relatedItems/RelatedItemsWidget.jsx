@@ -13,13 +13,10 @@ class RelatedItemsWidget extends Component {
       overviewIdFeatures: [],
       relatedProductsIds: []
     }
-    this.setOverviewId = this.setOverviewId.bind(this);
-    this.setOverviewIdData = this.setOverviewIdData.bind(this);
+    // this.setOverviewId = this.setOverviewId.bind(this);
+    // this.setOverviewIdData = this.setOverviewIdData.bind(this);
   }
 
-  componentDidMount() {
-    this.setOverviewId(this.state.overviewId);
-  }
 
   setOverviewId = (id) => {
     this.setState({
@@ -72,6 +69,10 @@ class RelatedItemsWidget extends Component {
         return err;
       })
 
+  }
+
+  componentDidMount() {
+    this.setOverviewId(this.state.overviewId);
   }
 
   render() {

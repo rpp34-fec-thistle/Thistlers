@@ -19,16 +19,16 @@ function AllImagesThumbnails(props) {
       if (props.next) {
         nextButton = <></>
       } else {
-        nextButton = (<button className="down-button" onClick={props.cycle} name="Next">
-          <img name="Next" onClick={props.cycle} className="down-img" src={DownArrow}></img>
+        nextButton = (<button aria-label="next-image" className="down-button" onClick={props.cycle} name="Next">
+          <img alt="down-arrow-next-image" name="Next" onClick={props.cycle} className="down-img" src={DownArrow}></img>
         </button>)
       }
 
       if(props.prev) {
         prevButton = <></>
       } else {
-        prevButton = (<button className="up-button" onClick={props.cycle} name="Prev">
-          <img name="Prev" onClick={props.cycle} className="up-img" src={UpArrow}></img>
+        prevButton = (<button aria-label="previous-image" className="up-button" onClick={props.cycle} name="Prev">
+          <img alt="up-arrow-previous-image" name="Prev" onClick={props.cycle} className="up-img" src={UpArrow}></img>
         </button>)
       }
       pageElement = (

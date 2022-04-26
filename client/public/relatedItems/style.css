@@ -1,6 +1,14 @@
 .related-items-widget {
   padding-top: 80px;
-  padding-bottom: 80px
+  padding-bottom: 80px;
+}
+
+.related-products-container {
+  width: 1080px;
+}
+
+.your-outfit-container {
+  width: 1080px;
 }
 
 .your-outfit-carousel {
@@ -125,7 +133,10 @@ h3 {
 
 .price-change {
   text-decoration: line-through;
-  text-decoration-color: red;
+}
+
+.sale-price {
+  text-decoration-color: red
 }
 
 button.set-text-name {

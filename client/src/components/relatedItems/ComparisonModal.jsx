@@ -28,13 +28,6 @@ class ComparisonModal extends Component {
     const closeModalButtons = document.querySelectorAll('[data-modal-close]');
     const targetOverlay = document.getElementById('overlay');
 
-    openModalButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const modal = document.querySelector(button.dataset.modalTarget);
-        openModal(modal);
-      })
-    })
-
     const openModal = (modal) => {
       if (modal === null) {
         return;
@@ -51,6 +44,13 @@ class ComparisonModal extends Component {
       targetOverlay.classList.remove('active');
     }
 
+    openModalButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget);
+        openModal(modal);
+      })
+    })
+
     closeModalButtons.forEach(button => {
       button.addEventListener('click', () => {
         const modal = button.closest('.comparison-modal')
@@ -63,7 +63,10 @@ class ComparisonModal extends Component {
 
       <>
 
+        <button data-modal-target="#comparison-modal" className="overlay" ></button>
+
         <div className="comparison-modal" id="comparison-modal">
+
 
           <div className="comparison-modal-header">
             <div className="comparison-modal-title">COMPARING</div>

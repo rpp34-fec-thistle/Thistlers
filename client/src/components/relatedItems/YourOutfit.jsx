@@ -12,7 +12,6 @@ class YourOutfit extends Component {
     this.setYourOutfits = this.setYourOutfits.bind(this);
     this.getYourOutfits = this.getYourOutfits.bind(this);
     this.deleteYourOutfits = this.deleteYourOutfits.bind(this);
-    this.addToOutfits = this.addToOutfits.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +19,8 @@ class YourOutfit extends Component {
   }
 
   setYourOutfits() {
+    window.localStorage.clear();
+    window.localStorage.setItem('yourOutfits', [64624, 64628, 64626, 64621, 64620]);
     let testArray = window.localStorage.getItem('yourOutfits');
     testArray = testArray.split(',').map(x => parseInt(x));
     this.setState({
@@ -45,17 +46,6 @@ class YourOutfit extends Component {
     window.localStorage.setItem('yourOutfits', this.state.yourOutfitIds);
   }
 
-  addToOutfits(id) {
-    let originalArray = this.state.yourOutfitIds;
-    let newArray = [...new Set([id, ...originalArray])];
-
-    this.setState({
-      yourOutfitIds: newArray
-    })
-
-    window.localStorage.setItem('yourOutfits', this.state.yourOutfitIds);
-  }
-
   render() {
 
       const items = this.state.yourOutfitIds;
@@ -66,8 +56,8 @@ class YourOutfit extends Component {
           <h3>Your Outfit</h3>
           <div className="your-outfit-carousel" data-testid="your-outfit-id">
 
-          <div className="card" data-testid='test-id' id={this.props.id}>
 
+          <div className="card" data-testid='test-id' id={this.props.id}>
 
             <button onClick={() => this.addToOutfits(this.props.overviewId)} className="add-to-outfits">Add This Item to Your Outfit List</button>
 

@@ -79,7 +79,7 @@ h3 {
 
 .card {
   width: 250px;
-  height: 370px;
+  height: 380px;
   clear: both;
   display: block;
   flex-wrap: wrap;
@@ -124,6 +124,7 @@ h3 {
   width: 240px;
   height: 105px;
   padding-left: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid gray;
   border-right: 1px solid gray;
   border-left: 1px solid gray;
@@ -211,6 +212,7 @@ button.set-text-name {
 }
 
 #comparison-modal-overlay.active {
+  position: fixed;
   opacity: 1;
   pointer-events: all;
 }

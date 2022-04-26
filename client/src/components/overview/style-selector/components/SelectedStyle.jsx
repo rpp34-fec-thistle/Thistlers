@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 function SelectedStyle(props) {
     return(
-      <div className="selected-style">
-        <h4>STYLE {'>'} {props.styleName}</h4>
-      </div>
+        <div className="selected-style">
+          <p className="style">STYLE {'>'}</p>
+          <p className="style-name">{props.styleName}</p>
+        </div>
     )
 }
 

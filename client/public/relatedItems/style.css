@@ -1,6 +1,14 @@
 .related-items-widget {
-  padding-top: 100px;
-  padding-left: 100px
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.related-products-container {
+  width: 1080px;
+}
+
+.your-outfit-container {
+  width: 1080px;
 }
 
 .your-outfit-carousel {
@@ -13,6 +21,7 @@
 }
 
 .related-products-carousel {
+  padding-bottom: 50px;
   -ms-overflow-style: none;
   scrollbar-width: none;
   display: flex;
@@ -37,7 +46,7 @@
   height: 100%;
 }
 
-.related-products-carousel>.card>.card-image>.overlay::before {
+.related-products-carousel>.card>.card-image>.parentModal>.overlay::before {
   background: rgba(255, 255, 255, 0);
   opacity: 1;
   display: block;
@@ -46,7 +55,7 @@
   top: 20px;
   right: 15px;
   text-align: right;
-  font-size: 17px;
+  font-size: 22px;
   content: "\2606";
 }
 
@@ -59,7 +68,7 @@
   top: 20px;
   right: 15px;
   text-align: right;
-  font-size: 17px;
+  font-size: 20px;
   content: "\2715";
 }
 
@@ -70,7 +79,7 @@ h3 {
 
 .card {
   width: 250px;
-  height: 370px;
+  height: 380px;
   clear: both;
   display: block;
   flex-wrap: wrap;
@@ -115,11 +124,20 @@ h3 {
   width: 240px;
   height: 105px;
   padding-left: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid gray;
   border-right: 1px solid gray;
   border-left: 1px solid gray;
   display: block;
   position: relative
+}
+
+.price-change {
+  text-decoration: line-through;
+}
+
+.sale-price {
+  text-decoration-color: red
 }
 
 button.set-text-name {
@@ -132,7 +150,7 @@ button.set-text-name {
 
 .comparison-modal {
   position: fixed;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   transition: 200ms ease-in-out;
@@ -194,6 +212,22 @@ button.set-text-name {
 }
 
 #comparison-modal-overlay.active {
+  position: fixed;
   opacity: 1;
   pointer-events: all;
+}
+
+.add-to-outfits {
+  background-color: whitesmoke;
+  border: none;
+  width: 250px;
+  height: 372px;
+  clear: both;
+  display: block;
+  flex-wrap: wrap;
+  position: relative;
+  padding-right: 20px;
+  font-size: small;
+  font-family: DM Sans, 'Montserrat', sans-serif;
+  font-weight: 400
 }

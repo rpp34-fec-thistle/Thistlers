@@ -55,6 +55,14 @@ class YourOutfit extends Component {
         <div className="your-outfit-container">
           <h3>Your Outfit</h3>
           <div className="your-outfit-carousel" data-testid="your-outfit-id">
+
+
+          <div className="card" data-testid='test-id' id={this.props.id}>
+
+            <button onClick={() => this.addToOutfits(this.props.overviewId)} className="add-to-outfits">Add This Item to Your Outfit List</button>
+
+          </div>
+
             {items.map((eachId) =>
               <Cards key={'yo-' + eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits}/>
             )}

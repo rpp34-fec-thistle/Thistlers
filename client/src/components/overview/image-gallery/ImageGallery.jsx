@@ -21,7 +21,7 @@ function ImageGallery(props) {
     }
     return (
       <div data-testid="image-gallery" className="image-gallery">
-        <img onClick={changeView} className="full-screen" src={screenImage}></img>
+        <img alt="full-screen-icon" onClick={changeView} className="full-screen" src={screenImage}></img>
         {view}
       </div>
     )

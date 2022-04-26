@@ -13,85 +13,77 @@ class RelatedItemsWidget extends Component {
       overviewIdFeatures: [],
       relatedProductsIds: []
     }
-    this.setOverviewId = this.setOverviewId.bind(this);
-    this.setOverviewIdData = this.setOverviewIdData.bind(this);
-    this.setRelatedProductsIds = this.setRelatedProductsIds.bind(this);
+    // this.setOverviewId = this.setOverviewId.bind(this);
+    // this.setOverviewIdData = this.setOverviewIdData.bind(this);
   }
 
-  componentDidMount() {
-   this.setOverviewId(this.state.overviewId);
-  }
 
   setOverviewId = (id) => {
     this.setState({
       overviewId: id
     })
     this.setOverviewIdData();
-    this.setRelatedProductsIds();
   }
 
   setOverviewIdData = () => {
 
     const overviewIdAPI = `http://localhost:8080/products/${this.state.overviewId}`;
-
-    axios(overviewIdAPI)
-     .then((data) => {
-       var result = data.data;
-
-       const valueArrayMaker = (objArr) => {
-        let newArray = [];
-        objArr.forEach((obj) => {
-          if (obj.value !== null) {
-            newArray.push(obj.value);
-          }
-        })
-        return newArray;
-      }
-
-      var itemFeatures = valueArrayMaker(result.features)
-
-       this.setState({
-         overviewIdName: result.name,
-         overviewIdFeatures: itemFeatures
-       })
-       return result;
-     })
-     .catch((err) => {
-       console.log('error in setOverviewIdData');
-       return err;
-     })
-
-  }
-
-  setRelatedProductsIds = () => {
-
     const relatedIdsAPI = `http://localhost:8080/products/${this.state.overviewId}/related`;
 
-    axios(relatedIdsAPI)
+    axios(overviewIdAPI)
       .then((data) => {
         var result = data.data;
-        var uniqueResults = [...new Set(result)];
+        const valueArrayMaker = (objArr) => {
+          let newArray = [];
+          objArr.forEach((obj) => {
+            if (obj.value !== null) {
+              newArray.push(obj.value);
+            }
+          })
+          return newArray;
+        }
+        var itemFeatures = valueArrayMaker(result.features)
         this.setState({
-          relatedProductsIds: uniqueResults
-        });
-        return uniqueResults;
+          overviewIdName: result.name,
+          overviewIdFeatures: itemFeatures
+        })
+        return result;
+      })
+      .then(() => {
+        axios(relatedIdsAPI)
+          .then((data) => {
+            var result = data.data;
+            var uniqueResults = [...new Set(result)].filter(id => id !== this.state.overviewId);
+            this.setState({
+              relatedProductsIds: uniqueResults
+            });
+            return uniqueResults;
+          })
+          .catch((err) => {
+            console.log('error in setRelatedProductsIds');
+            return err;
+          })
       })
       .catch((err) => {
-        console.log('error in setRelatedProductsIds');
+        console.log('error in setOverviewIdData');
         return err;
       })
 
+  }
+
+  componentDidMount() {
+    this.setOverviewId(this.state.overviewId);
   }
 
   render() {
 
     return (
       <>
-      <div className="related-items-widget">
-        <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds}/>
-        <YourOutfit overviewId={this.state.overviewId} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds}/>
-        <div id="comparison-modal-overlay"></div>
-      </div>
+        <div className="related-items-widget">
+          <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} />
+          <YourOutfit overviewId={this.state.overviewId} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds} />
+          <div id="comparison-modal-overlay"></div>
+        </div>
       </>
     )
   }

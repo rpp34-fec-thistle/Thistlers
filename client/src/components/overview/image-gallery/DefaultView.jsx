@@ -198,14 +198,14 @@ class DefaultView extends React.Component {
       nextButton = <></>
     } else {
       nextButton = (<button className="next-button-main" onClick={this.cyclePhotos} name="Next">
-        <img className="next-img" src={RightArrow} onClick={this.cyclePhotos} name="Next"></img>
+        <img alt="next-image-button" className="next-img" src={RightArrow} onClick={this.cyclePhotos} name="Next"></img>
       </button>)
     }
     if (this.state.hiddenPrev) {
       prevButton = <></>
     } else {
       prevButton = (<button  className="prev-button-main" onClick={this.cyclePhotos} name="Prev">
-        <img className="prev-img" src={LeftArrow} onClick={this.cyclePhotos} name="Prev"></img>
+        <img alt="previous-image-button" className="prev-img" src={LeftArrow} onClick={this.cyclePhotos} name="Prev"></img>
       </button>)
     }
     let viewClassName;
@@ -236,7 +236,7 @@ class DefaultView extends React.Component {
           onClick={this.zoomImage}
           className={viewClassName}
           src={this.state.currentPhoto}
-          alt="s-image">
+          alt="selected-image">
           </img>
           </div>
           {nextButton}

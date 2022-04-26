@@ -13,13 +13,9 @@ class Cards extends Component {
       salePrice: null,
       category: '',
       name: '',
-      features: [],
-      combinedFeatures: []
+      features: []
     }
     this.setCard = this.setCard.bind(this);
-    this.clickModal = this.clickModal.bind(this);
-    this.clickDelete = this.clickDelete.bind(this);
-    this.setFeaturesArray = this.setFeaturesArray.bind(this)
   }
 
   componentDidMount() {
@@ -77,59 +73,60 @@ class Cards extends Component {
 
   }
 
-  clickModal() {
-    console.log('modal will render', this.props.id)
-  }
-
-  clickDelete() {
-    this.props.deleteYourOutfits(this.props.id);
-  }
-
-  setFeaturesArray() {
-    // let newFeaturesArray = [...new Set([...originalArr, ...currentArr])];
-    this.setState({
-      combinedFeatures: newFeaturesArray
-    })
-  }
-
 
 
   render() {
+
     return (
       <>
-      {this.state.image && this.state.image !== null &&
-        <div className="card" data-testid='test-id' id={this.props.id}>
+        {this.state.image && this.state.image !== null && this.props.id && this.props.overviewId &&
 
-          <div className="card-image">
-            <img src={this.state.image} alt='This is an image of the product as described below.' onClick={()=> this.props.setOverviewId(this.props.id)}/>
+          <div className="card" data-testid='test-id' id={this.props.id}>
 
-            {this.props.displayButton === 'related-products' ?
-              <>
-              <ComparisonModal clickModal={this.clickModal} id={this.props.id} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} name={this.state.name} overviewIdFeatures={this.props.overviewIdFeatures} features={this.state.features} setComparisonModal={this.setComparisonModal}/>
-              </>
+            <div className="card-image">
+              <img src={this.state.image} alt='This is an image of the product as described below.' onClick={() => this.props.setOverviewId(this.props.id)} />
 
-              : <button className="overlay" onClick={this.clickDelete}></button> }
+              {this.props.displayButton === 'related-products' ?
+
+                <>
+                  <ComparisonModal id={this.props.id} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} name={this.state.name} overviewIdFeatures={this.props.overviewIdFeatures} features={this.state.features} />
+                </>
+
+                :
+
+                <button className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
 
 
-          </div>
-
-
-          <div className="card-description">
-            <br />
-            <div className="text-category">
-              {this.state.category}
             </div>
 
-              <button onClick={()=> this.props.setOverviewId(this.props.id)} className="set-text-name">{this.state.name}</button>
 
-            <div className="text-price">
-              {this.state.price}
+            <div className="card-description">
+              <br />
+              <div className="text-category">
+                {this.state.category}
+              </div>
+
+              <button onClick={() => {this.props.setOverviewId(this.props.id)}} className="set-text-name">{this.state.name}</button>
+
+              {this.state.salePrice === null ?
+                <div className="text-price">
+                  {this.state.price}
+                </div> :
+                <>
+                <div className="price-change">
+                  {this.state.price}
+                </div>
+                <div className="sale-price">
+                  {this.state.salePrice}
+                </div>
+                </>
+              }
+
+
+              <br />
+              <Ratings id={this.props.id} />
             </div>
-
-            <br />
-            <Ratings id={this.props.id} />
-          </div>
-        </div>}
+          </div>}
       </>
     )
   }
@@ -137,15 +134,13 @@ class Cards extends Component {
 }
 
 Cards.propTypes = {
-    id: PropTypes.number,
-    overviewId: PropTypes.number,
-    overviewIdName: PropTypes.string,
-    overviewIdFeatures: PropTypes.array,
-    setOverviewId: PropTypes.func,
-    displayButton: PropTypes.string,
-    deleteYourOutfits: PropTypes.func,
-    setRelatedProductsIds: PropTypes.func,
-    setComparisonModal: PropTypes.func
+  id: PropTypes.number,
+  overviewId: PropTypes.number,
+  overviewIdName: PropTypes.string,
+  overviewIdFeatures: PropTypes.array,
+  setOverviewId: PropTypes.func,
+  displayButton: PropTypes.string,
+  deleteYourOutfits: PropTypes.func,
 }
 
 

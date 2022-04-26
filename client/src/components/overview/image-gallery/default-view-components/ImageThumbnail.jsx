@@ -8,11 +8,14 @@ function ImageThumbnail(props) {
     let pageElement;
     if (props.currentImage === props.imageId) {
       pageElement = (
+        <div className="selected-tn">
           <img onClick={handleClick}
           id={props.image_index}
           src={props.thumbnail}
           className="image-tn-selected"
           ></img>
+        </div>
+
       )
     } else {
       pageElement = (

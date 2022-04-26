@@ -13,6 +13,7 @@ function ImageThumbnail(props) {
           id={props.image_index}
           src={props.thumbnail}
           className="image-tn-selected"
+          alt="selected-image-thumbnail"
           ></img>
         </div>
 
@@ -24,6 +25,7 @@ function ImageThumbnail(props) {
         className="image-tn"
         onClick={handleClick}
         id={props.image_index}
+        alt="image-thumbnail"
         ></img>
       )
     }

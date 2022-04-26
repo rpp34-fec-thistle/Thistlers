@@ -5,7 +5,7 @@ function Info(props) {
   let price = (<p>${props.info.default_price}</p>)
   if(props.sale_price) {
     price = (
-      <div>
+      <div className="prices">
         <p className="old-price">${props.info.default_price}</p>
         <p className="sale-price">${props.sale_price}</p>
       </div>

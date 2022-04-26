@@ -30,7 +30,7 @@ class Quantity extends React.Component {
     }
     return(
       <div className="quantity">
-        <form>
+        <form id="quantity-tab">
           <select onChange={this.sendQuantity}>
             {pageElement}
           </select>

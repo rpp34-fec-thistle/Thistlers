@@ -22,7 +22,7 @@ class SelectSize extends React.Component {
   }
 
   render() {
-    let options =[<option key="select" value="select-size" >Select Size</option>]
+    let options =[<option key="select" value="select-size" >SELECT SIZE</option>]
     if(this.props.sizes) {
       Object.keys(this.props.sizes).forEach((sku) => {
           options.push(

@@ -7,6 +7,7 @@ class CustomerComments extends Component {
     this.state = {
       characteristics: this.props.characteristics,
     };
+    console.log(this.state.characteristics);
   }
 
   render() {

@@ -25,12 +25,15 @@ class RatingDisplay extends Component {
           {padNumber(this.props.rating)}
         </h2>
 
-        <div className="breakdown-rating-stars">
-          {ratingArr.map(rating => {
-            return (
-              <span className="rating" key={rating + Math.random()*1000}> {rating} </span>
-            )
-          })}
+        <div className="review-breakdown-stars-container">
+          <div className="breakdown-rating-stars">
+            {ratingArr.map(rating => {
+              return (
+                <span className="rating" key={rating + Math.random()*1000}> {rating} </span>
+              )
+            })}
+          </div>
+          <div className="stars-filler">x</div>
         </div>
       </div>
     );
@@ -38,7 +41,7 @@ class RatingDisplay extends Component {
 }
 
 const padNumber = num => {
-  return num.toString().slice(0, 4);
+  return num.toString().slice(0, 3);
 }
 
 //PROPS

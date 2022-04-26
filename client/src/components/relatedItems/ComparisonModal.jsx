@@ -8,13 +8,37 @@ class ComparisonModal extends Component {
     super(props);
     this.state = {
     }
+    this.targetOverlay = document.getElementById('overlay');
+    this.uniqueId = "comparison-modal-" + this.props.id;
+    this.uniqueSearch ="#" + this.uniqueId;
+    this.searchString = `[data-modal-target],${this.uniqueId}`;
+    this.openModalButtons = document.querySelectorAll(this.searchString);
+    this.openModalButtonsClick = this.openModalButtonsClick.bind(this);
+
   }
 
+  openModal(modal){
+    if (modal === null) {
+      return;
+    }
+    modal.classList.add('active');
+    this.targetOverlay.classList.add('active');
+  }
+
+  openModalButtonsClick() {
+    console.log('open click');
+    this.openModalButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget);
+        this.openModal(modal);
+      })
+    })
+  }
 
 
   render() {
 
-    const uniqueId = "comparison-modal-" + this.props.id;
+    // const uniqueId = "comparison-modal-" + this.props.id;
 
     // console.log('unique id', uniqueId)
 
@@ -22,19 +46,9 @@ class ComparisonModal extends Component {
     const overviewFeaturesArr = this.props.overviewIdFeatures;
     const newFeaturesArr = [...new Set([...featuresArr, ...overviewFeaturesArr])];
 
-    const searchString = `[data-modal-target],${uniqueId}`;
 
-    const openModalButtons = document.querySelectorAll(searchString);
     const closeModalButtons = document.querySelectorAll('[data-modal-close]');
-    const targetOverlay = document.getElementById('overlay');
 
-    const openModal = (modal) => {
-      if (modal === null) {
-        return;
-      }
-      modal.classList.add('active');
-      targetOverlay.classList.add('active');
-    }
 
     const closeModal = (modal) => {
       if (modal === null) {
@@ -44,12 +58,12 @@ class ComparisonModal extends Component {
       targetOverlay.classList.remove('active');
     }
 
-    openModalButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const modal = document.querySelector(button.dataset.modalTarget);
-        openModal(modal);
-      })
-    })
+    // openModalButtons.forEach(button => {
+    //   button.addEventListener('click', () => {
+    //     const modal = document.querySelector(button.dataset.modalTarget);
+    //     openModal(modal);
+    //   })
+    // })
 
     closeModalButtons.forEach(button => {
       button.addEventListener('click', () => {
@@ -63,10 +77,9 @@ class ComparisonModal extends Component {
 
       <>
 
-        <button data-modal-target="#comparison-modal" className="overlay" ></button>
+        <button data-modal-target={this.uniqueSearch} className="overlay" onClick={this.openModalButtonsClick}></button>
 
-        <div className="comparison-modal" id="comparison-modal">
-
+        <div className="comparison-modal" id={this.uniqueId}>
 
           <div className="comparison-modal-header">
             <div className="comparison-modal-title">COMPARING</div>

@@ -39,15 +39,15 @@ class Ratings extends Component {
           var averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
 
           var numWholeStars = Math.floor(averageScore);
-          var remainderStars = averageScore - numWholeStars;
+          // var remainderStars = averageScore - numWholeStars;
 
-          var addWholeStar = remainderStars > .875;
-          var addThreeQuarterStar = remainderStars < .875 && remainderStars > .625;
-          var addHalfStar = remainderStars < .625 && remainderStars > .37;
-          var addQuarterStar = remainderStars < .37 && remainderStars > .125;
-          var addNoStar = remainderStars < .125;
+          // var addWholeStar = remainderStars > .875;
+          // var addThreeQuarterStar = remainderStars < .875 && remainderStars > .625;
+          // var addHalfStar = remainderStars < .625 && remainderStars > .37;
+          // var addQuarterStar = remainderStars < .37 && remainderStars > .125;
+          // var addNoStar = remainderStars < .125;
 
-          console.log('rating: ', numWholeStars, addWholeStar, addThreeQuarterStar, addHalfStar, addQuarterStar, addNoStar);
+          // console.log('rating: ', numWholeStars, addWholeStar, addThreeQuarterStar, addHalfStar, addQuarterStar, addNoStar);
 
           var starString = '';
 
@@ -66,7 +66,7 @@ class Ratings extends Component {
           if (numWholeStars === 5) {
             starString = '★★★★★'
           }
-          console.log(starString);
+          // console.log(starString);
 
           this.setState({
             ratings: averageScore,

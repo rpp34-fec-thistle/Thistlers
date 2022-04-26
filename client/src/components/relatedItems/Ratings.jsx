@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-
+// import fullStar from './Stars/fullStar.svg';
 
 class Ratings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ratings: null
+      ratings: null,
+      starRatings: ''
     }
     this.setRatings = this.setRatings.bind(this);
   }
@@ -36,8 +37,40 @@ class Ratings extends Component {
           }
           var totalRatings = Object.values(result).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
           var averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
+
+          var numWholeStars = Math.floor(averageScore);
+          // var remainderStars = averageScore - numWholeStars;
+
+          // var addWholeStar = remainderStars > .875;
+          // var addThreeQuarterStar = remainderStars < .875 && remainderStars > .625;
+          // var addHalfStar = remainderStars < .625 && remainderStars > .37;
+          // var addQuarterStar = remainderStars < .37 && remainderStars > .125;
+          // var addNoStar = remainderStars < .125;
+
+          // console.log('rating: ', numWholeStars, addWholeStar, addThreeQuarterStar, addHalfStar, addQuarterStar, addNoStar);
+
+          var starString = '';
+
+          if (numWholeStars === 1) {
+            starString = '★☆☆☆☆'
+          }
+          if (numWholeStars === 2) {
+            starString = '★★☆☆☆'
+          }
+          if (numWholeStars === 3) {
+            starString = '★★★☆☆'
+          }
+          if (numWholeStars === 4) {
+            starString = '★★★★☆'
+          }
+          if (numWholeStars === 5) {
+            starString = '★★★★★'
+          }
+          // console.log(starString);
+
           this.setState({
-            ratings: averageScore
+            ratings: averageScore,
+            starRatings: starString
           });
         }
         return result;
@@ -49,12 +82,15 @@ class Ratings extends Component {
 
   }
 
+
+
   render() {
 
     return (
       <>
       <div className="ratings" data-testid='ratings-id'>
-        {this.state.ratings}
+        {this.state.starRatings}
+        {/* {this.state.ratings} */}
       </div>
       </>
     )

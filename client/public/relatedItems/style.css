@@ -1,6 +1,14 @@
 .related-items-widget {
   padding-top: 80px;
-  padding-bottom: 80px
+  padding-bottom: 80px;
+}
+
+.related-products-container {
+  width: 1080px;
+}
+
+.your-outfit-container {
+  width: 1080px;
 }
 
 .your-outfit-carousel {
@@ -71,7 +79,7 @@ h3 {
 
 .card {
   width: 250px;
-  height: 370px;
+  height: 380px;
   clear: both;
   display: block;
   flex-wrap: wrap;
@@ -116,6 +124,7 @@ h3 {
   width: 240px;
   height: 105px;
   padding-left: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid gray;
   border-right: 1px solid gray;
   border-left: 1px solid gray;
@@ -125,7 +134,10 @@ h3 {
 
 .price-change {
   text-decoration: line-through;
-  text-decoration-color: red;
+}
+
+.sale-price {
+  text-decoration-color: red
 }
 
 button.set-text-name {
@@ -200,6 +212,7 @@ button.set-text-name {
 }
 
 #comparison-modal-overlay.active {
+  position: fixed;
   opacity: 1;
   pointer-events: all;
 }

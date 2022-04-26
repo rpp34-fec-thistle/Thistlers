@@ -76,7 +76,7 @@ class Cards extends Component {
 
 
   render() {
-    const matchingId = 'comparison-modal-' + this.props.id;
+    // const matchingId = 'comparison-modal-' + this.props.id;
 
     return (
       <>
@@ -89,7 +89,7 @@ class Cards extends Component {
               {this.props.displayButton === 'related-products' ?
 
 
-                <> <button data-modal-target="#comparison-modal" id={matchingId} className="overlay" ></button>
+                <>
                   <ComparisonModal id={this.props.id} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} name={this.state.name} overviewIdFeatures={this.props.overviewIdFeatures} features={this.state.features} />
                 </>
 
@@ -105,7 +105,7 @@ class Cards extends Component {
                 {this.state.category}
               </div>
 
-              <button onClick={() => this.props.setOverviewId(this.props.id)} className="set-text-name">{this.state.name}</button>
+              <button onClick={() => {this.props.setOverviewId(this.props.id)}} className="set-text-name">{this.state.name}</button>
 
               {this.state.salePrice === null ?
                 <div className="text-price">
@@ -115,7 +115,7 @@ class Cards extends Component {
                 <div className="price-change">
                   {this.state.price}
                 </div>
-                <div className="text-price">
+                <div className="sale-price">
                   {this.state.salePrice}
                 </div>
                 </>
@@ -140,7 +140,6 @@ Cards.propTypes = {
   setOverviewId: PropTypes.func,
   displayButton: PropTypes.string,
   deleteYourOutfits: PropTypes.func,
-  setRelatedProductsIds: PropTypes.func,
 }
 
 

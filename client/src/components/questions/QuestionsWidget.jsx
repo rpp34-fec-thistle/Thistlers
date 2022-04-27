@@ -4,8 +4,8 @@ import QuestionList from './QuestionList.jsx';
 import Footer from './Footer.jsx';
 import axios from 'axios';
 import helpers from './helpers.js';
+import PropTypes from 'prop-types';
 
-const testProductId = 64700;
 const testProductName = 'Camo Onesi';
 
 class QuestionWidget extends Component {
@@ -23,7 +23,7 @@ class QuestionWidget extends Component {
   }
 
   componentDidMount() {
-    helpers.orderData(testProductId, (err, results) => {
+    helpers.orderData(this.props.product_id, (err, results) => {
       if (err) {
         console.error('An error occured fetching the data: ', err);
       } else {
@@ -72,7 +72,7 @@ class QuestionWidget extends Component {
   }
 
   updateQuestionState() {
-    helpers.orderData(testProductId, (err, results) => {
+    helpers.orderData(this.props.product_id, (err, results) => {
       if (err) {
         console.error('An error occured fetching the data: ', err);
       } else {
@@ -140,7 +140,7 @@ class QuestionWidget extends Component {
             moreQuestions={this.state.moreQuestions}
             onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
             productName={testProductName}
-            productId={testProductId}
+            productId={this.props.product_id}
             updateQuestionState={this.updateQuestionState.bind(this)}
             selectedQuestion={this.state.selectedQuestion}
           />
@@ -148,6 +148,10 @@ class QuestionWidget extends Component {
       </div>
     )
   }
+}
+
+QuestionWidget.propTypes = {
+  product_id: PropTypes.string.isRequired
 }
 
 export default QuestionWidget;

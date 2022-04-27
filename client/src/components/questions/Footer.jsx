@@ -44,7 +44,7 @@ class Footer extends Component {
         body: this.state.question,
         name: this.state.nickname,
         email: this.state.email,
-        product_id: this.props.productId
+        product_id: parseInt(this.props.productId)
       }
     })
     .then(() => {
@@ -266,7 +266,7 @@ Footer.propTypes = {
   onShowMoreQuestionsClick: PropTypes.func.isRequired,
   moreQuestions: PropTypes.bool.isRequired,
   productName: PropTypes.string.isRequired,
-  productId: PropTypes.number.isRequired,
+  productId: PropTypes.string.isRequired,
   updateQuestionState: PropTypes.func.isRequired,
   selectedQuestion: PropTypes.object.isRequired
 }

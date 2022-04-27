@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import RelatedProducts from './RelatedProducts.jsx';
 import YourOutfit from './YourOutfit.jsx';
-
+import MetricsWrapper from '../MetricsWrapper.jsx';
 
 class RelatedItemsWidget extends Component {
   constructor(props) {
@@ -84,11 +84,19 @@ class RelatedItemsWidget extends Component {
 
   render() {
 
+    let wrappedProps = {
+      overviewId: this.state.overviewId,
+      relatedProductsIds: this.state.relatedProductsIds,
+      setOverviewId: this.setOverviewId
+    }
+
+    let WrappedYourOutfit = MetricsWrapper(YourOutfit, wrappedProps);
+
     return (
       <>
         <div className="related-items-widget">
           <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} />
-          <YourOutfit overviewId={this.state.overviewId} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} setRelatedProductsIds={this.setRelatedProductsIds} />
+          <WrappedYourOutfit />
           <div id="comparison-modal-overlay"></div>
         </div>
       </>
@@ -99,6 +107,7 @@ class RelatedItemsWidget extends Component {
 import PropTypes from 'prop-types';
 
 RelatedItemsWidget.propTypes = {
+  interaction: PropTypes.func,
   productId: PropTypes.string,
   changeId: PropTypes.func
 }

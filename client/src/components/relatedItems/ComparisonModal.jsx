@@ -51,8 +51,8 @@ class ComparisonModal extends Component {
     this.overlay.current.classList.remove('active');
   }
 
-  render() {
 
+  render() {
 
     const featuresArr = this.props.features;
     const overviewFeaturesArr = this.props.overviewIdFeatures;
@@ -61,16 +61,15 @@ class ComparisonModal extends Component {
     return (
 
       <>
-
         <div className="parent-modal" ref={this.parentModal}>
 
-          <button data-modal-target={this.uniqueSearch} className="overlay" ref={this.overlay}></button>
+          <button alt="This is an overlay that helps to show the product comparison display." data-modal-target={this.uniqueSearch} className="overlay" ref={this.overlay}></button>
 
           <div className="comparison-modal" id={this.uniqueId}>
 
             <div className="comparison-modal-header">
               <div className="comparison-modal-title">COMPARING</div>
-              <button data-modal-close id={this.props.id} className="comparison-modal-close-button" ref={this.buttonClose}>&times;</button>
+              <button alt="This is an overlay that helps to hide the product comparison display." data-modal-close id={this.props.id} className="comparison-modal-close-button" ref={this.buttonClose}>&times;</button>
             </div>
 
             <div className="comparison-modal-header">
@@ -110,10 +109,8 @@ class ComparisonModal extends Component {
           </div>
 
         </div>
-
       </>
     )
-
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cards from './Cards.jsx';
 import PropTypes from 'prop-types';
+import MetricsWrapper from '../MetricsWrapper.jsx';
 
 
 class YourOutfit extends Component {
@@ -31,7 +32,7 @@ class YourOutfit extends Component {
     }
   }
 
-  getYourOutfits(){
+  getYourOutfits() {
     JSON.parse(window.localStorage.getItem('yourOutfits'));
   }
 
@@ -81,29 +82,50 @@ class YourOutfit extends Component {
     return (
 
       <>
-      <div className="your-outfit-container">
+        <div className="your-outfit-container">
 
-        <h3>Your Outfit</h3>
+          <h3>Your Outfit</h3>
 
-        <div className="your-outfit-carousel" data-testid="your-outfit-id">
+          <div className="your-outfit-carousel" data-testid="your-outfit-id">
 
-          <div className="card" data-testid='test-id' id={this.props.id}>
-            <button onClick={() => this.addToOutfits(this.props.overviewId)} className="add-to-outfits">Add This Item to Your Outfit List</button>
+            <div className="card" data-testid='test-id' id={this.props.id}>
+              <button onClick={() => this.addToOutfits(this.props.overviewId)} className="add-to-outfits">Add This Item to Your Outfit List</button>
+            </div>
+
+
+            {items.map((eachId) => {
+
+              let wrappedProps = {
+                displayButton: 'your-outfit',
+                id: eachId,
+                overviewId: this.props.overviewId,
+                setOverviewId: this.props.setOverviewId,
+                deleteYourOutfits: this.deleteYourOutfits,
+              }
+
+              let WrappedCards = MetricsWrapper(Cards, wrappedProps);
+
+              return <WrappedCards key={'yo-' + eachId} />
+
+            })}
+
+          {/*
+            {items.map((eachId) =>
+
+              <Cards key={'yo-' + eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits} />
+
+           )} */}
+
           </div>
 
-          {items.map((eachId) =>
-            <Cards key={'yo-' + eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits}/>
-          )}
-
         </div>
-
-      </div>
       </>
     )
   }
 }
 
 YourOutfit.propTypes = {
+  interaction: PropTypes.func,
   overviewId: PropTypes.number,
   setOverviewId: PropTypes.func,
   id: PropTypes.number

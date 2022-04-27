@@ -42,9 +42,10 @@ function StarRating(props){
     stars.push(<img alt="empty-star" key={`star-${i}`} className="avg-stars" src={EmptyStar}></img>)
   }
 
-  let scrollToReviews = () => {
+  let scrollToReviews = (ev) => {
+    console.log('target', ev.target)
     let e = document.getElementsByClassName('reviews-container');
-    e[0].scrollIntoView();
+    e[0].scrollIntoView({behavior: 'smooth'});
   }
 
   return(

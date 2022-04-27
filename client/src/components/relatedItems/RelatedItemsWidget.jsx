@@ -13,19 +13,21 @@ class RelatedItemsWidget extends Component {
       overviewIdFeatures: [],
       relatedProductsIds: []
     }
-    // this.setOverviewId = this.setOverviewId.bind(this);
-    // this.setOverviewIdData = this.setOverviewIdData.bind(this);
+    this.setOverviewId = this.setOverviewId.bind(this);
+    this.setOverviewIdData = this.setOverviewIdData.bind(this);
   }
 
+  // this.props.product_id: '',
+  // this.props.setOverviewId(id)
 
-  setOverviewId = (id) => {
+  setOverviewId(id) {
     this.setState({
       overviewId: id
     })
     this.setOverviewIdData();
   }
 
-  setOverviewIdData = () => {
+  setOverviewIdData() {
 
     const overviewIdAPI = `http://localhost:8080/products/${this.state.overviewId}`;
     const relatedIdsAPI = `http://localhost:8080/products/${this.state.overviewId}/related`;

@@ -53,7 +53,7 @@ class YourOutfit extends Component {
       this.setState({
         yourOutfitIds: newArray
       })
-      window.localStorage.setItem('yourOutfits', this.state.yourOutfitIds);
+      window.localStorage.setItem('yourOutfits', newArray);
     }
   }
 
@@ -67,10 +67,11 @@ class YourOutfit extends Component {
       window.localStorage.setItem('yourOutfits', [id]);
     } else {
       let newArray = [...new Set([id, ...originalArray])];
+      console.log('added new item: ', newArray);
       this.setState({
         yourOutfitIds: newArray
       })
-      window.localStorage.setItem('yourOutfits', this.state.yourOutfitIds);
+      window.localStorage.setItem('yourOutfits', newArray);
     }
   }
 

@@ -10,16 +10,25 @@ import '../../public/relatedItems/style.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      product_id: '64620'
+    };
+    this.changeId = this.changeId.bind(this);
+  }
+
+  changeId(id) {
+    this.setState({product_id: id});
   }
 
   render() {
     return(
       <>
-      <Overview/>
-      <RelatedItems/>
-      <Questions/>
-      <Reviews/>
+      <Overview product_id={this.state.product_id}/>
+      <RelatedItems
+        setOverviewId={this.changeId}
+        product_id={this.state.product_id}/>
+      <Questions product_id={this.state.product_id}/>
+      <Reviews product_id={this.state.product_id}/>
       </>
     )
   }

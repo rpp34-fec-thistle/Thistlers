@@ -8,7 +8,7 @@ class RelatedItemsWidget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      overviewId: 64626,
+      overviewId: 64620,
       overviewIdName: '',
       overviewIdFeatures: [],
       relatedProductsIds: []
@@ -21,16 +21,18 @@ class RelatedItemsWidget extends Component {
   // this.props.setOverviewId(id)
 
   componentDidMount() {
-    this.setOverviewId(this.state.overviewId);
-    console.log(this.props.product_id);
-    console.log(this.props.changeOverviewId);
+    this.setOverviewIdData();
   }
 
   setOverviewId(id) {
+    let idString = id.toString();
+    this.props.changeId(idString);
+
     this.setState({
       overviewId: id,
       relatedProductsIds: []
     })
+
     this.setOverviewIdData();
   }
 
@@ -97,8 +99,8 @@ class RelatedItemsWidget extends Component {
 import PropTypes from 'prop-types';
 
 RelatedItemsWidget.propTypes = {
-  product_id: PropTypes.string,
-  changeOverviewId: PropTypes.func
+  productId: PropTypes.string,
+  changeId: PropTypes.func
 }
 
 

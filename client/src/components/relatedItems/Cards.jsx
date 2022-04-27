@@ -84,7 +84,7 @@ class Cards extends Component {
           <div className="card" data-testid='test-id' id={this.props.id}>
 
             <div className="card-image">
-              <img src={this.state.image} alt='This is an image of the product as described below.' onClick={() => this.props.setOverviewId(this.props.id)} />
+              <img src={this.state.image} alt="item-image" onClick={() => this.props.setOverviewId(this.props.id)} />
 
               {this.props.displayButton === 'related-products' ?
 
@@ -94,7 +94,7 @@ class Cards extends Component {
 
                 :
 
-                <button className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
+                <button aria-label="delete-outfits" className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
 
 
             </div>

@@ -26,7 +26,7 @@ class App extends Component {
       <Overview product_id={this.state.product_id}/>
       <RelatedItems
         changeOverviewId={this.changeId}
-        product_id={this.state.product_id}/>
+        overviewId={this.state.product_id}/>
       <Questions product_id={this.state.product_id}/>
       <Reviews product_id={this.state.product_id}/>
       </>

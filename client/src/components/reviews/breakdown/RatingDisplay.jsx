@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Star from '../Star.jsx';
 
 class RatingDisplay extends Component {
   constructor(props) {
@@ -17,7 +18,6 @@ class RatingDisplay extends Component {
         ratingNum = 0;
       }
     }
-    console.log(ratingArr);
 
     return (
       <div className="reviews-breakdown-rating">
@@ -29,11 +29,11 @@ class RatingDisplay extends Component {
           <div className="breakdown-rating-stars">
             {ratingArr.map(rating => {
               return (
-                <span className="rating" key={rating + Math.random()*1000}> {rating} </span>
+                <Star key={Math.floor(Math.random()* 100000)} starVal={rating}/>
               )
             })}
           </div>
-          <div className="stars-filler">x</div>
+          <div className="stars-filler"></div>
         </div>
       </div>
     );

@@ -8,8 +8,9 @@ class IndividualStar extends Component {
   }
 
   componentDidUpdate() {
+    // console.log(this.props);
     let starBar = document.querySelector(`.star-bar-${this.props.keyVal}`);
-    console.log(this.percentage);
+    // console.log(this.percentage);
     starBar.style.width = `${this.percentage}%`;
   }
 

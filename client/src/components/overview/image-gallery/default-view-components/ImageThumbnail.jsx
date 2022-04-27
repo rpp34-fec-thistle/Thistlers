@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 function ImageThumbnail(props) {
   let handleClick = (e) => {
     props.selectedPhoto(+e.target.id)
+    props.interaction(`${e.target}`, 'Overview', new Date())
   }
     let pageElement;
     if (props.currentImage === props.imageId) {

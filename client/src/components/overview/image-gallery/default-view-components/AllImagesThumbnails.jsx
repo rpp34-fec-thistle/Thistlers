@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ImageThumbnail from './ImageThumbnail.jsx';
+import MetricWrapper from './../../../MetricsWrapper.jsx'
 import UpArrow from '../svg-icons/up-arrow.svg'
 import DownArrow from '../svg-icons/down-arrow.svg'
 
@@ -32,17 +33,20 @@ function AllImagesThumbnails(props) {
         </button>)
       }
       pageElement = (
-      <div className="all-image-tns">
+        <div className="all-image-tns">
          {prevButton}
         {props.thumbnails.map((tn, index) => {
           let key = tn.split('-')[1];
-          return (<ImageThumbnail
-          image_index={index}
-          imageId={key}
-          selectedPhoto={props.selectedPhoto}
-          currentImage={props.currentImage}
-          key={key}
-          thumbnail={tn}/>)
+          let wrappedProps = {
+            image_index: index,
+            imageId: key,
+            selectedPhoto: props.selectedPhoto,
+            currentImage: props.currentImage,
+            key: key,
+            thumbnail: tn
+          }
+          let WrappedImageThumbnail = MetricWrapper(ImageThumbnail, wrappedProps)
+          return (<WrappedImageThumbnail key={`key-${index}`}/>)
         })}
           {nextButton}
       </div>

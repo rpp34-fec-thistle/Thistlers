@@ -17,6 +17,28 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 })
 
+// app.get('/:id', (req, res) => {
+//   let id = req.params.id;
+
+
+
+// })
+
+app.post('/interactions', (req, res) => {
+  let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/interactions';
+  let options = {
+    headers: {'Authorization': API_KEY}
+  }
+  axios.post(url, req.body, options)
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log('POST: Interactions Error:', err);
+      res.sendStatus(500);
+    })
+})
+
 app.get('/styles/:id', (req, res) => {
   let id = req.params.id;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/products/${id}/styles`;

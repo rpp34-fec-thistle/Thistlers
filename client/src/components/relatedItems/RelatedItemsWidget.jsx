@@ -22,7 +22,8 @@ class RelatedItemsWidget extends Component {
 
   setOverviewId(id) {
     this.setState({
-      overviewId: id
+      overviewId: id,
+      relatedProductsIds: []
     })
     this.setOverviewIdData();
   }

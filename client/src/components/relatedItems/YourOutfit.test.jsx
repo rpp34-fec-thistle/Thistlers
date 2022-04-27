@@ -1,22 +1,8 @@
 import React from 'react'
-import {render, screen} from '@testing-library/react'
-import {jsdom} from '@testing-library/jest-dom'
+import {render, screen, waitFor} from '@testing-library/react'
 import YourOutfit from './YourOutfit.jsx';
 
-console.log('test Widget: ', YourOutfit);
-
-
-describe('YourOutfit.jsx Unit Tests', () => {
-  // it('renders Alt Text in YourOutfit component', () => {
-  //   render(<YourOutfit/>);
-  //   const element = screen.getByAltText('This is the rating of the product as described below.');
-  //   expect(element).toBeInTheDocument();
-  // })
-
-  it('renders YourOutfit id', () => {
-    render(<YourOutfit />);
-    const element = screen.getByTestId('your-outfit-id')
-    expect(element).toBeInTheDocument();
-})
-
+test('on initial render, YourOutfit container should be on the DOM', () => {
+  render(<YourOutfit/>)
+  waitFor(() => expect(screen.getById('your-outfit-container')).toBeInTheDocument())
 });

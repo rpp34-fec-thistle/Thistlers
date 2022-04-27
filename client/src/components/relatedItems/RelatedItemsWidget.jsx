@@ -62,12 +62,12 @@ class RelatedItemsWidget extends Component {
             return uniqueResults;
           })
           .catch((err) => {
-            console.log('error in setRelatedProductsIds');
+            // console.log('error in setRelatedProductsIds');
             return err;
           })
       })
       .catch((err) => {
-        console.log('error in setOverviewIdData');
+        // console.log('error in setOverviewIdData');
         return err;
       })
 

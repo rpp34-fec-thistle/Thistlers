@@ -60,6 +60,10 @@ class YourOutfit extends Component {
 
   addToOutfits(id) {
     let originalArray = this.state.yourOutfitIds;
+    let localStorageArray = window.localStorage.yourOutfits.split(',');
+    if (localStorageArray.indexOf(id.toString()) !== -1) {
+      return;
+    }
     if (window.localStorage.yourOutfits === '') {
       let newArray = [id]
       this.setState({

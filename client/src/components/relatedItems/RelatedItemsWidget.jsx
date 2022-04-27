@@ -8,7 +8,7 @@ class RelatedItemsWidget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      overviewId: 64626,
+      overviewId: 64620,
       overviewIdName: '',
       overviewIdFeatures: [],
       relatedProductsIds: []
@@ -20,10 +20,19 @@ class RelatedItemsWidget extends Component {
   // this.props.product_id: '',
   // this.props.setOverviewId(id)
 
+  componentDidMount() {
+    this.setOverviewIdData();
+  }
+
   setOverviewId(id) {
+    let idString = id.toString();
+    this.props.changeId(idString);
+
     this.setState({
-      overviewId: id
+      overviewId: id,
+      relatedProductsIds: []
     })
+
     this.setOverviewIdData();
   }
 
@@ -73,10 +82,6 @@ class RelatedItemsWidget extends Component {
 
   }
 
-  componentDidMount() {
-    this.setOverviewId(this.state.overviewId);
-  }
-
   render() {
 
     return (
@@ -90,5 +95,13 @@ class RelatedItemsWidget extends Component {
     )
   }
 }
+
+import PropTypes from 'prop-types';
+
+RelatedItemsWidget.propTypes = {
+  productId: PropTypes.string,
+  changeId: PropTypes.func
+}
+
 
 export default RelatedItemsWidget;

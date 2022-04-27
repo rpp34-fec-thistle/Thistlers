@@ -9,7 +9,7 @@ class Reviews extends Component {
     super(props);
     // PROPS SHOULD HAVE props.product_id or SIMILAR!
     this.state = {
-      productId: 64620 || this.props.productId,
+      productId: 64621 || this.props.productId,
       reviews: [],
       metadata: {},
     }

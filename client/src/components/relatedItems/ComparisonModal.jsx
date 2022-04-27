@@ -15,6 +15,8 @@ class ComparisonModal extends Component {
   componentDidMount() {
 
     const parentModalOpen = this.parentModal.current.querySelectorAll(this.searchString);
+    const closeModalButtons = document.querySelectorAll('[data-modal-close]');
+
 
     parentModalOpen.forEach(button => {
       button.addEventListener('click', () => {
@@ -22,8 +24,16 @@ class ComparisonModal extends Component {
         this.openModal(modal);
       })
     })
-  }
 
+    closeModalButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = button.closest('.comparison-modal')
+        this.closeModal(modal);
+      })
+    })
+
+
+  }
 
   openModal(modal) {
     if (modal === null) {
@@ -33,46 +43,33 @@ class ComparisonModal extends Component {
     this.overlay.current.classList.add('active');
   }
 
+  closeModal(modal) {
+    if (modal === null) {
+      return;
+    }
+    modal.classList.remove('active');
+    this.overlay.current.classList.remove('active');
+  }
+
 
   render() {
-
 
     const featuresArr = this.props.features;
     const overviewFeaturesArr = this.props.overviewIdFeatures;
     const newFeaturesArr = [...new Set([...featuresArr, ...overviewFeaturesArr])];
 
-
-    const closeModalButtons = document.querySelectorAll('[data-modal-close]');
-
-    const closeModal = (modal) => {
-      if (modal === null) {
-        return;
-      }
-      modal.classList.remove('active');
-      this.overlay.current.classList.remove('active');
-    }
-
-    closeModalButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const modal = button.closest('.comparison-modal')
-        closeModal(modal);
-      })
-    })
-
-
     return (
 
       <>
+        <div className="parent-modal" ref={this.parentModal}>
 
-        <div className="parentModal" ref={this.parentModal}>
-
-          <button data-modal-target={this.uniqueSearch} className="overlay" ref={this.overlay}></button>
+          <button alt="This is an overlay that helps to show the product comparison display." data-modal-target={this.uniqueSearch} className="overlay" ref={this.overlay}></button>
 
           <div className="comparison-modal" id={this.uniqueId}>
 
             <div className="comparison-modal-header">
               <div className="comparison-modal-title">COMPARING</div>
-              <button data-modal-close id={this.props.id} className="comparison-modal-close-button">&times;</button>
+              <button alt="This is an overlay that helps to hide the product comparison display." data-modal-close id={this.props.id} className="comparison-modal-close-button" ref={this.buttonClose}>&times;</button>
             </div>
 
             <div className="comparison-modal-header">
@@ -83,7 +80,7 @@ class ComparisonModal extends Component {
             <div className="comparison-modal-body">
 
               {newFeaturesArr.map((feature) => {
-                // left side is overview ID, right side is item ID
+
                 let hasOverviewFeature = overviewFeaturesArr.indexOf(feature) !== -1;
                 let hasCompareFeature = featuresArr.indexOf(feature) !== -1;
 
@@ -112,10 +109,8 @@ class ComparisonModal extends Component {
           </div>
 
         </div>
-
       </>
     )
-
   }
 }
 

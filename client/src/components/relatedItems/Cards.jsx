@@ -94,7 +94,7 @@ class Cards extends Component {
 
                 :
 
-                <button className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
+                <button alt="This is an overlay where you click to delete this item from your saved outfits." className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
 
 
             </div>
@@ -106,7 +106,7 @@ class Cards extends Component {
                 {this.state.category}
               </div>
 
-              <button onClick={() => {this.props.setOverviewId(this.props.id)}} className="set-text-name">{this.state.name}</button>
+              <button alt="This is a part of the text that displays the name of the item.  Click here to view this items details above." onClick={() => {this.props.setOverviewId(this.props.id)}} className="set-text-name">{this.state.name}</button>
 
               {this.state.salePrice === null ?
                 <div className="text-price">

@@ -27,7 +27,7 @@ class ComparisonModal extends Component {
 
     closeModalButtons.forEach(button => {
       button.addEventListener('click', () => {
-        const modal = button.closest('.comparison-modal')
+        const modal = document.querySelector(button.dataset.modalClose);
         this.closeModal(modal);
       })
     })
@@ -63,13 +63,13 @@ class ComparisonModal extends Component {
       <>
         <div className="parent-modal" ref={this.parentModal}>
 
-          <button alt="This is an overlay that helps to show the product comparison display." data-modal-target={this.uniqueSearch} className="overlay" ref={this.overlay}></button>
+          <button alt="display-product-comparison" data-modal-target={this.uniqueSearch} className="overlay" ref={this.overlay}></button>
 
           <div className="comparison-modal" id={this.uniqueId}>
 
             <div className="comparison-modal-header">
               <div className="comparison-modal-title">COMPARING</div>
-              <button alt="This is an overlay that helps to hide the product comparison display." data-modal-close id={this.props.id} className="comparison-modal-close-button" ref={this.buttonClose}>&times;</button>
+              <button alt="remove-product-comparison" data-modal-close={this.uniqueSearch} id={this.props.id} className="close-button" ref={this.buttonClose}>&times;</button>
             </div>
 
             <div className="comparison-modal-header">

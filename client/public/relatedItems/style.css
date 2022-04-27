@@ -180,7 +180,7 @@ button.set-text-name {
   font-weight: bold;
 }
 
-.comparison-modal-header .comparison-modal-close-button {
+.comparison-modal-header .close-button {
   cursor: pointer;
   border: none;
   outline: none;

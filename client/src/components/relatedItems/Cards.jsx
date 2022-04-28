@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Ratings from './Ratings.jsx';
 import PropTypes from 'prop-types';
-import ComparisonModal from './ComparisonModal.jsx'
+import ComparisonModal from './ComparisonModal.jsx';
+import MetricsWrapper from '../MetricsWrapper.jsx';
+
 
 class Cards extends Component {
   constructor(props) {
@@ -77,6 +79,17 @@ class Cards extends Component {
 
   render() {
 
+    let wrappedProps = {
+      id: this.props.id,
+      overviewId: this.props.overviewId,
+      overviewIdName: this.props.overviewIdName,
+      overviewIdFeatures: this.props.overviewIdFeatures,
+      name: this.state.name,
+      features: this.state.features
+    }
+
+    let WrappedComparisonModal = MetricsWrapper(ComparisonModal, wrappedProps);
+
     return (
       <>
         {this.state.image && this.state.image !== null && this.props.id && this.props.overviewId &&
@@ -84,17 +97,17 @@ class Cards extends Component {
           <div className="card" data-testid='test-id' id={this.props.id}>
 
             <div className="card-image">
-              <img src={this.state.image} alt='This is an image of the product as described below.' onClick={() => this.props.setOverviewId(this.props.id)} />
+              <img src={this.state.image} alt="item-image" onClick={() => this.props.setOverviewId(this.props.id)} />
 
               {this.props.displayButton === 'related-products' ?
 
                 <>
-                  <ComparisonModal id={this.props.id} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} name={this.state.name} overviewIdFeatures={this.props.overviewIdFeatures} features={this.state.features} />
+                  <WrappedComparisonModal />
                 </>
 
                 :
 
-                <button className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
+                <button aria-label="delete-outfits" className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
 
 
             </div>
@@ -106,7 +119,7 @@ class Cards extends Component {
                 {this.state.category}
               </div>
 
-              <button onClick={() => {this.props.setOverviewId(this.props.id)}} className="set-text-name">{this.state.name}</button>
+              <button aria-label="set-item-from-name" onClick={() => {this.props.setOverviewId(this.props.id)}} className="set-text-name">{this.state.name}</button>
 
               {this.state.salePrice === null ?
                 <div className="text-price">
@@ -134,6 +147,7 @@ class Cards extends Component {
 }
 
 Cards.propTypes = {
+  interaction: PropTypes.func,
   id: PropTypes.number,
   overviewId: PropTypes.number,
   overviewIdName: PropTypes.string,

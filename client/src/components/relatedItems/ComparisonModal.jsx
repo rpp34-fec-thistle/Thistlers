@@ -63,7 +63,7 @@ class ComparisonModal extends Component {
       <>
         <div className="parent-modal" ref={this.parentModal}>
 
-          <button alt="display-product-comparison" data-modal-target={this.uniqueSearch} className="overlay" ref={this.overlay}></button>
+          <button aria-label="display-comparison" alt="display-product-comparison" data-modal-target={this.uniqueSearch} className="overlay" ref={this.overlay}></button>
 
           <div className="comparison-modal" id={this.uniqueId}>
 

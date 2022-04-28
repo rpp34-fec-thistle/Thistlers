@@ -109,7 +109,10 @@ class Cards extends Component {
 
                 :
 
-                <button aria-label="delete-outfits" className="overlay" onClick={(e) => {this.props.deleteYourOutfits(e, this.props.id) }}></button>}
+                <button aria-label="delete-outfits" className="overlay" onClick={(e) => {
+                  this.props.deleteYourOutfits(this.props.id);
+                  this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
+                }}></button>}
 
 
             </div>

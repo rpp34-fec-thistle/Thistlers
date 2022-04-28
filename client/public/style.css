@@ -172,6 +172,17 @@
   width: fit-content;
   align-items: center;
 }
+.image-list {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  align-items: center;
+}
+
+.image-tn-hidden {
+  display: none;
+}
 
 .image-tn {
   border-style: solid;

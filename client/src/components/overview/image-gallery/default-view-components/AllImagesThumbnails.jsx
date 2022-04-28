@@ -35,7 +35,8 @@ function AllImagesThumbnails(props) {
       pageElement = (
         <div className="all-image-tns">
          {prevButton}
-        {props.thumbnails.map((tn, index) => {
+         <div className="image-list">
+        {props.thumbnails.slice(props.topImageIndex, props.bottomImageIndex + 1).map((tn, index) => {
           let key = tn.split('-')[1];
           let wrappedProps = {
             image_index: index,
@@ -43,11 +44,20 @@ function AllImagesThumbnails(props) {
             selectedPhoto: props.selectedPhoto,
             currentImage: props.currentImage,
             key: key,
-            thumbnail: tn
+            thumbnail: tn,
+            hidden: false
           }
           let WrappedImageThumbnail = MetricWrapper(ImageThumbnail, wrappedProps)
-          return (<WrappedImageThumbnail key={`key-${index}`}/>)
+          if (index <= 6) {
+            return (<WrappedImageThumbnail key={`key-${index}`}/>)
+          } else if (index > 6){
+            let hiddenWrappedProps = wrappedProps;
+            hiddenWrappedProps['hidden'] = true;
+            let HiddenWrappedImageThumbnail = MetricWrapper(ImageThumbnail, hiddenWrappedProps)
+            return (<HiddenWrappedImageThumbnail key={`key-${index}`}/>)
+          }
         })}
+         </div>
           {nextButton}
       </div>
       )

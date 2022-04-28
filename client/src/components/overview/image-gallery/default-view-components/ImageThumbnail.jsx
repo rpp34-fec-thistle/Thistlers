@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function ImageThumbnail(props) {
   let handleClick = (e) => {
-    props.selectedPhoto(+e.target.id)
+    props.selectedPhoto(+e.target.id[3])
     props.interaction(`${e.target}`, 'Overview', new Date())
   }
     let pageElement;
@@ -11,7 +11,7 @@ function ImageThumbnail(props) {
       pageElement = (
         <div className="selected-tn">
           <img onClick={handleClick}
-          id={props.image_index}
+          id={`tn-${props.image_index}`}
           src={props.thumbnail}
           className="image-tn-selected"
           alt="selected-image-thumbnail"
@@ -19,13 +19,23 @@ function ImageThumbnail(props) {
         </div>
 
       )
+    } else if(props.hidden) {
+      pageElement = (
+        <img
+        src={props.thumbnail}
+        className="image-tn-hidden"
+        onClick={handleClick}
+        id={`tn-${props.image_index}`}
+        alt="image-thumbnail"
+        ></img>
+      )
     } else {
       pageElement = (
         <img
         src={props.thumbnail}
         className="image-tn"
         onClick={handleClick}
-        id={props.image_index}
+        id={`tn-${props.image_index}`}
         alt="image-thumbnail"
         ></img>
       )

@@ -16,8 +16,8 @@ class DefaultView extends React.Component {
       hiddenPrev: true,
       hiddenNext: false,
       zoomed: false,
-      x: 0,
-      y: 0
+      topImageIndex: 0,
+      bottomImageIndex: 6
     }
 
     this.cyclePhotos = this.cyclePhotos.bind(this);
@@ -135,24 +135,61 @@ class DefaultView extends React.Component {
 
     let image_id = prevPhoto?.split('-')[1];
 
-      if (prevPhoto !== undefined) {
+    if (prevPhoto !== undefined) {
+      let topImageIndex = this.state.topImageIndex;
+      let bottomImageIndex = this.state.bottomImageIndex;
+      if(photoIndex === bottomImageIndex) {
         if(pPhoto === undefined) {
-          this.setState({
-            currentPhoto: prevPhoto,
-            imageIndex: photoIndex - 1,
-            image_id: image_id,
-            hiddenPrev: true
-          })
+          if (topImageIndex - 1 >= 0) {
+            this.setState({
+              currentPhoto: prevPhoto,
+              imageIndex: photoIndex - 1,
+              image_id: image_id,
+              hiddenPrev: true,
+              topImageIndex: topImageIndex - 1,
+              bottomImageIndex: bottomImageIndex - 1
+            })
+          }
         } else {
-          this.setState({
-            currentPhoto: prevPhoto,
-            imageIndex: photoIndex - 1,
-            image_id: image_id,
-            hiddenPrev: false,
-            hiddenNext: false
-          })
+          if (topImageIndex - 1 >= 0) {
+            this.setState({
+              currentPhoto: prevPhoto,
+              imageIndex: photoIndex - 1,
+              image_id: image_id,
+              hiddenPrev: false,
+              hiddenNext: false,
+              topImageIndex: topImageIndex - 1,
+              bottomImageIndex: bottomImageIndex - 1
+            })
+          } else {
+            this.setState({
+              currentPhoto: prevPhoto,
+              imageIndex: photoIndex - 1,
+              image_id: image_id,
+              hiddenPrev: false,
+              hiddenNext: false
+            })
+          }
         }
+      } else {
+          if(pPhoto === undefined) {
+            this.setState({
+              currentPhoto: prevPhoto,
+              imageIndex: photoIndex - 1,
+              image_id: image_id,
+              hiddenPrev: true
+            })
+          } else {
+            this.setState({
+              currentPhoto: prevPhoto,
+              imageIndex: photoIndex - 1,
+              image_id: image_id,
+              hiddenPrev: false,
+              hiddenNext: false
+            })
+          }
       }
+    }
   }
   nextImage() {
     let currentStyleIndex = this.props.styleIndex;
@@ -163,21 +200,46 @@ class DefaultView extends React.Component {
     let image_id = nextPhoto?.split('-')[1];
 
       if (nextPhoto !== undefined) {
-        if (nPhoto === undefined) {
-          this.setState({
-            currentPhoto: nextPhoto,
-            imageIndex: photoIndex + 1,
-            image_id: image_id,
-            hiddenNext: true
-          })
+        let topImageIndex = this.state.topImageIndex;
+        let bottomImageIndex = this.state.bottomImageIndex;
+        if (photoIndex === bottomImageIndex) {
+          if (nPhoto === undefined) {
+            this.setState({
+              currentPhoto: nextPhoto,
+              imageIndex: photoIndex + 1,
+              image_id: image_id,
+              hiddenNext: true,
+              topImageIndex: topImageIndex + 1,
+              bottomImageIndex: bottomImageIndex + 1
+            })
+          } else {
+            this.setState({
+              currentPhoto: nextPhoto,
+              imageIndex: photoIndex + 1,
+              image_id: image_id,
+              hiddenNext: false,
+              hiddenPrev: false,
+              topImageIndex: topImageIndex + 1,
+              bottomImageIndex: bottomImageIndex + 1
+            })
+          }
         } else {
-          this.setState({
-            currentPhoto: nextPhoto,
-            imageIndex: photoIndex + 1,
-            image_id: image_id,
-            hiddenNext: false,
-            hiddenPrev: false
-          })
+          if (nPhoto === undefined) {
+            this.setState({
+              currentPhoto: nextPhoto,
+              imageIndex: photoIndex + 1,
+              image_id: image_id,
+              hiddenNext: true
+            })
+          } else {
+            this.setState({
+              currentPhoto: nextPhoto,
+              imageIndex: photoIndex + 1,
+              image_id: image_id,
+              hiddenNext: false,
+              hiddenPrev: false
+            })
+          }
         }
       }
   }
@@ -226,6 +288,8 @@ class DefaultView extends React.Component {
             cycle={this.cyclePhotos}
             next={this.state.hiddenNext}
             prev={this.state.hiddenPrev}
+            topImageIndex={this.state.topImageIndex}
+            bottomImageIndex={this.state.bottomImageIndex}
           />
           {prevButton}
           <div className="image-container">

@@ -230,7 +230,7 @@ class DefaultView extends React.Component {
           {prevButton}
           <div className="image-container">
           <img
-          onMouseEnter={this.mouseMove}
+          // onMouseEnter={this.mouseMove}
           onMouseMove={this.mouseMove}
           onMouseLeave={this.mouseLeave}
           onClick={this.zoomImage}

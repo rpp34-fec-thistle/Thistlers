@@ -6,3 +6,4 @@ client/public/images
 coverage
 *.pem
 *.cer
+.env

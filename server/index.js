@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const axios = require('axios');
-const compression = require('compression')
+const compression = require('compression');
+require('dotenv').config();
 
 const app = express();
 
@@ -11,7 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const port = 8080;
-const API_KEY = require('../config.js');
+// const API_KEY = require('../config.js');
+const API_KEY = process.env.API_KEY;
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

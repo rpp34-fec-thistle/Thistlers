@@ -125,8 +125,9 @@
   margin: 0px;
   position: relative;
   display: flex;
-  height: 600px;
-  width: auto;
+  height: auto;
+  max-height: 600px;
+  width: 98%;
   align-content: center;
   justify-content: center;
 }

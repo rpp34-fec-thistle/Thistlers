@@ -4,3 +4,5 @@ client/public/bundle.js
 client/public/images
 .DS_Store
 coverage
+*.pem
+*.cer

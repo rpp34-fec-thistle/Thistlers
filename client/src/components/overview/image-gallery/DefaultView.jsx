@@ -48,7 +48,12 @@ class DefaultView extends React.Component {
     if(this.props.styles !== prevProps.styles || this.props.styleIndex !== prevProps.styleIndex) {
       this.componentDidMount()
       this.selectedPhoto(0)
+    } else if (this.props.currentView !== prevProps.currentView) {
+      if (this.props.currentView === 'default') {
+        this.setState({zoomed: false})
+      }
     }
+
   }
 
   zoomImage() {
@@ -98,7 +103,8 @@ class DefaultView extends React.Component {
         currentPhoto: selectedPhoto,
         image_id: image_id,
         hiddenNext: true,
-        hiddenPrev: true
+        hiddenPrev: true,
+        zoomed: false
       })
     } else if (selectedIndex === 0) {
       this.setState({
@@ -106,7 +112,8 @@ class DefaultView extends React.Component {
         currentPhoto: selectedPhoto,
         image_id: image_id,
         hiddenNext: false,
-        hiddenPrev: true
+        hiddenPrev: true,
+        zoomed: false
       })
     } else if (selectedIndex > 0 && nextPhoto === undefined) {
       this.setState({
@@ -114,7 +121,8 @@ class DefaultView extends React.Component {
         currentPhoto: selectedPhoto,
         image_id: image_id,
         hiddenNext: true,
-        hiddenPrev: false
+        hiddenPrev: false,
+        zoomed: false
       })
     }else{
       this.setState({
@@ -122,7 +130,8 @@ class DefaultView extends React.Component {
         currentPhoto: selectedPhoto,
         image_id: image_id,
         hiddenNext: false,
-        hiddenPrev: false
+        hiddenPrev: false,
+        zoomed: false
       })
     }
   }
@@ -147,7 +156,8 @@ class DefaultView extends React.Component {
               image_id: image_id,
               hiddenPrev: true,
               topImageIndex: topImageIndex - 1,
-              bottomImageIndex: bottomImageIndex - 1
+              bottomImageIndex: bottomImageIndex - 1,
+              zoomed: false
             })
           }
         } else {
@@ -159,7 +169,8 @@ class DefaultView extends React.Component {
               hiddenPrev: false,
               hiddenNext: false,
               topImageIndex: topImageIndex - 1,
-              bottomImageIndex: bottomImageIndex - 1
+              bottomImageIndex: bottomImageIndex - 1,
+              zoomed: false
             })
           } else {
             this.setState({
@@ -167,7 +178,8 @@ class DefaultView extends React.Component {
               imageIndex: photoIndex - 1,
               image_id: image_id,
               hiddenPrev: false,
-              hiddenNext: false
+              hiddenNext: false,
+              zoomed: false
             })
           }
         }
@@ -177,7 +189,8 @@ class DefaultView extends React.Component {
               currentPhoto: prevPhoto,
               imageIndex: photoIndex - 1,
               image_id: image_id,
-              hiddenPrev: true
+              hiddenPrev: true,
+              zoomed: false
             })
           } else {
             this.setState({
@@ -185,7 +198,8 @@ class DefaultView extends React.Component {
               imageIndex: photoIndex - 1,
               image_id: image_id,
               hiddenPrev: false,
-              hiddenNext: false
+              hiddenNext: false,
+              zoomed: false
             })
           }
       }
@@ -210,7 +224,8 @@ class DefaultView extends React.Component {
               image_id: image_id,
               hiddenNext: true,
               topImageIndex: topImageIndex + 1,
-              bottomImageIndex: bottomImageIndex + 1
+              bottomImageIndex: bottomImageIndex + 1,
+              zoomed: false
             })
           } else {
             this.setState({
@@ -220,7 +235,8 @@ class DefaultView extends React.Component {
               hiddenNext: false,
               hiddenPrev: false,
               topImageIndex: topImageIndex + 1,
-              bottomImageIndex: bottomImageIndex + 1
+              bottomImageIndex: bottomImageIndex + 1,
+              zoomed: false
             })
           }
         } else {
@@ -229,7 +245,8 @@ class DefaultView extends React.Component {
               currentPhoto: nextPhoto,
               imageIndex: photoIndex + 1,
               image_id: image_id,
-              hiddenNext: true
+              hiddenNext: true,
+              zoomed: false
             })
           } else {
             this.setState({
@@ -237,7 +254,8 @@ class DefaultView extends React.Component {
               imageIndex: photoIndex + 1,
               image_id: image_id,
               hiddenNext: false,
-              hiddenPrev: false
+              hiddenPrev: false,
+              zoomed: false
             })
           }
         }
@@ -266,8 +284,14 @@ class DefaultView extends React.Component {
     if (this.state.hiddenPrev) {
       prevButton = <></>
     } else {
-      prevButton = (<button  className="prev-button-main" onClick={this.cyclePhotos} name="Prev">
-        <img alt="previous-image-button" className="prev-img" src={LeftArrow} onClick={this.cyclePhotos} name="Prev"></img>
+      prevButton = (
+      <button  className="prev-button-main" onClick={this.cyclePhotos} name="Prev">
+        <img
+          alt="previous-image-button"
+          className="prev-img"
+          src={LeftArrow}
+          onClick={this.cyclePhotos}
+          name="Prev"></img>
       </button>)
     }
     let viewClassName;
@@ -295,7 +319,7 @@ class DefaultView extends React.Component {
           <div className="image-container">
           <img
           onMouseMove={this.mouseMove}
-          onMouseLeave={this.mouseLeave}
+          // onMouseLeave={this.mouseLeave}
           onClick={this.zoomImage}
           className={viewClassName}
           src={this.state.currentPhoto}

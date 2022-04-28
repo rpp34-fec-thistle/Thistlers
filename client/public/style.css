@@ -125,8 +125,9 @@
   margin: 0px;
   position: relative;
   display: flex;
-  height: 600px;
-  width: auto;
+  height: auto;
+  max-height: 600px;
+  width: 98%;
   align-content: center;
   justify-content: center;
 }
@@ -170,6 +171,17 @@
   flex-direction: column;
   width: fit-content;
   align-items: center;
+}
+.image-list {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  align-items: center;
+}
+
+.image-tn-hidden {
+  display: none;
 }
 
 .image-tn {

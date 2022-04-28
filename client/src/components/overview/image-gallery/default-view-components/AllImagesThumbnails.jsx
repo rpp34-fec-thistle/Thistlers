@@ -36,7 +36,12 @@ function AllImagesThumbnails(props) {
         <div className="all-image-tns">
          {prevButton}
          <div className="image-list">
-        {props.thumbnails.slice(props.topImageIndex, props.bottomImageIndex + 1).map((tn, index) => {
+        {props.thumbnails.slice(props.topImageIndex, props.bottomImageIndex + 1).map((tn, i) => {
+          const getIndex = (url) => {
+            return url.split('-')[1] === tn.split('-')[1]
+          };
+
+          let index = props.thumbnails.findIndex(getIndex);
           let key = tn.split('-')[1];
           let wrappedProps = {
             image_index: index,
@@ -48,13 +53,13 @@ function AllImagesThumbnails(props) {
             hidden: false
           }
           let WrappedImageThumbnail = MetricWrapper(ImageThumbnail, wrappedProps)
-          if (index <= 6) {
-            return (<WrappedImageThumbnail key={`key-${index}`}/>)
+          if (i <= 6) {
+            return (<WrappedImageThumbnail key={`key-${key}`}/>)
           } else if (index > 6){
             let hiddenWrappedProps = wrappedProps;
             hiddenWrappedProps['hidden'] = true;
             let HiddenWrappedImageThumbnail = MetricWrapper(ImageThumbnail, hiddenWrappedProps)
-            return (<HiddenWrappedImageThumbnail key={`key-${index}`}/>)
+            return (<HiddenWrappedImageThumbnail key={`key-${key}`}/>)
           }
         })}
          </div>

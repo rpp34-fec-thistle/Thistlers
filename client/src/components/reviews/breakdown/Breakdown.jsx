@@ -19,7 +19,7 @@ class Breakdown extends Component {
         <RatingDisplay rating={this.getAverageRating(this.props.metadata.ratings)}/>
         <Recommendation metadata={this.props.metadata}/>
         <StarDistribution metadata={this.props.metadata}/>
-        <CustomerComments metadata={this.state.metadata.characteristics}/>
+        <CustomerComments metadata={this.props.metadata}/>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cards from './Cards.jsx';
 import PropTypes from 'prop-types';
+import MetricsWrapper from '../MetricsWrapper.jsx';
 
 
 class RelatedProducts extends Component {
@@ -9,19 +10,36 @@ class RelatedProducts extends Component {
 
     const items = this.props.relatedProductsIds;
 
-    return(
+    return (
 
       <>
-      <div className="related-products-container">
+        <div className="related-products-container">
 
-        <h3>Related Products</h3>
-        <div className="related-products-carousel"  data-testid='related-products-id'>
-          {items.length > 0 && items.map((eachId) =>
-            <Cards key={'rp-' + eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} overviewIdFeatures={this.props.overviewIdFeatures} setOverviewId={this.props.setOverviewId}/>
-          )}
+          <h3>Related Products</h3>
+          <div className="related-products-carousel" data-testid='related-products-id'>
+            {items.length > 0 && items.map((eachId) => {
+
+              let wrappedProps = {
+                displayButton: 'related-products',
+                id: eachId,
+                overviewId: this.props.overviewId,
+                overviewIdName: this.props.overviewIdName,
+                overviewIdFeatures: this.props.overviewIdFeatures,
+                setOverviewId: this.props.setOverviewId,
+                relatedProductsIds: this.props.relatedProductsIds,
+              }
+
+              let WrappedCards = MetricsWrapper(Cards, wrappedProps);
+
+              return <WrappedCards key={'rp-' + eachId} />
+
+            }
+              // <Cards key={'rp-' + eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} overviewIdFeatures={this.props.overviewIdFeatures} setOverviewId={this.props.setOverviewId} />
+
+            )}
+          </div>
+
         </div>
-
-      </div>
       </>
 
     )
@@ -29,12 +47,12 @@ class RelatedProducts extends Component {
 }
 
 RelatedProducts.propTypes = {
+  interaction: PropTypes.func,
   overviewId: PropTypes.number,
   overviewIdName: PropTypes.string,
   overviewIdFeatures: PropTypes.array,
   setOverviewId: PropTypes.func,
   relatedProductsIds: PropTypes.array,
-  setRelatedProductsIds: PropTypes.func
 }
 
 export default RelatedProducts;

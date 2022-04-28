@@ -338,3 +338,8 @@ app.get('/review-report/:id', (req, res) => {
     res.status(500).send(err);
   });
 });
+
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/public/index.html'));
+});

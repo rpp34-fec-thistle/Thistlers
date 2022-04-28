@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import ImageGallery from './image-gallery/ImageGallery.jsx';
 import ProductInfo from './product-info/ProductInfo.jsx';
@@ -11,7 +12,7 @@ class Overview extends React.Component {
     super(props);
     this.state = {
       view: 'default',
-      product_id: '64620',
+      product_id: this.props.product_id,
       styleIndex: 0,
       styles: [],
       info: {},
@@ -36,11 +37,21 @@ class Overview extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
+    if (prevProps.product_id !== this.props.product_id) {
+      this.setState({
+        loaded:false,
+        product_id: this.props.product_id}
+      );
+      this.componentDidMount(this.props.product_id)
+    }
+  }
+
+  componentDidMount(id) {
     let endpoints = [
-      `http://localhost:8080/styles/${this.state.product_id}`,
-      `http://localhost:8080/products/${this.state.product_id}`,
-      `http://localhost:8080/avgstars/${this.state.product_id}`
+      `http://localhost:8080/styles/${id || this.state.product_id}`,
+      `http://localhost:8080/products/${id || this.state.product_id}`,
+      `http://localhost:8080/avgstars/${id || this.state.product_id}`
     ]
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(
@@ -104,6 +115,10 @@ class Overview extends React.Component {
     }
     return (page)
   }
+}
+
+Overview.propTypes = {
+  product_id: PropTypes.string
 }
 
 export default Overview;

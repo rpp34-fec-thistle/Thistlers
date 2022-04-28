@@ -38,10 +38,6 @@ class RelatedItemsWidget extends Component {
 
   setOverviewIdData() {
 
-    // const overviewIdAPI = `http://localhost:8080/products/${id || this.state.overviewId}`;
-    // const relatedIdsAPI = `http://localhost:8080/products/${id || this.state.overviewId}/related`;
-
-
     const endpoints = [
       `http://localhost:8080/products/${this.state.overviewId}`,
       `http://localhost:8080/products/${this.state.overviewId}/related`];
@@ -50,8 +46,6 @@ class RelatedItemsWidget extends Component {
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(
         axios.spread((overview, related) => {
-          console.log('overview: ', overview);
-          console.log('related: ', related);
 
           // create features array
           var overviewResult = overview.data;
@@ -79,65 +73,12 @@ class RelatedItemsWidget extends Component {
           });
           return uniqueResults;
 
-          // this.setState({
-          //   overviewIdName: result.name,
-          //   overviewIdFeatures: itemFeatures
-          // })
-          // return result;
-
-          // this.setState({
-          //   styles: styles.data.results,
-          //   info: products.data,
-          //   ratings: avgstars.data.ratings,
-          //   loaded: true
-          // })
         })
       )
       .catch((err) => {
-        console.log('GET DATA ERROR:', err)
+        console.log('error in setOverviewIdData');
+        return err;
       })
-
-
-
-
-    // axios(overviewIdAPI)
-    //   .then((data) => {
-    //     var result = data.data;
-    //     const valueArrayMaker = (objArr) => {
-    //       let newArray = [];
-    //       objArr.forEach((obj) => {
-    //         if (obj.value !== null) {
-    //           newArray.push(obj.value);
-    //         }
-    //       })
-    //       return newArray;
-    //     }
-    //     var itemFeatures = valueArrayMaker(result.features)
-    //     this.setState({
-    //       overviewIdName: result.name,
-    //       overviewIdFeatures: itemFeatures
-    //     })
-    //     return result;
-    //   })
-    //   .then(() => {
-    //     axios(relatedIdsAPI)
-    //       .then((data) => {
-    //         var result = data.data;
-    //         var uniqueResults = [...new Set(result)].filter(id => id !== this.state.overviewId);
-    //         this.setState({
-    //           relatedProductsIds: uniqueResults
-    //         });
-    //         return uniqueResults;
-    //       })
-    //       .catch((err) => {
-    //         // console.log('error in setRelatedProductsIds');
-    //         return err;
-    //       })
-    //   })
-    //   .catch((err) => {
-    //     // console.log('error in setOverviewIdData');
-    //     return err;
-    //   })
 
   }
 

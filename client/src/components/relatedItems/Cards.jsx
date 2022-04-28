@@ -97,7 +97,9 @@ class Cards extends Component {
           <div className="card" data-testid='test-id' id={this.props.id}>
 
             <div className="card-image">
-              <img src={this.state.image} alt="item-image" onClick={() => this.props.setOverviewId(this.props.id)} />
+              <img src={this.state.image} alt="item-image" onClick={(e) => {
+                this.props.setOverviewId(this.props.id);
+                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())}} />
 
               {this.props.displayButton === 'related-products' ?
 
@@ -107,7 +109,7 @@ class Cards extends Component {
 
                 :
 
-                <button aria-label="delete-outfits" className="overlay" onClick={() => { this.props.deleteYourOutfits(this.props.id) }}></button>}
+                <button aria-label="delete-outfits" className="overlay" onClick={(e) => {this.props.deleteYourOutfits(e, this.props.id) }}></button>}
 
 
             </div>
@@ -119,7 +121,9 @@ class Cards extends Component {
                 {this.state.category}
               </div>
 
-              <button aria-label="set-item-from-name" onClick={() => {this.props.setOverviewId(this.props.id)}} className="set-text-name">{this.state.name}</button>
+              <button aria-label="set-item-from-name" onClick={(e) => {
+                this.props.setOverviewId(this.props.id);
+                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())}} className="set-text-name">{this.state.name}</button>
 
               {this.state.salePrice === null ?
                 <div className="text-price">

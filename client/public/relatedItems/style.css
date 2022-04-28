@@ -46,7 +46,7 @@
   height: 100%;
 }
 
-.related-products-carousel>.card>.card-image>.parentModal>.overlay::before {
+.related-products-carousel>.card>.card-image>.parent-modal>.overlay::before {
   background: rgba(255, 255, 255, 0);
   opacity: 1;
   display: block;
@@ -180,7 +180,7 @@ button.set-text-name {
   font-weight: bold;
 }
 
-.comparison-modal-header .comparison-modal-close-button {
+.comparison-modal-header .close-button {
   cursor: pointer;
   border: none;
   outline: none;

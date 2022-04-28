@@ -22,7 +22,18 @@ class QuestionWidget extends Component {
     }
   }
 
+
   componentDidMount() {
+    this.setOrderedData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.product_id !== this.props.product_id) {
+      this.setOrderedData();
+    }
+  }
+
+  setOrderedData() {
     helpers.orderData(this.props.product_id, (err, results) => {
       if (err) {
         console.error('An error occured fetching the data: ', err);

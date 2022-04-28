@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-// import fullStar from './Stars/fullStar.svg';
 
 class Ratings extends Component {
   constructor(props) {
@@ -35,19 +34,11 @@ class Ratings extends Component {
             var pairTotal = score * votes;
             totalScore += pairTotal;
           }
+
           var totalRatings = Object.values(result).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
           var averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
 
           var numWholeStars = Math.floor(averageScore);
-          // var remainderStars = averageScore - numWholeStars;
-
-          // var addWholeStar = remainderStars > .875;
-          // var addThreeQuarterStar = remainderStars < .875 && remainderStars > .625;
-          // var addHalfStar = remainderStars < .625 && remainderStars > .37;
-          // var addQuarterStar = remainderStars < .37 && remainderStars > .125;
-          // var addNoStar = remainderStars < .125;
-
-          // console.log('rating: ', numWholeStars, addWholeStar, addThreeQuarterStar, addHalfStar, addQuarterStar, addNoStar);
 
           var starString = '';
 
@@ -66,7 +57,6 @@ class Ratings extends Component {
           if (numWholeStars === 5) {
             starString = '★★★★★'
           }
-          // console.log(starString);
 
           this.setState({
             ratings: averageScore,
@@ -82,15 +72,12 @@ class Ratings extends Component {
 
   }
 
-
-
   render() {
 
     return (
       <>
       <div className="ratings" data-testid='ratings-id'>
         {this.state.starRatings}
-        {/* {this.state.ratings} */}
       </div>
       </>
     )
@@ -107,3 +94,12 @@ export default Ratings;
 
 
 
+     // var remainderStars = averageScore - numWholeStars;
+
+          // var addWholeStar = remainderStars > .875;
+          // var addThreeQuarterStar = remainderStars < .875 && remainderStars > .625;
+          // var addHalfStar = remainderStars < .625 && remainderStars > .37;
+          // var addQuarterStar = remainderStars < .37 && remainderStars > .125;
+          // var addNoStar = remainderStars < .125;
+
+      // console.log('rating: ', numWholeStars, addWholeStar, addThreeQuarterStar, addHalfStar, addQuarterStar, addNoStar);

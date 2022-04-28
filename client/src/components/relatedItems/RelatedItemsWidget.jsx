@@ -38,45 +38,45 @@ class RelatedItemsWidget extends Component {
 
   setOverviewIdData() {
 
-    const overviewIdAPI = `http://localhost:8080/products/${this.state.overviewId}`;
-    const relatedIdsAPI = `http://localhost:8080/products/${this.state.overviewId}/related`;
+    const endpoints = [
+      `http://localhost:8080/products/${this.state.overviewId}`,
+      `http://localhost:8080/products/${this.state.overviewId}/related`];
 
-    axios(overviewIdAPI)
-      .then((data) => {
-        var result = data.data;
-        const valueArrayMaker = (objArr) => {
-          let newArray = [];
-          objArr.forEach((obj) => {
-            if (obj.value !== null) {
-              newArray.push(obj.value);
-            }
-          })
-          return newArray;
-        }
-        var itemFeatures = valueArrayMaker(result.features)
-        this.setState({
-          overviewIdName: result.name,
-          overviewIdFeatures: itemFeatures
+
+    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then(
+        axios.spread((overview, related) => {
+
+          // create features array
+          var overviewResult = overview.data;
+          const valueArrayMaker = (objArr) => {
+            let newArray = [];
+            objArr.forEach((obj) => {
+              if (obj.value !== null) {
+                newArray.push(obj.value);
+              }
+            })
+            return newArray;
+          }
+          var itemFeatures = valueArrayMaker(overviewResult.features);
+
+          // create relatedProductsIds
+          var relatedResult = related.data;
+          var uniqueResults = [...new Set(relatedResult)].filter(id => id !== this.state.overviewId);
+
+          // setState
+          this.setState({
+            overviewIdName: overviewResult.name,
+            overviewIdFeatures: itemFeatures,
+            relatedProductsIds: uniqueResults,
+            loaded: true
+          });
+          return uniqueResults;
+
         })
-        return result;
-      })
-      .then(() => {
-        axios(relatedIdsAPI)
-          .then((data) => {
-            var result = data.data;
-            var uniqueResults = [...new Set(result)].filter(id => id !== this.state.overviewId);
-            this.setState({
-              relatedProductsIds: uniqueResults
-            });
-            return uniqueResults;
-          })
-          .catch((err) => {
-            // console.log('error in setRelatedProductsIds');
-            return err;
-          })
-      })
+      )
       .catch((err) => {
-        // console.log('error in setOverviewIdData');
+        console.log('error in setOverviewIdData');
         return err;
       })
 

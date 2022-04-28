@@ -69,7 +69,7 @@ class ComparisonModal extends Component {
 
             <div className="comparison-modal-header">
               <div className="comparison-modal-title">COMPARING</div>
-              <button alt="remove-product-comparison" data-modal-close={this.uniqueSearch} id={this.props.id} className="close-button" ref={this.buttonClose}>&times;</button>
+              <button alt="remove-product-comparison" data-modal-close={this.uniqueSearch} id={this.props.id} className="close-button" ref={this.buttonClose} onClick={(e) => {this.props.interaction(`${e.target}`, 'RelatedItems', new Date())}}>&times;</button>
             </div>
 
             <div className="comparison-modal-header">
@@ -115,6 +115,7 @@ class ComparisonModal extends Component {
 }
 
 ComparisonModal.propTypes = {
+  interaction: PropTypes.func,
   id: PropTypes.number,
   overviewId: PropTypes.number,
   overviewIdFeatures: PropTypes.array,

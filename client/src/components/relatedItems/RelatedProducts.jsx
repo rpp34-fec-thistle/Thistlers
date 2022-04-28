@@ -34,7 +34,6 @@ class RelatedProducts extends Component {
               return <WrappedCards key={'rp-' + eachId} />
 
             }
-              // <Cards key={'rp-' + eachId} displayButton={'related-products'} id={eachId} overviewId={this.props.overviewId} overviewIdName={this.props.overviewIdName} overviewIdFeatures={this.props.overviewIdFeatures} setOverviewId={this.props.setOverviewId} />
 
             )}
           </div>

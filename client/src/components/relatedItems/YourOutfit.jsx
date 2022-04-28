@@ -17,7 +17,7 @@ class YourOutfit extends Component {
   }
 
   componentDidMount() {
-    this.setYourOutfits()
+    this.setYourOutfits();
   }
 
   setYourOutfits() {
@@ -37,6 +37,7 @@ class YourOutfit extends Component {
   }
 
   deleteYourOutfits(id) {
+
     if (this.state.yourOutfitIds.length === 1) {
       window.localStorage.clear();
       window.localStorage.setItem('yourOutfits', []);
@@ -59,11 +60,14 @@ class YourOutfit extends Component {
   }
 
   addToOutfits(id) {
+
     let originalArray = this.state.yourOutfitIds;
     let localStorageArray = window.localStorage.yourOutfits.split(',');
+
     if (localStorageArray.indexOf(id.toString()) !== -1) {
       return;
     }
+
     if (window.localStorage.yourOutfits === '') {
       let newArray = [id]
       this.setState({
@@ -93,7 +97,9 @@ class YourOutfit extends Component {
           <div className="your-outfit-carousel" data-testid="your-outfit-id">
 
             <div className="card" data-testid='test-id' id={this.props.id}>
-              <button onClick={() => this.addToOutfits(this.props.overviewId)} className="add-to-outfits">Add This Item to Your Outfit List</button>
+              <button aria-label="add-item-to-list" onClick={(e) => {
+                this.addToOutfits(this.props.overviewId);
+                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())}} className="add-to-outfits">Add This Item to Your Outfit List</button>
             </div>
 
 
@@ -112,13 +118,6 @@ class YourOutfit extends Component {
               return <WrappedCards key={'yo-' + eachId} />
 
             })}
-
-          {/*
-            {items.map((eachId) =>
-
-              <Cards key={'yo-' + eachId} displayButton={'your-outfit'} id={eachId} overviewId={this.props.overviewId} setOverviewId={this.props.setOverviewId} deleteYourOutfits={this.deleteYourOutfits} />
-
-           )} */}
 
           </div>
 

@@ -11,7 +11,8 @@ class RelatedItemsWidget extends Component {
       overviewId: 64620,
       overviewIdName: '',
       overviewIdFeatures: [],
-      relatedProductsIds: []
+      relatedProductsIds: [],
+      loaded: false
     }
     this.setOverviewId = this.setOverviewId.bind(this);
     this.setOverviewIdData = this.setOverviewIdData.bind(this);
@@ -25,15 +26,14 @@ class RelatedItemsWidget extends Component {
   }
 
   setOverviewId(id) {
-    let idString = id.toString();
-    this.props.changeId(idString);
+      let idString = id.toString();
+      this.props.changeId(idString);
 
-    this.setState({
-      overviewId: id,
-      relatedProductsIds: []
-    })
-
-    this.setOverviewIdData();
+      this.setState({
+        overviewId: id,
+        relatedProductsIds: []
+      })
+      this.setOverviewIdData();
   }
 
   setOverviewIdData() {
@@ -44,10 +44,8 @@ class RelatedItemsWidget extends Component {
 
 
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then(
-        axios.spread((overview, related) => {
+      .then(axios.spread((overview, related) => {
 
-          // create features array
           var overviewResult = overview.data;
           const valueArrayMaker = (objArr) => {
             let newArray = [];
@@ -60,11 +58,9 @@ class RelatedItemsWidget extends Component {
           }
           var itemFeatures = valueArrayMaker(overviewResult.features);
 
-          // create relatedProductsIds
           var relatedResult = related.data;
           var uniqueResults = [...new Set(relatedResult)].filter(id => id !== this.state.overviewId);
 
-          // setState
           this.setState({
             overviewIdName: overviewResult.name,
             overviewIdFeatures: itemFeatures,
@@ -73,8 +69,7 @@ class RelatedItemsWidget extends Component {
           });
           return uniqueResults;
 
-        })
-      )
+      }))
       .catch((err) => {
         console.log('error in setOverviewIdData');
         return err;

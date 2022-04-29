@@ -40,7 +40,9 @@ class DefaultView extends React.Component {
         imageIndex: 0,
         currentStyle: this.props.styleIndex,
         thumbnails: thumbnails,
-        image_id: image_id
+        image_id: image_id,
+        topImageIndex: 0,
+        bottomImageIndex: 6
       });
   }
 

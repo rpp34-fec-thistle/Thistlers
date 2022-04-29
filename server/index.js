@@ -2,10 +2,12 @@ const express = require('express');
 const path = require('path');
 const axios = require('axios');
 const compression = require('compression');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 
+app.use(cors())
 app.use(compression())
 app.use(express.static(path.join(__dirname, '../client/public')));
 app.use(express.json());

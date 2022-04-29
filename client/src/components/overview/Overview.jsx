@@ -49,9 +49,9 @@ class Overview extends React.Component {
 
   componentDidMount(id) {
     let endpoints = [
-      `http://localhost:8080/styles/${id || this.state.product_id}`,
-      `http://localhost:8080/products/${id || this.state.product_id}`,
-      `http://localhost:8080/avgstars/${id || this.state.product_id}`
+      `styles/${id || this.state.product_id}`,
+      `products/${id || this.state.product_id}`,
+      `avgstars/${id || this.state.product_id}`
     ]
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(

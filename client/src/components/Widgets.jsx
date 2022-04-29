@@ -18,12 +18,12 @@ const Widgets = () => {
     }
     return(
       <>
-      <Overview product_id={productId}/>
+      {/* <Overview product_id={productId}/> */}
       <RelatedItems
         changeId={setProductId}
         productId={productId}/>
-      <Questions product_id={productId}/>
-      <Reviews product_id={productId}/>
+      {/* <Questions product_id={productId}/>
+      <Reviews product_id={productId}/> */}
       </>
     )
 }

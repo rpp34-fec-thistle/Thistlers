@@ -15,7 +15,8 @@ class Cards extends Component {
       salePrice: null,
       category: '',
       name: '',
-      features: []
+      features: [],
+      cardLoaded: false
     }
     this.setCard = this.setCard.bind(this);
   }
@@ -25,6 +26,10 @@ class Cards extends Component {
   }
 
   setCard() {
+
+    this.setState({
+      cardLoaded: false
+    })
 
     const endpoints = [
       `http://localhost:8080/styles/${this.props.id}`,
@@ -54,7 +59,8 @@ class Cards extends Component {
           salePrice: stylesResults.results[0].sale_price,
           category: productsResults.category,
           name: productsResults.name,
-          features: itemFeatures
+          features: itemFeatures,
+          cardLoaded: true
         });
 
         return [styles, products];
@@ -85,7 +91,9 @@ class Cards extends Component {
 
     return (
       <>
-        {this.state.image && this.state.image !== null && this.props.id && this.props.overviewId &&
+        {/* {this.state.image && this.state.image !== null && this.props.id && this.props.overviewId && */}
+
+        {this.state.cardLoaded && this.state.image !== null &&
 
           <div className="card" data-testid='test-id' id={'card-' + this.props.id}>
 

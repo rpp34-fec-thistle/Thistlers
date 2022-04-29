@@ -8,6 +8,8 @@ class RelatedProducts extends Component {
 
   render() {
 
+    // console.log('from related products component', this.props.relatedProductsArray);
+
     const items = this.props.relatedProductsIds;
 
     return (
@@ -52,6 +54,7 @@ RelatedProducts.propTypes = {
   overviewIdFeatures: PropTypes.array,
   setOverviewId: PropTypes.func,
   relatedProductsIds: PropTypes.array,
+  relatedProductsArray: PropTypes.array
 }
 
 export default RelatedProducts;

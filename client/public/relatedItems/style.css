@@ -3,14 +3,6 @@
   padding-bottom: 80px;
 }
 
-.related-products-container {
-  width: 1080px;
-}
-
-.your-outfit-container {
-  width: 1080px;
-}
-
 .your-outfit-carousel {
   -ms-overflow-style: none;
   scrollbar-width: none;

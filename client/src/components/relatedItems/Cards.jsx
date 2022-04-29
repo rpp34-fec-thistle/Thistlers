@@ -15,7 +15,8 @@ class Cards extends Component {
       salePrice: null,
       category: '',
       name: '',
-      features: []
+      features: [],
+      cardLoaded: false
     }
     this.setCard = this.setCard.bind(this);
   }
@@ -26,52 +27,49 @@ class Cards extends Component {
 
   setCard() {
 
-    const stylesAPI = `http://localhost:8080/styles/${this.props.id}`;
-    const productsAPI = `http://localhost:8080/products/${this.props.id}`;
+    this.setState({
+      cardLoaded: false
+    })
 
-    axios.get(stylesAPI)
-      .then((data) => {
-        var result = data.data;
-        this.setState({
-          image: result.results[0].photos[0].thumbnail_url,
-          price: result.results[0].original_price,
-          salePrice: result.results[0].sale_price
-        });
-        return result;
-      })
-      .then(() => {
-        axios.get(productsAPI)
-          .then((data) => {
-            var result = data.data;
+    const endpoints = [
+      `http://localhost:8080/styles/${this.props.id}`,
+      `http://localhost:8080/products/${this.props.id}` ];
 
-            const valueArrayMaker = (objArr) => {
-              let newArray = [];
-              objArr.forEach((obj) => {
-                if (obj.value !== null) {
-                  newArray.push(obj.value);
-                }
-              })
-              return newArray;
+    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then(axios.spread((styles, products) => {
+
+        var stylesResults = styles.data;
+        var productsResults = products.data;
+
+        const valueArrayMaker = (objArr) => {
+          let newArray = [];
+          objArr.forEach((obj) => {
+            if (obj.value !== null) {
+              newArray.push(obj.value);
             }
-
-            var itemFeatures = valueArrayMaker(result.features)
-
-            this.setState({
-              category: result.category,
-              name: result.name,
-              features: itemFeatures
-            });
-            return result;
           })
-          .catch((err) => {
-            console.log('API call to /products error');
-            return err;
-          })
-      })
-      .catch((err) => {
-        console.log('API call to /styles error');
-        return err;
-      })
+          return newArray;
+        }
+
+        var itemFeatures = valueArrayMaker(productsResults.features)
+
+        this.setState({
+          image: stylesResults.results[0].photos[0].thumbnail_url,
+          price: stylesResults.results[0].original_price,
+          salePrice: stylesResults.results[0].sale_price,
+          category: productsResults.category,
+          name: productsResults.name,
+          features: itemFeatures,
+          cardLoaded: true
+        });
+
+        return [styles, products];
+
+        }))
+        .catch((err) => {
+          console.log('API call to setCard() error');
+          return err;
+        })
 
   }
 
@@ -90,16 +88,20 @@ class Cards extends Component {
 
     let WrappedComparisonModal = MetricsWrapper(ComparisonModal, wrappedProps);
 
+
     return (
       <>
-        {this.state.image && this.state.image !== null && this.props.id && this.props.overviewId &&
+        {/* {this.state.image && this.state.image !== null && this.props.id && this.props.overviewId && */}
 
-          <div className="card" data-testid='test-id' id={this.props.id}>
+        {this.state.cardLoaded && this.state.image !== null &&
+
+          <div className="card" data-testid='test-id' id={'card-' + this.props.id}>
 
             <div className="card-image">
               <img src={this.state.image} alt="item-image" onClick={(e) => {
                 this.props.setOverviewId(this.props.id);
-                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())}} />
+                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
+              }} />
 
               {this.props.displayButton === 'related-products' ?
 
@@ -126,19 +128,20 @@ class Cards extends Component {
 
               <button aria-label="set-item-from-name" onClick={(e) => {
                 this.props.setOverviewId(this.props.id);
-                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())}} className="set-text-name">{this.state.name}</button>
+                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
+              }} className="set-text-name">{this.state.name}</button>
 
               {this.state.salePrice === null ?
                 <div className="text-price">
                   {this.state.price}
                 </div> :
                 <>
-                <div className="price-change">
-                  {this.state.price}
-                </div>
-                <div className="sale-price">
-                  {this.state.salePrice}
-                </div>
+                  <div className="price-change">
+                    {this.state.price}
+                  </div>
+                  <div className="sale-price">
+                    {this.state.salePrice}
+                  </div>
                 </>
               }
 

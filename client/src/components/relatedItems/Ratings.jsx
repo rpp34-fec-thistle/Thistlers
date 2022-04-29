@@ -76,7 +76,7 @@ class Ratings extends Component {
 
     return (
       <>
-      <div className="ratings" data-testid='ratings-id'>
+      <div className="ratings" data-testid='ratings-id' id={'rating-' + this.props.id}>
         {this.state.starRatings}
       </div>
       </>

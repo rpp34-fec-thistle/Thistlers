@@ -74,101 +74,102 @@ class RelatedItemsWidget extends Component {
         return uniqueResults;
 
       }))
-      .then((idArray) => {
+      // .then((idArray) => {
 
-        // creating an array that contains objects with info of each item
-        var newItemArray = [];
+      //   // creating an array that contains objects with info of each item
+      //   var newItemArray = [];
 
-        ////// map
-        Promise.all([...idArray.map((eachItem) => {
+      //   ////// map
+      //   Promise.all([...idArray.map((eachItem) => {
 
-          // for each ID, get info from APIs
-          const endpoints = [
-            `http://localhost:8080/styles/${eachItem}`,
-            `http://localhost:8080/products/${eachItem}`,
-            `http://localhost:8080/reviews/${eachItem}`];
+      //     // for each ID, get info from APIs
+      //     const endpoints = [
+      //       `http://localhost:8080/styles/${eachItem}`,
+      //       `http://localhost:8080/products/${eachItem}`,
+      //       `http://localhost:8080/reviews/${eachItem}`];
 
-          axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-            .then(axios.spread((styles, products, ratings) => {
+      //     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      //       .then(axios.spread((styles, products, ratings) => {
 
-              var stylesResults = styles.data;
-                var image = stylesResults.results[0].photos[0].thumbnail_url;
-                var price = stylesResults.results[0].original_price;
-                var salePrice = stylesResults.results[0].sale_price;
+      //         var stylesResults = styles.data;
+      //           var image = stylesResults.results[0].photos[0].thumbnail_url;
+      //           var price = stylesResults.results[0].original_price;
+      //           var salePrice = stylesResults.results[0].sale_price;
 
-              var productsResults = products.data;
-                var category = productsResults.category;
-                var name = productsResults.name;
-                  const valueArrayMaker = (objArr) => {
-                    let newArray = [];
-                    objArr.forEach((obj) => {
-                      if (obj.value !== null) {
-                        newArray.push(obj.value);
-                      }
-                    })
-                    return newArray;
-                  }
-                var features = valueArrayMaker(productsResults.features)
+      //         var productsResults = products.data;
+      //           var category = productsResults.category;
+      //           var name = productsResults.name;
+      //             const valueArrayMaker = (objArr) => {
+      //               let newArray = [];
+      //               objArr.forEach((obj) => {
+      //                 if (obj.value !== null) {
+      //                   newArray.push(obj.value);
+      //                 }
+      //               })
+      //               return newArray;
+      //             }
+      //           var features = valueArrayMaker(productsResults.features)
 
-              var ratingsResults = ratings.data;
-              var ratingsObj = ratingsResults.ratings;
+      //         var ratingsResults = ratings.data;
+      //         var ratingsObj = ratingsResults.ratings;
 
-              var hasRatings = Object.keys(ratingsObj).length > 0;
+      //         var hasRatings = Object.keys(ratingsObj).length > 0;
 
-              if (!hasRatings) {
-                var averageScore = null;
-              } else {
-                var ratingsArr = Object.entries(ratingsObj);
-                var totalScore = 0;
-                for (var i = 0; i < ratingsArr.length; i++) {
-                  var currentPair = ratingsArr[i];
-                  var score = parseInt(currentPair[0]);
-                  var votes = parseInt(currentPair[1]);
-                  var pairTotal = score * votes;
-                  totalScore += pairTotal;
-                }
-                var totalRatings = Object.values(ratingsObj).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
-                averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
-              }
+      //         if (!hasRatings) {
+      //           var averageScore = null;
+      //         } else {
+      //           var ratingsArr = Object.entries(ratingsObj);
+      //           var totalScore = 0;
+      //           for (var i = 0; i < ratingsArr.length; i++) {
+      //             var currentPair = ratingsArr[i];
+      //             var score = parseInt(currentPair[0]);
+      //             var votes = parseInt(currentPair[1]);
+      //             var pairTotal = score * votes;
+      //             totalScore += pairTotal;
+      //           }
+      //           var totalRatings = Object.values(ratingsObj).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
+      //           averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
+      //         }
 
-              var newItemObj = {
-                'id': eachItem,
-                'image': image,
-                'price': price,
-                'salePrice': salePrice,
-                'category': category,
-                'name': name,
-                'features': features,
-                'ratings': averageScore
-              }
+      //         var newItemObj = {
+      //           'id': eachItem,
+      //           'image': image,
+      //           'price': price,
+      //           'salePrice': salePrice,
+      //           'category': category,
+      //           'name': name,
+      //           'features': features,
+      //           'ratings': averageScore
+      //         }
 
-                newItemArray.push(newItemObj);
+      //           newItemArray.push(newItemObj);
 
-              return newItemObj;
+      //         return newItemObj;
 
-            }))
-            .catch((err) => {
-              console.log('API call to setCard() error');
-              return err;
-            })
-        })])
-        .catch((err) => {
-          console.log('mapped promises error: ', err)
-        })
+      //       }))
+      //       .catch((err) => {
+      //         console.log('API call to setCard() error');
+      //         return err;
+      //       })
+      //   })])
+      //   .catch((err) => {
+      //     console.log('mapped promises error: ', err)
+      //   })
 
-        // mysterious array with objects but no length appears here
-        // console.log('newItemArray: ', newItemArray);
+      //   // mysterious array with objects but no length appears here
+      //   // console.log('newItemArray: ', newItemArray);
 
-        return newItemArray;
+      //   return newItemArray;
 
-      })
-      .then((array) => {
-        this.setState({
-          relatedProductsArray: array
-        })
-        return array;
-      })
-      .then(() => {
+      // })
+      // .then((array) => {
+      //   this.setState({
+      //     relatedProductsArray: array
+      //   })
+      //   return array;
+      // })
+      .then((data) => {
+        console.log(data)
         this.setState({
           loaded: true
         })
@@ -195,6 +196,7 @@ class RelatedItemsWidget extends Component {
     let page = <div></div>
 
     if (this.state.loaded) {
+
       page =
         <div className="related-items-widget">
           <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} relatedProductsArray={this.state.relatedProductsArray} />

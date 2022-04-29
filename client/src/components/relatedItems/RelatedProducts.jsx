@@ -8,8 +8,6 @@ class RelatedProducts extends Component {
 
   render() {
 
-    // console.log('from related products component', this.props.relatedProductsArray);
-
     const items = this.props.relatedProductsIds;
 
     return (

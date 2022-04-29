@@ -56,16 +56,11 @@ class RelatedItemsWidget extends Component {
       .then(axios.spread((overview, related) => {
 
         var overviewResult = overview.data;
-        const valueArrayMaker = (objArr) => {
-          let newArray = [];
-          objArr.forEach((obj) => {
-            if (obj.value !== null) {
-              newArray.push(obj.value);
-            }
-          })
-          return newArray;
-        }
-        var itemFeatures = valueArrayMaker(overviewResult.features);
+        var itemFeatures = overviewResult.features.map((x) => {
+          if (x.value !== null) {
+            return x.value;
+          }
+        });
 
         var relatedResult = related.data;
         var uniqueResults = [...new Set(relatedResult)].filter(id => id !== this.state.overviewId);
@@ -84,7 +79,9 @@ class RelatedItemsWidget extends Component {
         // creating an array that contains objects with info of each item
         var newItemArray = [];
 
-        idArray.map((eachItem) => {
+        ////// map
+        Promise.all([...idArray.map((eachItem) => {
+
           // for each ID, get info from APIs
           const endpoints = [
             `http://localhost:8080/styles/${eachItem}`,
@@ -95,37 +92,32 @@ class RelatedItemsWidget extends Component {
             .then(axios.spread((styles, products, ratings) => {
 
               var stylesResults = styles.data;
+                var image = stylesResults.results[0].photos[0].thumbnail_url;
+                var price = stylesResults.results[0].original_price;
+                var salePrice = stylesResults.results[0].sale_price;
+
               var productsResults = products.data;
-              var ratingsResults = ratings.data;
-
-              const valueArrayMaker = (objArr) => {
-                let newArray = [];
-                objArr.forEach((obj) => {
-                  if (obj.value !== null) {
-                    newArray.push(obj.value);
+                var category = productsResults.category;
+                var name = productsResults.name;
+                  const valueArrayMaker = (objArr) => {
+                    let newArray = [];
+                    objArr.forEach((obj) => {
+                      if (obj.value !== null) {
+                        newArray.push(obj.value);
+                      }
+                    })
+                    return newArray;
                   }
-                })
-                return newArray;
-              }
+                var features = valueArrayMaker(productsResults.features)
 
-              var itemFeatures = valueArrayMaker(productsResults.features)
-
-              var image = stylesResults.results[0].photos[0].thumbnail_url;
-              var price = stylesResults.results[0].original_price;
-              var salePrice = stylesResults.results[0].sale_price;
-              var category = productsResults.category;
-              var name = productsResults.name;
-              var features = itemFeatures;
-
+              var ratingsResults = ratings.data;
               var ratingsObj = ratingsResults.ratings;
 
               var hasRatings = Object.keys(ratingsObj).length > 0;
 
               if (!hasRatings) {
                 var averageScore = null;
-              }
-
-              if (hasRatings) {
+              } else {
                 var ratingsArr = Object.entries(ratingsObj);
                 var totalScore = 0;
                 for (var i = 0; i < ratingsArr.length; i++) {
@@ -150,22 +142,34 @@ class RelatedItemsWidget extends Component {
                 'ratings': averageScore
               }
 
-              if (newItemObj.image !== null && name) {
                 newItemArray.push(newItemObj);
-              }
+
+              return newItemObj;
 
             }))
             .catch((err) => {
               console.log('API call to setCard() error');
               return err;
             })
+        })])
+        .catch((err) => {
+          console.log('mapped promises error: ', err)
         })
+
+        // mysterious array with objects but no length appears here
+        // console.log('newItemArray: ', newItemArray);
+
         return newItemArray;
 
       })
       .then((array) => {
         this.setState({
-          relatedProductsArray: array,
+          relatedProductsArray: array
+        })
+        return array;
+      })
+      .then(() => {
+        this.setState({
           loaded: true
         })
       })
@@ -188,17 +192,19 @@ class RelatedItemsWidget extends Component {
 
     let WrappedYourOutfit = MetricsWrapper(YourOutfit, wrappedProps);
 
-    return (
-      <>
-        {this.state.loaded === true &&
-          <div className="related-items-widget">
-            <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} relatedProductsArray={this.state.relatedProductsArray} />
-            <WrappedYourOutfit />
-            <div id="comparison-modal-overlay"></div>
-          </div>
-        }
-      </>
-    )
+    let page = <div></div>
+
+    if (this.state.loaded) {
+      page =
+        <div className="related-items-widget">
+          <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} relatedProductsArray={this.state.relatedProductsArray} />
+          <WrappedYourOutfit />
+          <div id="comparison-modal-overlay"></div>
+        </div>
+      }
+
+    return (page)
+
   }
 }
 

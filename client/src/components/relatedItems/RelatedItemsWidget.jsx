@@ -160,7 +160,6 @@ class RelatedItemsWidget extends Component {
               return err;
             })
         })
-
         return newItemArray;
 
       })

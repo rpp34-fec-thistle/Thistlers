@@ -94,9 +94,9 @@ class RelatedItemsWidget extends Component {
   setCards(eachItem) {
 
     const endpoints = [
-      `http://localhost:8080/styles/${eachItem}`,
-      `http://localhost:8080/products/${eachItem}`,
-      `http://localhost:8080/reviews/${eachItem}`];
+      `/styles/${eachItem}`,
+      `/products/${eachItem}`,
+      `/reviews/${eachItem}`];
 
     return axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((styles, products, ratings) => {

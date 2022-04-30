@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import RelatedProducts from './RelatedProducts.jsx';
+import RelatedProducts from './newRelatedProducts.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import MetricsWrapper from '../MetricsWrapper.jsx';
 
@@ -26,6 +26,12 @@ class RelatedItemsWidget extends Component {
     this.setOverviewIdData();
   }
 
+  // first we need to setOverviewIdData
+  // when done, return the relatedProductsArray
+  // then we need to map over the relatedProductsArray
+  // when one item is created
+  // then we need to add to the array
+
 
   setOverviewId(id) {
 
@@ -37,25 +43,72 @@ class RelatedItemsWidget extends Component {
       relatedProductsIds: [],
       loaded: false
     })
+
     this.setOverviewIdData();
   }
 
-
   setOverviewIdData() {
-
     this.setState({
       loaded: false
     })
-
     const endpoints = [
-      `http://localhost:8080/products/${this.state.overviewId}`,
-      `http://localhost:8080/products/${this.state.overviewId}/related`];
+      `/products/${this.state.overviewId}`,
+      `/products/${this.state.overviewId}/related`];
 
-
-    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+    return axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((overview, related) => {
 
         var overviewResult = overview.data;
+        var itemFeatures = overviewResult.features.map((x) => {
+          if (x.value !== null) {
+            return x.value;
+          }
+        });
+        var relatedResult = related.data;
+        var uniqueResults = [...new Set(relatedResult)].filter(id => id !== this.state.overviewId);
+        this.setState({
+          overviewIdName: overviewResult.name,
+          overviewIdFeatures: itemFeatures,
+          relatedProductsIds: uniqueResults,
+          loaded: true
+        });
+        return uniqueResults;
+      }))
+      .catch((err) => {
+        console.log('error in setOverviewIdData');
+        return err;
+      })
+  }
+
+  setArray(itemArray) {
+    // for each item in the array
+    var newArray = [];
+
+    itemArray.map((item) => {
+      newArray.push(setCards(item))
+    })
+
+    return newArray;
+  }
+
+  setCards(eachItem) {
+
+    const endpoints = [
+      `/styles/${eachItem}`,
+      `/products/${eachItem}`,
+      `/reviews/${eachItem}`];
+
+    return axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then(axios.spread((styles, products, ratings) => {
+
+        var stylesResults = styles.data;
+        var image = stylesResults.results[0].photos[0].thumbnail_url;
+        var price = stylesResults.results[0].original_price;
+        var salePrice = stylesResults.results[0].sale_price;
+
+        var productsResults = products.data;
+        var category = productsResults.category;
+        var name = productsResults.name;
         const valueArrayMaker = (objArr) => {
           let newArray = [];
           objArr.forEach((obj) => {
@@ -65,116 +118,53 @@ class RelatedItemsWidget extends Component {
           })
           return newArray;
         }
-        var itemFeatures = valueArrayMaker(overviewResult.features);
+        var features = valueArrayMaker(productsResults.features)
 
-        var relatedResult = related.data;
-        var uniqueResults = [...new Set(relatedResult)].filter(id => id !== this.state.overviewId);
+        var ratingsResults = ratings.data;
+        var ratingsObj = ratingsResults.ratings;
 
-        this.setState({
-          overviewIdName: overviewResult.name,
-          overviewIdFeatures: itemFeatures,
-          relatedProductsIds: uniqueResults
-        });
+        var hasRatings = Object.keys(ratingsObj).length > 0;
 
-        return uniqueResults;
+        if (!hasRatings) {
+          var averageScore = null;
+        } else {
+          var ratingsArr = Object.entries(ratingsObj);
+          var totalScore = 0;
+          for (var i = 0; i < ratingsArr.length; i++) {
+            var currentPair = ratingsArr[i];
+            var score = parseInt(currentPair[0]);
+            var votes = parseInt(currentPair[1]);
+            var pairTotal = score * votes;
+            totalScore += pairTotal;
+          }
+          var totalRatings = Object.values(ratingsObj).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
+          averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
+        }
+
+        var newItemObj = {
+          'id': eachItem,
+          'image': image,
+          'price': price,
+          'salePrice': salePrice,
+          'category': category,
+          'name': name,
+          'features': features,
+          'ratings': averageScore
+        }
+
+        return newItemObj;
 
       }))
-      .then((idArray) => {
-
-        // creating an array that contains objects with info of each item
-        var newItemArray = [];
-
-        idArray.map((eachItem) => {
-          // for each ID, get info from APIs
-          const endpoints = [
-            `http://localhost:8080/styles/${eachItem}`,
-            `http://localhost:8080/products/${eachItem}`,
-            `http://localhost:8080/reviews/${eachItem}`];
-
-          axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-            .then(axios.spread((styles, products, ratings) => {
-
-              var stylesResults = styles.data;
-              var productsResults = products.data;
-              var ratingsResults = ratings.data;
-
-              const valueArrayMaker = (objArr) => {
-                let newArray = [];
-                objArr.forEach((obj) => {
-                  if (obj.value !== null) {
-                    newArray.push(obj.value);
-                  }
-                })
-                return newArray;
-              }
-
-              var itemFeatures = valueArrayMaker(productsResults.features)
-
-              var image = stylesResults.results[0].photos[0].thumbnail_url;
-              var price = stylesResults.results[0].original_price;
-              var salePrice = stylesResults.results[0].sale_price;
-              var category = productsResults.category;
-              var name = productsResults.name;
-              var features = itemFeatures;
-
-              var ratingsObj = ratingsResults.ratings;
-
-              var hasRatings = Object.keys(ratingsObj).length > 0;
-
-              if (!hasRatings) {
-                var averageScore = null;
-              }
-
-              if (hasRatings) {
-                var ratingsArr = Object.entries(ratingsObj);
-                var totalScore = 0;
-                for (var i = 0; i < ratingsArr.length; i++) {
-                  var currentPair = ratingsArr[i];
-                  var score = parseInt(currentPair[0]);
-                  var votes = parseInt(currentPair[1]);
-                  var pairTotal = score * votes;
-                  totalScore += pairTotal;
-                }
-                var totalRatings = Object.values(ratingsObj).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
-                averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
-              }
-
-              var newItemObj = {
-                'id': eachItem,
-                'image': image,
-                'price': price,
-                'salePrice': salePrice,
-                'category': category,
-                'name': name,
-                'features': features,
-                'ratings': averageScore
-              }
-
-              if (newItemObj.image !== null && name) {
-                newItemArray.push(newItemObj);
-              }
-
-            }))
-            .catch((err) => {
-              console.log('API call to setCard() error');
-              return err;
-            })
-        })
-        return newItemArray;
-
-      })
-      .then((array) => {
-        this.setState({
-          relatedProductsArray: array,
-          loaded: true
-        })
+      .then((results) => {
+        console.log('each item Obj: ', results);
+        return results;
       })
       .catch((err) => {
-        console.log('error in setOverviewIdData');
+        console.log('API call to setCard() error');
         return err;
       })
-
-
+    // mysterious array with objects but no length appears here
+    // console.log('newItemArray: ', newItemArray);
   }
 
 
@@ -188,17 +178,20 @@ class RelatedItemsWidget extends Component {
 
     let WrappedYourOutfit = MetricsWrapper(YourOutfit, wrappedProps);
 
-    return (
-      <>
-        {this.state.loaded === true &&
-          <div className="related-items-widget">
-            <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} relatedProductsArray={this.state.relatedProductsArray} />
-            <WrappedYourOutfit />
-            <div id="comparison-modal-overlay"></div>
-          </div>
-        }
-      </>
-    )
+    let page = <div></div>
+
+    if (this.state.loaded) {
+
+      page =
+        <div className="related-items-widget">
+          <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} relatedProductsArray={this.state.relatedProductsArray} />
+          <WrappedYourOutfit />
+          <div id="comparison-modal-overlay"></div>
+        </div>
+    }
+
+    return (page)
+
   }
 }
 

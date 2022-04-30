@@ -4,7 +4,7 @@ import Ratings from './Ratings.jsx';
 import PropTypes from 'prop-types';
 import ComparisonModal from './ComparisonModal.jsx';
 import MetricsWrapper from '../MetricsWrapper.jsx';
-
+import { Link } from 'react-router-dom';
 
 class Cards extends Component {
   constructor(props) {
@@ -32,8 +32,8 @@ class Cards extends Component {
     })
 
     const endpoints = [
-      `http://localhost:8080/styles/${this.props.id}`,
-      `http://localhost:8080/products/${this.props.id}` ];
+      `/styles/${this.props.id}`,
+      `/products/${this.props.id}` ];
 
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((styles, products) => {
@@ -98,10 +98,15 @@ class Cards extends Component {
           <div className="card" data-testid='test-id' id={'card-' + this.props.id}>
 
             <div className="card-image">
-              <img src={this.state.image} alt="item-image" onClick={(e) => {
+
+            <Link to={`/${this.props.id}`}>
+            <img src={this.state.image} alt="item-image" onClick={(e) => {
                 this.props.setOverviewId(this.props.id);
                 this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
               }} />
+            </Link>
+
+
 
               {this.props.displayButton === 'related-products' ?
 
@@ -126,10 +131,12 @@ class Cards extends Component {
                 {this.state.category}
               </div>
 
-              <button aria-label="set-item-from-name" onClick={(e) => {
+              <Link to={`/${this.props.id}`}>
+                  <button aria-label="set-item-from-name" onClick={(e) => {
                 this.props.setOverviewId(this.props.id);
                 this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
               }} className="set-text-name">{this.state.name}</button>
+              </Link>
 
               {this.state.salePrice === null ?
                 <div className="text-price">

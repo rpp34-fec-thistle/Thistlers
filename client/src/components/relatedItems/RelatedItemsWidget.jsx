@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import RelatedProducts from './RelatedProducts.jsx';
+import RelatedProducts from './newRelatedProducts.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import MetricsWrapper from '../MetricsWrapper.jsx';
 
@@ -26,6 +26,12 @@ class RelatedItemsWidget extends Component {
     this.setOverviewIdData();
   }
 
+  // first we need to setOverviewIdData
+  // when done, return the relatedProductsArray
+  // then we need to map over the relatedProductsArray
+  // when one item is created
+  // then we need to add to the array
+
 
   setOverviewId(id) {
 
@@ -37,22 +43,19 @@ class RelatedItemsWidget extends Component {
       relatedProductsIds: [],
       loaded: false
     })
+
     this.setOverviewIdData();
   }
 
-
   setOverviewIdData() {
-
     this.setState({
       loaded: false
     })
-
     const endpoints = [
       `http://localhost:8080/products/${this.state.overviewId}`,
       `http://localhost:8080/products/${this.state.overviewId}/related`];
 
-
-    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+    return axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((overview, related) => {
 
         var overviewResult = overview.data;
@@ -61,124 +64,107 @@ class RelatedItemsWidget extends Component {
             return x.value;
           }
         });
-
         var relatedResult = related.data;
         var uniqueResults = [...new Set(relatedResult)].filter(id => id !== this.state.overviewId);
-
         this.setState({
           overviewIdName: overviewResult.name,
           overviewIdFeatures: itemFeatures,
-          relatedProductsIds: uniqueResults
-        });
-
-        return uniqueResults;
-
-      }))
-      // .then((idArray) => {
-
-      //   // creating an array that contains objects with info of each item
-      //   var newItemArray = [];
-
-      //   ////// map
-      //   Promise.all([...idArray.map((eachItem) => {
-
-      //     // for each ID, get info from APIs
-      //     const endpoints = [
-      //       `http://localhost:8080/styles/${eachItem}`,
-      //       `http://localhost:8080/products/${eachItem}`,
-      //       `http://localhost:8080/reviews/${eachItem}`];
-
-      //     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-      //       .then(axios.spread((styles, products, ratings) => {
-
-      //         var stylesResults = styles.data;
-      //           var image = stylesResults.results[0].photos[0].thumbnail_url;
-      //           var price = stylesResults.results[0].original_price;
-      //           var salePrice = stylesResults.results[0].sale_price;
-
-      //         var productsResults = products.data;
-      //           var category = productsResults.category;
-      //           var name = productsResults.name;
-      //             const valueArrayMaker = (objArr) => {
-      //               let newArray = [];
-      //               objArr.forEach((obj) => {
-      //                 if (obj.value !== null) {
-      //                   newArray.push(obj.value);
-      //                 }
-      //               })
-      //               return newArray;
-      //             }
-      //           var features = valueArrayMaker(productsResults.features)
-
-      //         var ratingsResults = ratings.data;
-      //         var ratingsObj = ratingsResults.ratings;
-
-      //         var hasRatings = Object.keys(ratingsObj).length > 0;
-
-      //         if (!hasRatings) {
-      //           var averageScore = null;
-      //         } else {
-      //           var ratingsArr = Object.entries(ratingsObj);
-      //           var totalScore = 0;
-      //           for (var i = 0; i < ratingsArr.length; i++) {
-      //             var currentPair = ratingsArr[i];
-      //             var score = parseInt(currentPair[0]);
-      //             var votes = parseInt(currentPair[1]);
-      //             var pairTotal = score * votes;
-      //             totalScore += pairTotal;
-      //           }
-      //           var totalRatings = Object.values(ratingsObj).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
-      //           averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
-      //         }
-
-      //         var newItemObj = {
-      //           'id': eachItem,
-      //           'image': image,
-      //           'price': price,
-      //           'salePrice': salePrice,
-      //           'category': category,
-      //           'name': name,
-      //           'features': features,
-      //           'ratings': averageScore
-      //         }
-
-      //           newItemArray.push(newItemObj);
-
-      //         return newItemObj;
-
-      //       }))
-      //       .catch((err) => {
-      //         console.log('API call to setCard() error');
-      //         return err;
-      //       })
-      //   })])
-      //   .catch((err) => {
-      //     console.log('mapped promises error: ', err)
-      //   })
-
-      //   // mysterious array with objects but no length appears here
-      //   // console.log('newItemArray: ', newItemArray);
-
-      //   return newItemArray;
-
-      // })
-      // .then((array) => {
-      //   this.setState({
-      //     relatedProductsArray: array
-      //   })
-      //   return array;
-      // })
-      .then(() => {
-        this.setState({
+          relatedProductsIds: uniqueResults,
           loaded: true
-        })
-      })
+        });
+        return uniqueResults;
+      }))
       .catch((err) => {
         console.log('error in setOverviewIdData');
         return err;
       })
+  }
 
+  setArray(itemArray) {
+    // for each item in the array
+    var newArray = [];
 
+    itemArray.map((item) => {
+      newArray.push(setCards(item))
+    })
+
+    return newArray;
+  }
+
+  setCards(eachItem) {
+
+    const endpoints = [
+      `http://localhost:8080/styles/${eachItem}`,
+      `http://localhost:8080/products/${eachItem}`,
+      `http://localhost:8080/reviews/${eachItem}`];
+
+    return axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then(axios.spread((styles, products, ratings) => {
+
+        var stylesResults = styles.data;
+        var image = stylesResults.results[0].photos[0].thumbnail_url;
+        var price = stylesResults.results[0].original_price;
+        var salePrice = stylesResults.results[0].sale_price;
+
+        var productsResults = products.data;
+        var category = productsResults.category;
+        var name = productsResults.name;
+        const valueArrayMaker = (objArr) => {
+          let newArray = [];
+          objArr.forEach((obj) => {
+            if (obj.value !== null) {
+              newArray.push(obj.value);
+            }
+          })
+          return newArray;
+        }
+        var features = valueArrayMaker(productsResults.features)
+
+        var ratingsResults = ratings.data;
+        var ratingsObj = ratingsResults.ratings;
+
+        var hasRatings = Object.keys(ratingsObj).length > 0;
+
+        if (!hasRatings) {
+          var averageScore = null;
+        } else {
+          var ratingsArr = Object.entries(ratingsObj);
+          var totalScore = 0;
+          for (var i = 0; i < ratingsArr.length; i++) {
+            var currentPair = ratingsArr[i];
+            var score = parseInt(currentPair[0]);
+            var votes = parseInt(currentPair[1]);
+            var pairTotal = score * votes;
+            totalScore += pairTotal;
+          }
+          var totalRatings = Object.values(ratingsObj).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
+          averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
+        }
+
+        var newItemObj = {
+          'id': eachItem,
+          'image': image,
+          'price': price,
+          'salePrice': salePrice,
+          'category': category,
+          'name': name,
+          'features': features,
+          'ratings': averageScore
+        }
+
+        return newItemObj;
+
+      }))
+      .then((results) => {
+        console.log('each item Obj: ', results);
+        return results;
+      })
+      .catch((err) => {
+        console.log('API call to setCard() error');
+        return err;
+      })
+    // mysterious array with objects but no length appears here
+    // console.log('newItemArray: ', newItemArray);
   }
 
 
@@ -202,7 +188,7 @@ class RelatedItemsWidget extends Component {
           <WrappedYourOutfit />
           <div id="comparison-modal-overlay"></div>
         </div>
-      }
+    }
 
     return (page)
 

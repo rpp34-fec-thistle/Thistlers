@@ -32,8 +32,8 @@ class Cards extends Component {
     })
 
     const endpoints = [
-      `http://localhost:8080/styles/${this.props.id}`,
-      `http://localhost:8080/products/${this.props.id}` ];
+      `/styles/${this.props.id}`,
+      `/products/${this.props.id}` ];
 
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((styles, products) => {

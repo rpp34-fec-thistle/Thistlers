@@ -52,8 +52,8 @@ class RelatedItemsWidget extends Component {
       loaded: false
     })
     const endpoints = [
-      `http://localhost:8080/products/${this.state.overviewId}`,
-      `http://localhost:8080/products/${this.state.overviewId}/related`];
+      `/products/${this.state.overviewId}`,
+      `/products/${this.state.overviewId}/related`];
 
     return axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((overview, related) => {

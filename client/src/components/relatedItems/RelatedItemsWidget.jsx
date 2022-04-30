@@ -168,8 +168,7 @@ class RelatedItemsWidget extends Component {
       //   })
       //   return array;
       // })
-      .then((data) => {
-        console.log(data)
+      .then(() => {
         this.setState({
           loaded: true
         })

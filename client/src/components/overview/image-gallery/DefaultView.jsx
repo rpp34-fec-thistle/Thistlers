@@ -31,9 +31,14 @@ class DefaultView extends React.Component {
 
   componentDidMount() {
       let thumbnails = this.props.styles[this.props.styleIndex].photos.map((photo) => {
-        return photo.thumbnail_url
+        return {
+          tn: photo.thumbnail_url,
+          name: this.props.styles[this.props.styleIndex].name
+        }
       });
-      let image_id = this.props.styles[this.props.styleIndex].photos[0].url.split('-')[1];
+      let splitUrlString = this.props.styles[this.props.styleIndex].photos[0].url.split('-');
+      let image_id = splitUrlString[1] + splitUrlString[2];
+      image_id += this.props.styles[this.props.styleIndex].name;
       this.setState({
         styles: this.props.styles,
         currentPhoto: this.props.styles[this.props.styleIndex].photos[0].url,
@@ -96,7 +101,10 @@ class DefaultView extends React.Component {
   selectedPhoto(selectedIndex) {
     let currentStyleIndex = this.props.styleIndex;
     let selectedPhoto = this.props.styles[currentStyleIndex].photos[selectedIndex]?.url;
-    let image_id = selectedPhoto.split('-')[1];
+
+    let splitUrlString = selectedPhoto.split('-');
+    let image_id = splitUrlString[1] + splitUrlString[2];
+    image_id += this.props.styles[currentStyleIndex].name;
     let nextPhoto = this.props.styles[currentStyleIndex].photos[selectedIndex + 1]
 
     if (selectedIndex === 0 && nextPhoto === undefined) {
@@ -144,7 +152,9 @@ class DefaultView extends React.Component {
     let prevPhoto = this.props.styles[currentStyleIndex].photos[photoIndex - 1]?.url;
     let pPhoto = this.props.styles[currentStyleIndex].photos[photoIndex - 2]?.url;
 
-    let image_id = prevPhoto?.split('-')[1];
+    let splitUrlString = prevPhoto?.split('-');
+    let image_id = splitUrlString[1] + splitUrlString[2];
+    image_id += this.props.styles[currentStyleIndex].name;
 
     if (prevPhoto !== undefined) {
       let topImageIndex = this.state.topImageIndex;
@@ -213,7 +223,9 @@ class DefaultView extends React.Component {
     let nextPhoto = this.props.styles[currentStyleIndex].photos[photoIndex + 1]?.url;
     let nPhoto = this.props.styles[currentStyleIndex].photos[photoIndex + 2]?.url;
 
-    let image_id = nextPhoto?.split('-')[1];
+    let splitUrlString = nextPhoto?.split('-');
+    let image_id = splitUrlString[1] + splitUrlString[2];
+    image_id += this.props.styles[currentStyleIndex].name;
 
       if (nextPhoto !== undefined) {
         let topImageIndex = this.state.topImageIndex;

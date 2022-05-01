@@ -38,28 +38,35 @@ function AllImagesThumbnails(props) {
          <div className="image-list">
         {props.thumbnails.slice(props.topImageIndex, props.bottomImageIndex + 1).map((tn, i) => {
           const getIndex = (url) => {
-            return url.split('-')[1] === tn.split('-')[1]
+            let urlTnSplit = url.tn.split('-');
+            let urlCheck = urlTnSplit[1] + urlTnSplit[2];
+            let tnSplit = tn.tn.split('-');
+            let tnCheck = tnSplit[1] + tnSplit[2];
+            return urlCheck  === tnCheck
           };
 
           let index = props.thumbnails.findIndex(getIndex);
-          let key = tn.split('-')[1];
+          let splitUrlString = tn.tn.split('-');
+          let image_id = splitUrlString[1] + splitUrlString[2];
+          image_id += tn.name;
+          // let key = tn.tn.split('-')[1] + tn.name;
           let wrappedProps = {
             image_index: index,
-            imageId: key,
+            imageId: image_id,
             selectedPhoto: props.selectedPhoto,
             currentImage: props.currentImage,
-            key: key,
-            thumbnail: tn,
+            key: image_id,
+            thumbnail: tn.tn,
             hidden: false
           }
           let WrappedImageThumbnail = MetricWrapper(ImageThumbnail, wrappedProps)
           if (i <= 6) {
-            return (<WrappedImageThumbnail key={`key-${key}`}/>)
+            return (<WrappedImageThumbnail key={`key-${image_id}`}/>)
           } else if (index > 6){
             let hiddenWrappedProps = wrappedProps;
             hiddenWrappedProps['hidden'] = true;
             let HiddenWrappedImageThumbnail = MetricWrapper(ImageThumbnail, hiddenWrappedProps)
-            return (<HiddenWrappedImageThumbnail key={`key-${key}`}/>)
+            return (<HiddenWrappedImageThumbnail key={`key-${image_id}`}/>)
           }
         })}
          </div>

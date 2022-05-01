@@ -4,6 +4,9 @@ const axios = require('axios');
 const compression = require('compression');
 const cors = require('cors');
 require('dotenv').config();
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
 
 const app = express();
 
@@ -21,12 +24,25 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 })
 
-// app.get('/:id', (req, res) => {
-//   let id = req.params.id;
+const s3 = new AWS.S3({
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY
+});
 
+AWS.config.update({region: 'us-west-1'});
 
-
-// })
+var uploadS3 = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'fec-answer-images-bucket',
+    metadata: (req, file, callback) => {
+      callback(null, {fieldName: file.fieldname});
+    },
+    key: (req, file, callback) => {
+      callback(null, Date.now().toString());
+    }
+  })
+});
 
 app.post('/interactions', (req, res) => {
   let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/interactions';
@@ -126,26 +142,36 @@ app.post('/questions', (req, res) => {
   })
 })
 
-app.post('/questions/:question_id/answers', (req, res) => {
-  const { body, name, email } = req.body;
-  const question_id = req.params.question_id;
+app.post('/add-answer', uploadS3.array('images'), (req, res) => {
+  const { answer, nickname, email, questionId } = req.body;
+  const photos = [];
+  if (req.files) {
+    req.files.forEach(file => {
+      photos.push(file.location);
+    })
+  }
+
+  const data = {
+    body: answer,
+    name: nickname,
+    email,
+    photos
+  }
+
   axios({
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${question_id}/answers`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/qa/questions/${questionId}/answers`,
     method: 'post',
     headers: {'Authorization': API_KEY},
-    data: {
-      body,
-      name,
-      email
-    }
+    data: data
   })
   .then(() => {
-    res.status(201).send('answer created successfully');
+    res.status(201).redirect('/');
   })
   .catch(err => {
     res.status(500).send(err);
   })
 })
+
 
 app.put('/answers/:answer_id/helpful', (req, res) => {
   const answerId = req.params.answer_id;

@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import {formatDate, prettifyName} from '../../reviews.help.js';
+import IndividualReviewImages from './ReviewImages.jsx';
 import Star from '../../Star.jsx';
 
 const IndividualReview = props => {
@@ -31,6 +32,8 @@ const IndividualReview = props => {
       </div>
 
       <p className="review-body">{review.body}</p>
+
+      <IndividualReviewImages imagesUrl={review.photos}/>
 
       <div className="review-interactions">
         <div className="review-interactions-helpful">

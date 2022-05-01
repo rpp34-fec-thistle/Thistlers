@@ -33,7 +33,7 @@ const IndividualReview = props => {
 
       <p className="review-body">{review.body}</p>
 
-      <IndividualReviewImages imagesUrl={review.photos}/>
+      <IndividualReviewImages toggleFs={props.toggleFs} imagesUrl={review.photos}/>
 
       <div className="review-interactions">
         <div className="review-interactions-helpful">
@@ -83,7 +83,8 @@ const reportNegative = review_id => {
 }
  
 IndividualReview.propTypes = {
-  review: PropTypes.object
+  review: PropTypes.object,
+  toggleFs: PropTypes.func
 };
 
 export default IndividualReview;

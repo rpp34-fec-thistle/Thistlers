@@ -3,9 +3,19 @@ const path = require('path');
 const axios = require('axios');
 const compression = require('compression');
 const cors = require('cors');
+// const cloudinary = require('cloudinary');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 require('dotenv').config();
 
 const app = express();
+
+//Cloudinary Config
+// cloudinary.config({ 
+//   cloud_name: 'desc2h9c3', 
+//   api_key: '457552656857226', 
+//   api_secret: 'uahUfVJM-j7neyyg8L9ntDuMQ5U' 
+// });
 
 app.use(cors())
 app.use(compression())
@@ -288,21 +298,23 @@ app.post('/get-reviews', (req, res) => {
 });
 
 //create a new review
-app.post('/newReview', (req, res) => {
-  axios({
-    method: 'post',
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews`,
-    headers: {'Authorization': API_KEY},
-    data: req.body
-  })
-  .then((response) => {
-    console.log('success posting data: ', response.data);
-    res.send(response.data);
-  })
-  .catch((err) => {
-    console.log('error in reviews post request', err);
-    res.status(500).send(err);
-  });
+app.post('/newReview', upload.single('image'), (req, res) => {
+  console.log(req.body);
+  // axios({
+  //   method: 'post',
+  //   url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews`,
+  //   headers: {'Authorization': API_KEY},
+  //   data: req.body
+  // })
+  // .then((response) => {
+  //   console.log('success posting data: ', response.data);
+  //   res.send(response.data);
+  // })
+  // .catch((err) => {
+  //   console.log('error in reviews post request', err);
+  //   res.status(500).send(err);
+  // });
+  res.end();
 });
 
 //makr a review helpful

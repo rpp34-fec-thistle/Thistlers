@@ -45,23 +45,27 @@ class NewReviewModle extends Component {
           
           {/* <textarea name="" id="" cols="30" rows="10" className="review-photo-urls"></textarea> */}
 
-          {Object.keys(this.props.metadata.characteristics).map(meta => {
-            return (
-              // <div key={JSON.stringify(meta)} className="meta">{meta}: {this.props.metadata.characteristics[meta].id}</div>
+          <input className="image-chooser" type="file" accept="image" multiple/>
 
-              <div key={JSON.stringify(meta)} id={`meta-${meta.toString()}`} >
-                <div className="meta-name">{meta}</div>
-                <select name="" id={`metaval-${meta}`}>
-                  <option value="5">5</option>
-                  <option value="4">4</option>
-                  <option value="3">3</option>
-                  <option value="2">2</option>
-                  <option value="1">1</option>
-                </select>
-              </div>
+          <div className="characteristics-options">
+            {Object.keys(this.props.metadata.characteristics).map(meta => {
+              return (
+                // <div key={JSON.stringify(meta)} className="meta">{meta}: {this.props.metadata.characteristics[meta].id}</div>
 
-            )
-          })}
+                <div key={JSON.stringify(meta)} id={`meta-${meta.toString()}`} >
+                  <div className="meta-name">{meta}</div>
+                  <select name="" id={`metaval-${meta}`}>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                  </select>
+                </div>
+
+              )
+            })}
+          </div>
 
           <button onClick={() => this.sendNewReview.call(this)} className="new-review-submit">Submit</button>
         </div>
@@ -71,6 +75,7 @@ class NewReviewModle extends Component {
   }
 
   sendNewReview() {
+    // const images = document.querySelector('.image-chooser').value;
     var product_id = this.props.productId;
     var rating = parseInt(document.querySelector('.review-rating-input').value);
     var summary = document.querySelector('.review-summary-input').value;

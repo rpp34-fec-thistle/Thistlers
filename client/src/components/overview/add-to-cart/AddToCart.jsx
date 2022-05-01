@@ -9,7 +9,7 @@ class AddToCart extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      selectedQuantity: "0",
+      selectedQuantity: '0',
       sku: ''
     }
 
@@ -24,33 +24,33 @@ class AddToCart extends React.Component {
     })
   }
 
-  changeQuantity(q) {
+  changeQuantity(quantity) {
     this.setState({
-      selectedQuantity: q
+      selectedQuantity: quantity
     })
   }
 
   render() {
     return(
       <>
-      <div data-testid="add-to-cart" className="add-to-cart">
-       <SelectSize
-        changeSize={this.changeSize}
-        sizes={this.props.styles[this.props.styleIndex]?.skus}
-       />
-       <Quantity
-        changeQuantity={this.changeQuantity}
-        sku={this.state.sku}
-        stock={this.props.styles[this.props.styleIndex]?.skus[this.state.sku]?.quantity}
-       />
-      </div>
-       <div className="bag">
-       <AddToBag
-       sku={this.state.sku}
-       quantity={this.state.selectedQuantity}
-       stock={this.props.styles[this.props.styleIndex]?.skus[this.state.sku]?.quantity}
-       />
-       </div>
+        <div data-testid="add-to-cart" className="add-to-cart">
+          <SelectSize
+            changeSize={this.changeSize}
+            sizes={this.props.styles[this.props.styleIndex]?.skus}
+          />
+          <Quantity
+            changeQuantity={this.changeQuantity}
+            sku={this.state.sku}
+            stock={this.props.styles[this.props.styleIndex]?.skus[this.state.sku]?.quantity}
+          />
+        </div>
+        <div className="bag">
+          <AddToBag
+          sku={this.state.sku}
+          quantity={this.state.selectedQuantity}
+          stock={this.props.styles[this.props.styleIndex]?.skus[this.state.sku]?.quantity}
+          />
+        </div>
       </>
     )
   }

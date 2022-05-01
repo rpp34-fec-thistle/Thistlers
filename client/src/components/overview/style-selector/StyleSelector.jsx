@@ -8,7 +8,10 @@ function StyleSelector(props) {
     return(
       <div data-testid="style-selector" className="style-selector">
         <SelectedStyle styleName={props.styles[props.styleIndex]?.name}/>
-        <AllStyleThumbnails currentStyle={props.styleIndex} updateStyle={props.updateStyle} data={props.styles}/>
+        <AllStyleThumbnails
+        currentStyle={props.styleIndex}
+        updateStyle={props.updateStyle}
+        data={props.styles}/>
       </div>
     )
 }

@@ -9,18 +9,24 @@ function StyleThumbnail(props) {
   if (props.imageindex === props.currentStyle) {
     pageElement = (
       <div className="selected-tn-container">
-        <img alt="selected-style-thumbnail-image" onClick={handleClick} className="selected-style-tn" src={props.image}></img>
+        <img
+        alt="selected-style-thumbnail-image"
+        onClick={handleClick}
+        className="selected-style-tn"
+        src={props.image}></img>
         <span className="check">✔️</span>
       </div>
     )
   } else {
     pageElement = (
-      <img alt="style-thumbnail" onClick={handleClick} className="style-tn" src={props.image}></img>
+      <img
+      alt="style-thumbnail"
+      onClick={handleClick}
+      className="style-tn"
+      src={props.image}></img>
     )
   }
-    return(
-      pageElement
-    )
+    return(pageElement)
 }
 
 StyleThumbnail.propTypes = {

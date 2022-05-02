@@ -105,14 +105,21 @@ class RelatedItemsWidget extends Component {
   }
 
   setYourOutfitArray(idArray) {
-    Promise.all(idArray.map((item) => {
-      return Promise.resolve(this.setCards(item));
-      })).then((values) => {
-        this.setState({
-          yourOutfitArray: values,
-          yourOutfitLoaded: true
-        })
+    if (idArray.length === 0) {
+      this.setState({
+        yourOutfitArray: [],
+        yourOutfitLoaded: true
       })
+    } else {
+      Promise.all(idArray.map((item) => {
+        return Promise.resolve(this.setCards(item));
+        })).then((values) => {
+          this.setState({
+            yourOutfitArray: values,
+            yourOutfitLoaded: true
+          })
+        })
+    }
   }
 
   setYourOutfitsIds() {
@@ -204,7 +211,7 @@ class RelatedItemsWidget extends Component {
       this.setState({
         yourOutfitIds: []
       })
-      this.setYourOutfitArray(newArray);
+      this.setYourOutfitArray([]);
     } else {
       let originalArray = this.state.yourOutfitIds;
       let newArray = [];

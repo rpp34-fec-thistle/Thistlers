@@ -12,7 +12,7 @@ class Footer extends Component {
       answer: "",
       nickname: "",
       email: "",
-      photos: ""
+      images: [],
     }
   }
 
@@ -60,46 +60,39 @@ class Footer extends Component {
       answer: "",
       nickname: "",
       email: "",
-      photos: ""
+      images: []
     })
   }
 
-  onAnswerSubmit = (e) => {
-    e.preventDefault();
+  onAnswerSubmit = () => {
     ['answer-nickname', 'answer-email', 'answer'].forEach(input => {
       document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
     })
 
-    const validationErrors = helpers.validateAnswerForm(this.state.answer, this.state.nickname, this.state.email);
+    const answerBody = document.querySelector('.answer-body').value;
+    const answerNickname = document.querySelector('.answer-nickname').value;
+    const answerEmail = document.querySelector('.answer-email').value;
+
+    const validationErrors = helpers.validateAnswerForm(answerBody, answerNickname, answerEmail);
     if (validationErrors.length > 0) {
       for (let i = 0; i < validationErrors.length; i++) {
         document.querySelector(`.${validationErrors[i]}-error-message`).style.visibility = 'visible';
       }
       return;
     }
-    axios({
-      url: `/questions/${this.props.selectedQuestion.question_id}/answers`,
-      method: 'post',
-      data: {
-        body: this.state.answer,
-        name: this.state.nickname,
-        email: this.state.email
-      }
-    })
-    .then(() => {
-      this.props.updateQuestionState();
-    })
-    .catch(err => {
-      console.error('err ', err);
-    })
-    document.querySelector('.answer-form').reset();
+
+
+
+
+    this.props.updateQuestionState();
+
     document.querySelector('.add-answer-modal').style.display = 'none';
     this.setState({
       question: "",
       answer: "",
       nickname: "",
       email: "",
-      photos: ""
+      images: []
     })
   }
 
@@ -189,7 +182,7 @@ class Footer extends Component {
       </div>
 
         <div className="add-answer-modal">
-          <form className="add-qa-form answer-form">
+          <form className="add-qa-form answer-form" action="/add-answer" method="post" encType="multipart/form-data">
             <div className="close-modal-container">
               <p> </p>
               <div className="close-modal-contents">
@@ -205,12 +198,13 @@ class Footer extends Component {
               </div>
               <div className="input-container">
                 <input
+                  className="answer-nickname"
                   type="text"
                   id="nickname"
                   name="nickname"
-                  onChange={this.onChangeInput}
                   placeholder="Example: jackson11!"
                   maxLength="60"
+                  required
                   >
                   </input>
                   <p className="form-message">For privacy reasons, do not use your full name or email address</p>
@@ -224,12 +218,13 @@ class Footer extends Component {
               </div>
               <div className="input-container">
                 <input
+                  className="answer-email"
                   type="text"
                   id="email"
                   name="email"
-                  onChange={this.onChangeInput}
                   placeholder="sample@email.com"
                   maxLength="60"
+                  required
                   >
                 </input>
                 <p className="form-message">For authentication reasons, you will not be emailed</p>
@@ -242,17 +237,34 @@ class Footer extends Component {
               </div>
               <div className="input-container">
                 <textarea
+                  className="answer-body"
                   type="text"
                   id="answer"
                   name="answer"
-                  onChange={this.onChangeInput}
                   placeholder="Write your answer here"
                   maxLength="1000"
+                  required
                 >
                 </textarea>
               </div>
             </div>
-            <button className="submit-qa-button" onClick={this.onAnswerSubmit}>Submit</button>
+            <div className="image-input form-input">
+              <div>
+                <label htmlFor="images">Images</label>
+              </div>
+              <div className="input-container">
+                <input
+                  type="file"
+                  id="images"
+                  name="images"
+                  multiple
+                  >
+                </input>
+                <p className="form-message">For authentication reasons, you will not be emailed</p>
+              </div>
+            </div>
+            <input type="text" name="questionId" value={this.props.selectedQuestion.question_id || ''} hidden readOnly></input>
+            <button type="submit" className="submit-qa-button" onClick={this.onAnswerSubmit}>Submit</button>
           </form>
         </div>
         {this.props.moreQuestions && <button onClick={this.props.onShowMoreQuestionsClick} className="more-questions-btn">MORE ANSWERED QUESTIONS</button>}

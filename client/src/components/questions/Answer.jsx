@@ -9,7 +9,7 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
 
   const formatDate = (date) => {
     const newDate = new Date(date);
-    return `${months[newDate.getMonth()]} ${newDate.getDate() + 1}, ${newDate.getFullYear()}`;
+    return `${months[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`;
   }
 
   const onAnswerLike = () => {
@@ -30,6 +30,7 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
   return (
     <div className="answer">
       <p>{answer.body}</p>
+        {answer.photos.length > 0 && <div className="answer-images">{answer.photos.map((photoUrl, index) => <img className="answer-image" src={photoUrl} key={index}/>)}</div>}
         <div className="reaction-buttons">
           <p>by {answer.answerer_name === 'Seller'
             ? <span className="answer-from-seller">{answer.answerer_name}</span>

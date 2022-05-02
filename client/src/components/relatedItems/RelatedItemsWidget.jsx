@@ -17,6 +17,7 @@ class RelatedItemsWidget extends Component {
     }
     this.setOverviewId = this.setOverviewId.bind(this);
     this.setOverviewIdData = this.setOverviewIdData.bind(this);
+    this.setCards = this.setCards.bind(this);
   }
 
   // this.props.product_id: '',
@@ -32,7 +33,6 @@ class RelatedItemsWidget extends Component {
   // when one item is created
   // then we need to add to the array
 
-
   setOverviewId(id) {
 
     let idString = id.toString();
@@ -47,15 +47,14 @@ class RelatedItemsWidget extends Component {
     this.setOverviewIdData();
   }
 
+
   setOverviewIdData() {
-    this.setState({
-      loaded: false
-    })
+
     const endpoints = [
       `/products/${this.state.overviewId}`,
       `/products/${this.state.overviewId}/related`];
 
-    return axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((overview, related) => {
 
         var overviewResult = overview.data;
@@ -69,11 +68,14 @@ class RelatedItemsWidget extends Component {
         this.setState({
           overviewIdName: overviewResult.name,
           overviewIdFeatures: itemFeatures,
-          relatedProductsIds: uniqueResults,
-          loaded: true
+          relatedProductsIds: uniqueResults
         });
         return uniqueResults;
       }))
+      .then((dataArray) => {
+        console.log('setOverviewIdData success: ', dataArray);
+        this.setArray(dataArray)
+      })
       .catch((err) => {
         console.log('error in setOverviewIdData');
         return err;
@@ -82,13 +84,17 @@ class RelatedItemsWidget extends Component {
 
   setArray(itemArray) {
     // for each item in the array
-    var newArray = [];
-
-    itemArray.map((item) => {
-      newArray.push(setCards(item))
+      // var newArray = [];
+    console.log('data passed to setArray', itemArray);
+    Promise.all(itemArray.map((item) => {
+      return Promise.resolve(this.setCards(item));
+    })).then((values) => {
+      console.log('promise.all values from setCards map: ', values)
+      this.setState({
+        relatedProductsArray: values,
+        loaded: true
+      })
     })
-
-    return newArray;
   }
 
   setCards(eachItem) {
@@ -155,10 +161,10 @@ class RelatedItemsWidget extends Component {
         return newItemObj;
 
       }))
-      .then((results) => {
-        console.log('each item Obj: ', results);
-        return results;
-      })
+      // .then((results) => {
+      //   console.log('each item Obj: ', results);
+      //   return results;
+      // })
       .catch((err) => {
         console.log('API call to setCard() error');
         return err;

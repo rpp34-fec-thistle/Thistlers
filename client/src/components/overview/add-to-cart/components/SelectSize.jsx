@@ -8,17 +8,12 @@ class SelectSize extends React.Component {
       selectedSize: ''
     }
     this.handleChange = this.handleChange.bind(this);
-    this.test = this.test.bind(this);
-  }
-
-  test() {
-   document.getElementById('sizes').focus()
-   document.getElementById('sizes').click()
-
   }
 
   handleChange(e) {
-    this.props.changeSize(e.target.innerText, e.target.value)
+    let size = e.target.innerText;
+    let sku = e.target.value
+    this.props.changeSize(size, sku)
   }
 
   render() {

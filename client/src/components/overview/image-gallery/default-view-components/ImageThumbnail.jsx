@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 function ImageThumbnail(props) {
   let handleClick = (e) => {
-    props.selectedPhoto(+e.target.id[3])
+    let selectedPhotoIndex = +e.target.id[3]
+    props.selectedPhoto(selectedPhotoIndex)
     props.interaction(`${e.target}`, 'Overview', new Date())
   }
     let pageElement;
@@ -40,9 +41,7 @@ function ImageThumbnail(props) {
         ></img>
       )
     }
-    return (
-      pageElement
-    )
+    return (pageElement)
 }
 
 ImageThumbnail.propTypes = {

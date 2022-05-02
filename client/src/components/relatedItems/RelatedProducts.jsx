@@ -5,24 +5,29 @@ import MetricsWrapper from '../MetricsWrapper.jsx';
 
 
 class RelatedProducts extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.setOverviewIdData();
+  }
 
   render() {
 
-    // console.log('logging data array from Related Products Component', this.props.relatedProductsArray);
-    // console.log('logging relatedProductsIds from Related Products Component', this.props.relatedProductsIds);
+    let items = this.props.relatedProductsArray;
+    let page = <div></div>;
 
-
-    const items = this.props.relatedProductsArray;
-
-    return (
-
-      <>
+    if (items.length === 0) {
+      page =
         <div className="related-products-container">
-
+        </div>
+    } else {
+      page =
+        <div className="related-products-container">
           <h3>Related Products</h3>
           <div className="related-products-carousel" data-testid='related-products-id'>
             {items.length > 0 && items.map((eachItem) => {
-
               let wrappedProps = {
                 displayButton: 'related-products',
                 id: eachItem.id,
@@ -36,23 +41,21 @@ class RelatedProducts extends Component {
                 overviewId: this.props.overviewId,
                 overviewIdName: this.props.overviewIdName,
                 overviewIdFeatures: this.props.overviewIdFeatures,
-                setOverviewId: this.props.setOverviewId,
-                loaded: this.props.loaded
+                setOverviewId: this.props.setOverviewId
               }
-
               let WrappedCards = MetricsWrapper(Cards, wrappedProps);
-
               return <WrappedCards key={'rp-' + eachItem.id} />
-
             }
-
             )}
           </div>
-
         </div>
-      </>
 
-    )
+
+    }
+    return (page)
+
+
+
   }
 }
 
@@ -62,9 +65,9 @@ RelatedProducts.propTypes = {
   overviewIdName: PropTypes.string,
   overviewIdFeatures: PropTypes.array,
   setOverviewId: PropTypes.func,
+  setOverviewIdData: PropTypes.func,
   relatedProductsIds: PropTypes.array,
-  relatedProductsArray: PropTypes.array,
-  loaded: PropTypes.bool
+  relatedProductsArray: PropTypes.array
 }
 
 export default RelatedProducts;

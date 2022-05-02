@@ -9,73 +9,7 @@ import { Link } from 'react-router-dom';
 class Cards extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // image: '',
-      // price: null,
-      // salePrice: null,
-      // category: '',
-      // name: '',
-      // features: [],
-      // cardLoaded: false
-    }
-    // this.setCard = this.setCard.bind(this);
   }
-
-  // componentDidMount() {
-  //   this.setCard();
-  // }
-
-  // setCard() {
-
-  // }
-
-  //   this.setState({
-  //     cardLoaded: false
-  //   })
-
-  //   const endpoints = [
-  //     `/styles/${this.props.id}`,
-  //     `/products/${this.props.id}` ];
-
-  //   axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-  //     .then(axios.spread((styles, products) => {
-
-  //       var stylesResults = styles.data;
-  //       var productsResults = products.data;
-
-  //       const valueArrayMaker = (objArr) => {
-  //         let newArray = [];
-  //         objArr.forEach((obj) => {
-  //           if (obj.value !== null) {
-  //             newArray.push(obj.value);
-  //           }
-  //         })
-  //         return newArray;
-  //       }
-
-  //       var itemFeatures = valueArrayMaker(productsResults.features)
-
-  //       this.setState({
-  //         image: stylesResults.results[0].photos[0].thumbnail_url,
-  //         price: stylesResults.results[0].original_price,
-  //         salePrice: stylesResults.results[0].sale_price,
-  //         category: productsResults.category,
-  //         name: productsResults.name,
-  //         features: itemFeatures,
-  //         cardLoaded: true
-  //       });
-
-  //       return [styles, products];
-
-  //       }))
-  //       .catch((err) => {
-  //         console.log('API call to setCard() error');
-  //         return err;
-  //       })
-
-  // }
-
-
 
   render() {
 
@@ -89,8 +23,6 @@ class Cards extends Component {
     }
 
     let WrappedComparisonModal = MetricsWrapper(ComparisonModal, wrappedProps);
-
-    console.log(this.props.id);
 
     return (
       <>
@@ -108,24 +40,17 @@ class Cards extends Component {
               }} />
             </Link>
 
-
-
               {this.props.displayButton === 'related-products' ?
-
                 <>
                   <WrappedComparisonModal />
                 </>
-
                 :
-
                 <button aria-label="delete-outfits" className="overlay" onClick={(e) => {
                   this.props.deleteYourOutfits(this.props.id);
                   this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
                 }}></button>}
 
-
             </div>
-
 
             <div className="card-description">
               <br />
@@ -154,7 +79,6 @@ class Cards extends Component {
                 </>
               }
 
-
               <br />
               <Ratings id={this.props.id} />
             </div>
@@ -182,7 +106,5 @@ Cards.propTypes = {
   salePrice: PropTypes.number,
   price: PropTypes.string
 }
-
-
 
 export default Cards;

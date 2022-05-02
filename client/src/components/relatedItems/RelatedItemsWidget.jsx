@@ -13,25 +13,28 @@ class RelatedItemsWidget extends Component {
       overviewIdFeatures: [],
       relatedProductsIds: [],
       relatedProductsArray: [],
-      loaded: false
+      yourOutfitIds: [],
+      yourOutfitArray: [],
+      relatedProductsLoaded: false,
+      yourOutfitLoaded: false,
+      loaded: true
     }
     this.setOverviewId = this.setOverviewId.bind(this);
     this.setOverviewIdData = this.setOverviewIdData.bind(this);
     this.setCards = this.setCards.bind(this);
+    this.setRelatedArray = this.setRelatedArray.bind(this);
+    this.setYourOutfitsIds = this.setYourOutfitsIds.bind(this);
+    this.deleteYourOutfits = this.deleteYourOutfits.bind(this);
+    this.addToOutfits = this.addToOutfits.bind(this);
   }
 
   // this.props.product_id: '',
   // this.props.setOverviewId(id)
 
   componentDidMount() {
-    this.setOverviewIdData();
+    let newId = parseInt(this.props.productId);
+    this.setOverviewId(newId)
   }
-
-  // first we need to setOverviewIdData
-  // when done, return the relatedProductsArray
-  // then we need to map over the relatedProductsArray
-  // when one item is created
-  // then we need to add to the array
 
   setOverviewId(id) {
 
@@ -41,7 +44,7 @@ class RelatedItemsWidget extends Component {
     this.setState({
       overviewId: id,
       relatedProductsIds: [],
-      loaded: false
+      relatedProductsLoaded: false
     })
 
     this.setOverviewIdData();
@@ -73,7 +76,16 @@ class RelatedItemsWidget extends Component {
         return uniqueResults;
       }))
       .then((dataArray) => {
-        this.setArray(dataArray)
+        this.setRelatedArray(dataArray)
+      })
+      .then(() => {
+        this.setYourOutfitsIds();
+        return this.state.yourOutfitIds
+      })
+      .then((array) => {
+        if (array.length > 0) {
+          this.setYourOutfitArray(array);
+        }
       })
       .catch((err) => {
         console.log('error in setOverviewIdData');
@@ -81,17 +93,40 @@ class RelatedItemsWidget extends Component {
       })
   }
 
-  setArray(itemArray) {
-
-    Promise.all(itemArray.map((item) => {
+  setRelatedArray(idArray) {
+    Promise.all(idArray.map((item) => {
       return Promise.resolve(this.setCards(item));
     })).then((values) => {
       this.setState({
         relatedProductsArray: values,
-        loaded: true
+        relatedProductsLoaded: true
       })
     })
   }
+
+  setYourOutfitArray(idArray) {
+    Promise.all(idArray.map((item) => {
+      return Promise.resolve(this.setCards(item));
+      })).then((values) => {
+        this.setState({
+          yourOutfitArray: values,
+          yourOutfitLoaded: true
+        })
+      })
+  }
+
+  setYourOutfitsIds() {
+    if (window.localStorage.yourOutfits) {
+      let testArray = window.localStorage.getItem('yourOutfits');
+      testArray = testArray.split(',').map(x => parseInt(x));
+      this.setState({
+        yourOutfitIds: testArray
+      })
+    } else {
+      window.localStorage.setItem('yourOutfits', []);
+    }
+  }
+
 
   setCards(eachItem) {
 
@@ -161,24 +196,81 @@ class RelatedItemsWidget extends Component {
       })
   }
 
+  deleteYourOutfits(id) {
+
+    if (this.state.yourOutfitIds.length === 1) {
+      window.localStorage.clear();
+      window.localStorage.setItem('yourOutfits', []);
+      this.setState({
+        yourOutfitIds: []
+      })
+      this.setYourOutfitArray(newArray);
+    } else {
+      let originalArray = this.state.yourOutfitIds;
+      let newArray = [];
+      for (var i = 0; i < originalArray.length; i++) {
+        if (originalArray[i] !== id) {
+          newArray.push(originalArray[i]);
+        }
+      }
+      this.setState({
+        yourOutfitIds: newArray
+      })
+      window.localStorage.setItem('yourOutfits', newArray);
+      this.setYourOutfitArray(newArray);
+    }
+  }
+
+  addToOutfits(id) {
+
+    let originalArray = this.state.yourOutfitIds;
+    let localStorageArray = window.localStorage.yourOutfits.split(',');
+
+    if (localStorageArray.indexOf(id.toString()) !== -1) {
+      return;
+    }
+    if (window.localStorage.yourOutfits === '') {
+      let newArray = [id]
+      this.setState({
+        yourOutfitIds: newArray
+      })
+      window.localStorage.setItem('yourOutfits', [id]);
+      this.setYourOutfitArray(newArray);
+    } else {
+      let newArray = [...new Set([id, ...originalArray])];
+      this.setState({
+        yourOutfitIds: newArray
+      })
+      window.localStorage.setItem('yourOutfits', newArray);
+      this.setYourOutfitArray(newArray);
+    }
+  }
+
 
   render() {
 
     let wrappedProps = {
       overviewId: this.state.overviewId,
       relatedProductsIds: this.state.relatedProductsIds,
-      setOverviewId: this.setOverviewId
+      setOverviewId: this.setOverviewId,
+      setYourOutfitsIds: this.setYourOutfitsIds,
+      yourOutfitIds: this.state.yourOutfitIds,
+      yourOutfitArray: this.state.yourOutfitArray,
+      setYourOutfitArray: this.setYourOutfitArray,
+      deleteYourOutfits: this.deleteYourOutfits,
+      addToOutfits: this.addToOutfits,
+      setOverviewIdData: this.setOverviewIdData
     }
 
     let WrappedYourOutfit = MetricsWrapper(YourOutfit, wrappedProps);
 
     let page = <div></div>
 
-    if (this.state.loaded) {
+    if (this.state.relatedProductsLoaded) {
 
       page =
         <div className="related-items-widget">
-          <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} relatedProductsArray={this.state.relatedProductsArray} />
+          <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} relatedProductsArray={this.state.relatedProductsArray} setOverviewIdData={this.setOverviewIdData} />
           <WrappedYourOutfit />
           <div id="comparison-modal-overlay"></div>
         </div>

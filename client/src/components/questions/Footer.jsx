@@ -69,7 +69,11 @@ class Footer extends Component {
       document.querySelector(`.${input}-error-message`).style.visibility = 'hidden';
     })
 
-    const validationErrors = helpers.validateAnswerForm(this.state.answer, this.state.nickname, this.state.email);
+    const answerBody = document.querySelector('.answer-body').value;
+    const answerNickname = document.querySelector('.answer-nickname').value;
+    const answerEmail = document.querySelector('.answer-email').value;
+
+    const validationErrors = helpers.validateAnswerForm(answerBody, answerNickname, answerEmail);
     if (validationErrors.length > 0) {
       for (let i = 0; i < validationErrors.length; i++) {
         document.querySelector(`.${validationErrors[i]}-error-message`).style.visibility = 'visible';
@@ -82,7 +86,6 @@ class Footer extends Component {
 
     this.props.updateQuestionState();
 
-    document.querySelector('.answer-form').reset();
     document.querySelector('.add-answer-modal').style.display = 'none';
     this.setState({
       question: "",
@@ -195,6 +198,7 @@ class Footer extends Component {
               </div>
               <div className="input-container">
                 <input
+                  className="answer-nickname"
                   type="text"
                   id="nickname"
                   name="nickname"
@@ -214,6 +218,7 @@ class Footer extends Component {
               </div>
               <div className="input-container">
                 <input
+                  className="answer-email"
                   type="text"
                   id="email"
                   name="email"
@@ -232,6 +237,7 @@ class Footer extends Component {
               </div>
               <div className="input-container">
                 <textarea
+                  className="answer-body"
                   type="text"
                   id="answer"
                   name="answer"

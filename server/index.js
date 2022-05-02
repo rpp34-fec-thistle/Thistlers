@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const port = 8080;
-// const API_KEY = require('../config.js');
 const API_KEY = process.env.API_KEY;
 
 app.listen(port, () => {
@@ -29,19 +28,29 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.SECRET_ACCESS_KEY
 });
 
-AWS.config.update({region: 'us-west-1'});
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new AppError('Not an image! Please upload images only.', 400), false);
+  }
+};
+
+AWS.config.update({region: 'us-west-1', contentType: 'image/jpeg'});
 
 var uploadS3 = multer({
   storage: multerS3({
     s3: s3,
     bucket: 'fec-answer-images-bucket',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: (req, file, callback) => {
       callback(null, {fieldName: file.fieldname});
     },
     key: (req, file, callback) => {
       callback(null, Date.now().toString());
     }
-  })
+  }),
+  fileFilter: multerFilter
 });
 
 app.post('/interactions', (req, res) => {
@@ -147,7 +156,9 @@ app.post('/add-answer', uploadS3.array('images'), (req, res) => {
   const photos = [];
   if (req.files) {
     req.files.forEach(file => {
-      photos.push(file.location);
+      if (photos.length < 5) {
+        photos.push(file.location);
+      }
     })
   }
 

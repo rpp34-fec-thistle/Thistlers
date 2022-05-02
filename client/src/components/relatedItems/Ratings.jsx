@@ -18,7 +18,7 @@ class Ratings extends Component {
 
   setRatings() {
 
-    const ratingsAPI = `http://localhost:8080/reviews/${this.props.id}`;
+    const ratingsAPI = `/reviews/${this.props.id}`;
 
     axios(ratingsAPI)
       .then((data) => {

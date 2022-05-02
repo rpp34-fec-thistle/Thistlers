@@ -4,22 +4,22 @@ import PropTypes from 'prop-types';
 import StyleThumbnail from './StyleThumbnail.jsx';
 
 function AllStyleThumbnails(props) {
-  let comp = <></>;
+  let pageElement = <></>;
   if(props.data) {
-    comp = (
+    pageElement = (
       <div className="all-styles-tn">
-      {props.data.map((img,index) => (
-      <StyleThumbnail
-        updateStyle={props.updateStyle}
-        imageindex={index} key={`img-${index}`}
-        image={img.photos[0].thumbnail_url}
-        currentStyle={props.currentStyle}
-      />
-      ))}
+        {props.data.map((img,index) => (
+          <StyleThumbnail
+            updateStyle={props.updateStyle}
+            imageindex={index} key={`img-${index}`}
+            image={img.photos[0].thumbnail_url}
+            currentStyle={props.currentStyle}
+          />
+        ))}
       </div>
     )
   }
-    return(comp)
+    return(pageElement)
 }
 
 AllStyleThumbnails.propTypes = {

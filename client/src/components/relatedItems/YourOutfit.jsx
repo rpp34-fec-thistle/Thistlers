@@ -14,7 +14,6 @@ class YourOutfit extends Component {
   render() {
 
     const items = this.props.yourOutfitArray;
-    console.log(items);
 
     let page = <div></div>;
 

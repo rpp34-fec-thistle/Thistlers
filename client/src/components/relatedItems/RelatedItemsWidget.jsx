@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import RelatedProducts from './newRelatedProducts.jsx';
+import RelatedProducts from './RelatedProducts.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import MetricsWrapper from '../MetricsWrapper.jsx';
 
@@ -73,7 +73,6 @@ class RelatedItemsWidget extends Component {
         return uniqueResults;
       }))
       .then((dataArray) => {
-        console.log('setOverviewIdData success: ', dataArray);
         this.setArray(dataArray)
       })
       .catch((err) => {
@@ -83,13 +82,10 @@ class RelatedItemsWidget extends Component {
   }
 
   setArray(itemArray) {
-    // for each item in the array
-      // var newArray = [];
-    console.log('data passed to setArray', itemArray);
+
     Promise.all(itemArray.map((item) => {
       return Promise.resolve(this.setCards(item));
     })).then((values) => {
-      console.log('promise.all values from setCards map: ', values)
       this.setState({
         relatedProductsArray: values,
         loaded: true
@@ -157,20 +153,12 @@ class RelatedItemsWidget extends Component {
           'features': features,
           'ratings': averageScore
         }
-
         return newItemObj;
-
       }))
-      // .then((results) => {
-      //   console.log('each item Obj: ', results);
-      //   return results;
-      // })
       .catch((err) => {
         console.log('API call to setCard() error');
         return err;
       })
-    // mysterious array with objects but no length appears here
-    // console.log('newItemArray: ', newItemArray);
   }
 
 

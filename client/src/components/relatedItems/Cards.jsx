@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import Ratings from './Ratings.jsx';
 import PropTypes from 'prop-types';
 import ComparisonModal from './ComparisonModal.jsx';
@@ -10,68 +10,70 @@ class Cards extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: '',
-      price: null,
-      salePrice: null,
-      category: '',
-      name: '',
-      features: [],
-      cardLoaded: false
+      // image: '',
+      // price: null,
+      // salePrice: null,
+      // category: '',
+      // name: '',
+      // features: [],
+      // cardLoaded: false
     }
-    this.setCard = this.setCard.bind(this);
+    // this.setCard = this.setCard.bind(this);
   }
 
-  componentDidMount() {
-    this.setCard();
-  }
+  // componentDidMount() {
+  //   this.setCard();
+  // }
 
-  setCard() {
+  // setCard() {
 
-    this.setState({
-      cardLoaded: false
-    })
+  // }
 
-    const endpoints = [
-      `/styles/${this.props.id}`,
-      `/products/${this.props.id}` ];
+  //   this.setState({
+  //     cardLoaded: false
+  //   })
 
-    axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then(axios.spread((styles, products) => {
+  //   const endpoints = [
+  //     `/styles/${this.props.id}`,
+  //     `/products/${this.props.id}` ];
 
-        var stylesResults = styles.data;
-        var productsResults = products.data;
+  //   axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+  //     .then(axios.spread((styles, products) => {
 
-        const valueArrayMaker = (objArr) => {
-          let newArray = [];
-          objArr.forEach((obj) => {
-            if (obj.value !== null) {
-              newArray.push(obj.value);
-            }
-          })
-          return newArray;
-        }
+  //       var stylesResults = styles.data;
+  //       var productsResults = products.data;
 
-        var itemFeatures = valueArrayMaker(productsResults.features)
+  //       const valueArrayMaker = (objArr) => {
+  //         let newArray = [];
+  //         objArr.forEach((obj) => {
+  //           if (obj.value !== null) {
+  //             newArray.push(obj.value);
+  //           }
+  //         })
+  //         return newArray;
+  //       }
 
-        this.setState({
-          image: stylesResults.results[0].photos[0].thumbnail_url,
-          price: stylesResults.results[0].original_price,
-          salePrice: stylesResults.results[0].sale_price,
-          category: productsResults.category,
-          name: productsResults.name,
-          features: itemFeatures,
-          cardLoaded: true
-        });
+  //       var itemFeatures = valueArrayMaker(productsResults.features)
 
-        return [styles, products];
+  //       this.setState({
+  //         image: stylesResults.results[0].photos[0].thumbnail_url,
+  //         price: stylesResults.results[0].original_price,
+  //         salePrice: stylesResults.results[0].sale_price,
+  //         category: productsResults.category,
+  //         name: productsResults.name,
+  //         features: itemFeatures,
+  //         cardLoaded: true
+  //       });
 
-        }))
-        .catch((err) => {
-          console.log('API call to setCard() error');
-          return err;
-        })
+  //       return [styles, products];
 
-  }
+  //       }))
+  //       .catch((err) => {
+  //         console.log('API call to setCard() error');
+  //         return err;
+  //       })
+
+  // }
 
 
 
@@ -82,25 +84,25 @@ class Cards extends Component {
       overviewId: this.props.overviewId,
       overviewIdName: this.props.overviewIdName,
       overviewIdFeatures: this.props.overviewIdFeatures,
-      name: this.state.name,
-      features: this.state.features
+      name: this.props.name,
+      features: this.props.features,
     }
 
     let WrappedComparisonModal = MetricsWrapper(ComparisonModal, wrappedProps);
 
+    console.log(this.props.id);
 
     return (
       <>
-        {/* {this.state.image && this.state.image !== null && this.props.id && this.props.overviewId && */}
 
-        {this.state.cardLoaded && this.state.image !== null &&
+        {this.props.image !== null &&
 
           <div className="card" data-testid='test-id' id={'card-' + this.props.id}>
 
             <div className="card-image">
 
             <Link to={`/${this.props.id}`}>
-            <img src={this.state.image} alt="item-image" onClick={(e) => {
+            <img src={this.props.image} alt="item-image" onClick={(e) => {
                 this.props.setOverviewId(this.props.id);
                 this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
               }} />
@@ -128,26 +130,26 @@ class Cards extends Component {
             <div className="card-description">
               <br />
               <div className="text-category">
-                {this.state.category}
+                {this.props.category}
               </div>
 
               <Link to={`/${this.props.id}`}>
                   <button aria-label="set-item-from-name" onClick={(e) => {
                 this.props.setOverviewId(this.props.id);
                 this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
-              }} className="set-text-name">{this.state.name}</button>
+              }} className="set-text-name">{this.props.name}</button>
               </Link>
 
-              {this.state.salePrice === null ?
+              {this.props.salePrice === null ?
                 <div className="text-price">
-                  {this.state.price}
+                  {this.props.price}
                 </div> :
                 <>
                   <div className="price-change">
-                    {this.state.price}
+                    {this.props.price}
                   </div>
                   <div className="sale-price">
-                    {this.state.salePrice}
+                    {this.props.salePrice}
                   </div>
                 </>
               }
@@ -172,6 +174,13 @@ Cards.propTypes = {
   setOverviewId: PropTypes.func,
   displayButton: PropTypes.string,
   deleteYourOutfits: PropTypes.func,
+  loaded: PropTypes.bool,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  features: PropTypes.array,
+  category: PropTypes.string,
+  salePrice: PropTypes.number,
+  price: PropTypes.string
 }
 
 

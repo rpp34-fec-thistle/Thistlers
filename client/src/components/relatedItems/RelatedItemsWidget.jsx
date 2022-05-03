@@ -80,13 +80,13 @@ class RelatedItemsWidget extends Component {
       })
       .then(() => {
         this.setYourOutfitsIds();
-        return this.state.yourOutfitIds
+        // return this.state.yourOutfitIds
       })
-      .then((array) => {
-        if (array.length > 0) {
-          this.setYourOutfitArray(array);
-        }
-      })
+      // .then((array) => {
+      //   if (array.length > 0) {
+      //     this.setYourOutfitArray(array);
+      //   }
+      // })
       .catch((err) => {
         console.log('error in setOverviewIdData');
         return err;
@@ -105,6 +105,12 @@ class RelatedItemsWidget extends Component {
   }
 
   setYourOutfitArray(idArray) {
+    if (idArray.length === 0) {
+      this.setState({
+        yourOutfitArray: [],
+        yourOutfitLoaded: true
+      })
+    }
     Promise.all(idArray.map((item) => {
       return Promise.resolve(this.setCards(item));
       })).then((values) => {
@@ -122,8 +128,12 @@ class RelatedItemsWidget extends Component {
       this.setState({
         yourOutfitIds: testArray
       })
+      this.setYourOutfitArray(testArray)
     } else {
       window.localStorage.setItem('yourOutfits', []);
+      this.setState({
+        yourOutfitLoaded: true
+      })
     }
   }
 
@@ -204,7 +214,7 @@ class RelatedItemsWidget extends Component {
       this.setState({
         yourOutfitIds: []
       })
-      this.setYourOutfitArray(newArray);
+      this.setYourOutfitArray([]);
     } else {
       let originalArray = this.state.yourOutfitIds;
       let newArray = [];

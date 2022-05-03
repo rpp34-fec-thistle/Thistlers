@@ -80,7 +80,7 @@ class Cards extends Component {
               }
 
               <br />
-              <Ratings id={this.props.id} />
+              <Ratings id={this.props.id} ratings={this.props.ratings}/>
             </div>
           </div>}
       </>
@@ -101,6 +101,7 @@ Cards.propTypes = {
   loaded: PropTypes.bool,
   image: PropTypes.string,
   name: PropTypes.string,
+  ratings: PropTypes.number,
   features: PropTypes.array,
   category: PropTypes.string,
   salePrice: PropTypes.number,

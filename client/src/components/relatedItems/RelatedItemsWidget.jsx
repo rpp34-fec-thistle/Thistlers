@@ -16,8 +16,7 @@ class RelatedItemsWidget extends Component {
       yourOutfitIds: [],
       yourOutfitArray: [],
       relatedProductsLoaded: false,
-      yourOutfitLoaded: false,
-      loaded: true
+      yourOutfitLoaded: false
     }
     this.setOverviewId = this.setOverviewId.bind(this);
     this.setOverviewIdData = this.setOverviewIdData.bind(this);
@@ -83,9 +82,7 @@ class RelatedItemsWidget extends Component {
         return this.state.yourOutfitIds
       })
       .then((array) => {
-        if (array.length > 0) {
-          this.setYourOutfitArray(array);
-        }
+        this.setYourOutfitArray(array);
       })
       .catch((err) => {
         console.log('error in setOverviewIdData');
@@ -273,7 +270,7 @@ class RelatedItemsWidget extends Component {
 
     let page = <div></div>
 
-    if (this.state.relatedProductsLoaded) {
+    if (this.state.relatedProductsLoaded && this.state.yourOutfitLoaded) {
 
       page =
         <div className="related-items-widget">

@@ -9,10 +9,6 @@ class RelatedProducts extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.setOverviewIdData();
-  }
-
   render() {
 
     let items = this.props.relatedProductsArray;
@@ -50,11 +46,8 @@ class RelatedProducts extends Component {
           </div>
         </div>
 
-
     }
     return (page)
-
-
 
   }
 }

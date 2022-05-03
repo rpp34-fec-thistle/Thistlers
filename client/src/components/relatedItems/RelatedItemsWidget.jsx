@@ -16,7 +16,8 @@ class RelatedItemsWidget extends Component {
       yourOutfitIds: [],
       yourOutfitArray: [],
       relatedProductsLoaded: false,
-      yourOutfitLoaded: false
+      yourOutfitLoaded: false,
+      loaded: true
     }
     this.setOverviewId = this.setOverviewId.bind(this);
     this.setOverviewIdData = this.setOverviewIdData.bind(this);
@@ -79,11 +80,13 @@ class RelatedItemsWidget extends Component {
       })
       .then(() => {
         this.setYourOutfitsIds();
-        return this.state.yourOutfitIds
+        // return this.state.yourOutfitIds
       })
-      .then((array) => {
-        this.setYourOutfitArray(array);
-      })
+      // .then((array) => {
+      //   if (array.length > 0) {
+      //     this.setYourOutfitArray(array);
+      //   }
+      // })
       .catch((err) => {
         console.log('error in setOverviewIdData');
         return err;
@@ -107,16 +110,15 @@ class RelatedItemsWidget extends Component {
         yourOutfitArray: [],
         yourOutfitLoaded: true
       })
-    } else {
-      Promise.all(idArray.map((item) => {
-        return Promise.resolve(this.setCards(item));
-        })).then((values) => {
-          this.setState({
-            yourOutfitArray: values,
-            yourOutfitLoaded: true
-          })
-        })
     }
+    Promise.all(idArray.map((item) => {
+      return Promise.resolve(this.setCards(item));
+      })).then((values) => {
+        this.setState({
+          yourOutfitArray: values,
+          yourOutfitLoaded: true
+        })
+      })
   }
 
   setYourOutfitsIds() {
@@ -126,8 +128,12 @@ class RelatedItemsWidget extends Component {
       this.setState({
         yourOutfitIds: testArray
       })
+      this.setYourOutfitArray(testArray)
     } else {
       window.localStorage.setItem('yourOutfits', []);
+      this.setState({
+        yourOutfitLoaded: true
+      })
     }
   }
 
@@ -270,7 +276,7 @@ class RelatedItemsWidget extends Component {
 
     let page = <div></div>
 
-    if (this.state.relatedProductsLoaded && this.state.yourOutfitLoaded) {
+    if (this.state.relatedProductsLoaded) {
 
       page =
         <div className="related-items-widget">

@@ -8,7 +8,12 @@ import FullScreenExitImage from './svg-icons/fullscreen-exit.svg';
 
 function ImageGallery(props) {
     let view;
-    view = <DefaultView currentView={props.view} styleIndex={props.styleIndex} styles={props.stylesData}/>;
+    view = (
+      <DefaultView
+      currentView={props.view}
+      styleIndex={props.styleIndex}
+      styles={props.stylesData}/>
+    );
     let changeView = () => {
       props.changeView()
     }
@@ -21,7 +26,11 @@ function ImageGallery(props) {
     }
     return (
       <div data-testid="image-gallery" className="image-gallery">
-        <img alt="full-screen-icon" onClick={changeView} className="full-screen" src={screenImage}></img>
+        <img
+        alt="full-screen-icon"
+        onClick={changeView}
+        className="full-screen"
+        src={screenImage}></img>
         {view}
       </div>
     )

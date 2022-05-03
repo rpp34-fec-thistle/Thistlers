@@ -26,24 +26,33 @@ class DefaultView extends React.Component {
     this.prevImage = this.prevImage.bind(this);
     this.zoomImage = this.zoomImage.bind(this);
     this.mouseMove = this.mouseMove.bind(this);
-    this.mouseLeave = this.mouseLeave.bind(this);
   }
 
   componentDidMount() {
-      let thumbnails = this.props.styles[this.props.styleIndex].photos.map((photo) => {
-        return photo.thumbnail_url
-      });
-      let image_id = this.props.styles[this.props.styleIndex].photos[0].url.split('-')[1];
-      this.setState({
-        styles: this.props.styles,
-        currentPhoto: this.props.styles[this.props.styleIndex].photos[0].url,
-        imageIndex: 0,
-        currentStyle: this.props.styleIndex,
-        thumbnails: thumbnails,
-        image_id: image_id,
-        topImageIndex: 0,
-        bottomImageIndex: 6
-      });
+    let stlyeName = this.props.styles[this.props.styleIndex].name;
+
+    let thumbnails = this.props.styles[this.props.styleIndex].photos.map((photo) => {
+      return {
+        tn: photo.thumbnail_url,
+        name: stlyeName
+      }
+    });
+
+    let splitUrlString = this.props.styles[this.props.styleIndex].photos[0].url.split('-');
+    let image_id = splitUrlString[1] + splitUrlString[2];
+    image_id += stlyeName;
+
+    let currentPhoto = this.props.styles[this.props.styleIndex].photos[0].url;
+    this.setState({
+      styles: this.props.styles,
+      currentPhoto: currentPhoto,
+      imageIndex: 0,
+      currentStyle: this.props.styleIndex,
+      thumbnails: thumbnails,
+      image_id: image_id,
+      topImageIndex: 0,
+      bottomImageIndex: 6
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -80,23 +89,14 @@ class DefaultView extends React.Component {
      })
     }
   }
-  mouseLeave() {
-    if (this.state.zoomed) {
-      let image = document.querySelector('.image-container');
-      let width = image.offsetWidth;
-      let height = image.offsetHeight;
-     image.scrollTo({
-       top: (height / 1.5),
-       left: (width / 1.5),
-       behavior: 'auto'
-     })
-    }
-  }
 
   selectedPhoto(selectedIndex) {
     let currentStyleIndex = this.props.styleIndex;
     let selectedPhoto = this.props.styles[currentStyleIndex].photos[selectedIndex]?.url;
-    let image_id = selectedPhoto.split('-')[1];
+
+    let splitUrlString = selectedPhoto.split('-');
+    let image_id = splitUrlString[1] + splitUrlString[2];
+    image_id += this.props.styles[currentStyleIndex].name;
     let nextPhoto = this.props.styles[currentStyleIndex].photos[selectedIndex + 1]
 
     if (selectedIndex === 0 && nextPhoto === undefined) {
@@ -144,7 +144,9 @@ class DefaultView extends React.Component {
     let prevPhoto = this.props.styles[currentStyleIndex].photos[photoIndex - 1]?.url;
     let pPhoto = this.props.styles[currentStyleIndex].photos[photoIndex - 2]?.url;
 
-    let image_id = prevPhoto?.split('-')[1];
+    let splitUrlString = prevPhoto?.split('-');
+    let image_id = splitUrlString[1] + splitUrlString[2];
+    image_id += this.props.styles[currentStyleIndex].name;
 
     if (prevPhoto !== undefined) {
       let topImageIndex = this.state.topImageIndex;
@@ -213,7 +215,9 @@ class DefaultView extends React.Component {
     let nextPhoto = this.props.styles[currentStyleIndex].photos[photoIndex + 1]?.url;
     let nPhoto = this.props.styles[currentStyleIndex].photos[photoIndex + 2]?.url;
 
-    let image_id = nextPhoto?.split('-')[1];
+    let splitUrlString = nextPhoto?.split('-');
+    let image_id = splitUrlString[1] + splitUrlString[2];
+    image_id += this.props.styles[currentStyleIndex].name;
 
       if (nextPhoto !== undefined) {
         let topImageIndex = this.state.topImageIndex;
@@ -279,22 +283,29 @@ class DefaultView extends React.Component {
     if (this.state.hiddenNext) {
       nextButton = <></>
     } else {
-      nextButton = (<button className="next-button-main" onClick={this.cyclePhotos} name="Next">
-        <img alt="next-image-button" className="next-img" src={RightArrow} onClick={this.cyclePhotos} name="Next"></img>
-      </button>)
+      nextButton = (
+        <button className="next-button-main" onClick={this.cyclePhotos} name="Next">
+          <img alt="next-image-button"
+          className="next-img"
+          src={RightArrow}
+          onClick={this.cyclePhotos}
+          name="Next"></img>
+        </button>
+      )
     }
     if (this.state.hiddenPrev) {
       prevButton = <></>
     } else {
       prevButton = (
-      <button  className="prev-button-main" onClick={this.cyclePhotos} name="Prev">
-        <img
-          alt="previous-image-button"
-          className="prev-img"
-          src={LeftArrow}
-          onClick={this.cyclePhotos}
-          name="Prev"></img>
-      </button>)
+        <button  className="prev-button-main" onClick={this.cyclePhotos} name="Prev">
+          <img
+            alt="previous-image-button"
+            className="prev-img"
+            src={LeftArrow}
+            onClick={this.cyclePhotos}
+            name="Prev"></img>
+        </button>
+      )
     }
     let viewClassName;
     if (this.props.currentView === 'default') {
@@ -319,14 +330,13 @@ class DefaultView extends React.Component {
           />
           {prevButton}
           <div className="image-container">
-          <img
-          onMouseMove={this.mouseMove}
-          // onMouseLeave={this.mouseLeave}
-          onClick={this.zoomImage}
-          className={viewClassName}
-          src={this.state.currentPhoto}
-          alt="selected-image">
-          </img>
+            <img
+              onMouseMove={this.mouseMove}
+              onClick={this.zoomImage}
+              className={viewClassName}
+              src={this.state.currentPhoto}
+              alt="selected-image">
+            </img>
           </div>
           {nextButton}
         </div>

@@ -7,23 +7,21 @@ function AddToBag(props) {
     if (props.sku !== '') {
       let promises = []
       for (let i = 0; i < props.quantity; i++) {
-        promises.push(axios.post('http://localhost:8080/cart', {sku_id: props.sku}))
+        promises.push(axios.post('/cart', {sku_id: props.sku}))
       }
       Promise.all(promises)
         .then(()=> {
-
         })
         .catch((err) => {
           console.log('CLIENT: AddtoBag ERROR:', err)
         })
     }
   }
-  let pageElement = <></>
+
+  let pageElement = <></>;
+
   if(props.stock <= 0 || props.stock === undefined) {
-    pageElement = (
-      <div>
-      </div>
-    )
+    pageElement = <div></div>;
   } else {
     pageElement = (
       <div className="add-to-bag">
@@ -31,9 +29,8 @@ function AddToBag(props) {
       </div>
     )
   }
-    return(
-      pageElement
-    )
+
+  return(pageElement)
 }
 
 AddToBag.propTypes = {

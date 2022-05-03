@@ -326,3 +326,14 @@
   font-size: 0.8rem;
   font-weight: 100;
 }
+
+.answer-images {
+  height: 55px;
+  padding: 5px 0px 10px 0px;
+}
+
+.answer-image {
+  height: 100%;
+  margin: 5px 10px 5px 0px;
+  border: 1px solid black;
+}

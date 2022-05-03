@@ -16,8 +16,7 @@ class RelatedItemsWidget extends Component {
       yourOutfitIds: [],
       yourOutfitArray: [],
       relatedProductsLoaded: false,
-      yourOutfitLoaded: false,
-      loaded: true
+      yourOutfitLoaded: false
     }
     this.setOverviewId = this.setOverviewId.bind(this);
     this.setOverviewIdData = this.setOverviewIdData.bind(this);
@@ -47,15 +46,15 @@ class RelatedItemsWidget extends Component {
       relatedProductsLoaded: false
     })
 
-    this.setOverviewIdData();
+    this.setOverviewIdData(id);
   }
 
 
-  setOverviewIdData() {
+  setOverviewIdData(id) {
 
     const endpoints = [
-      `/products/${this.state.overviewId}`,
-      `/products/${this.state.overviewId}/related`];
+      `/products/${id}`,
+      `/products/${id}/related`];
 
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((overview, related) => {
@@ -80,13 +79,7 @@ class RelatedItemsWidget extends Component {
       })
       .then(() => {
         this.setYourOutfitsIds();
-        // return this.state.yourOutfitIds
       })
-      // .then((array) => {
-      //   if (array.length > 0) {
-      //     this.setYourOutfitArray(array);
-      //   }
-      // })
       .catch((err) => {
         console.log('error in setOverviewIdData');
         return err;

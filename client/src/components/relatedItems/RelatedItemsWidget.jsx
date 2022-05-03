@@ -37,6 +37,9 @@ class RelatedItemsWidget extends Component {
 
   setOverviewId(id) {
 
+    // what if the id the click is trying to set is already the overviewId?
+    // can remove unnecessary re-rendering/extra API calls by simply not re-rendering same info again
+
     let idString = id.toString();
     this.props.changeId(idString);
 
@@ -244,6 +247,10 @@ class RelatedItemsWidget extends Component {
       window.localStorage.setItem('yourOutfits', [id]);
       this.setYourOutfitArray(newArray);
     } else {
+
+      // can manually update array and just make one api call for the new card
+      // removing the need to repopulate all the information for all the previously loaded cards
+
       let newArray = [...new Set([id, ...originalArray])];
       this.setState({
         yourOutfitIds: newArray

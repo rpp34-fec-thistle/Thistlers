@@ -210,17 +210,21 @@ class RelatedItemsWidget extends Component {
       this.setYourOutfitArray([]);
     } else {
       let originalArray = this.state.yourOutfitIds;
+      let originalObjArray = this.state.yourOutfitArray;
       let newArray = [];
+      let newObjArray = [];
       for (var i = 0; i < originalArray.length; i++) {
         if (originalArray[i] !== id) {
           newArray.push(originalArray[i]);
+          newObjArray.push(originalObjArray[i]);
         }
       }
       this.setState({
-        yourOutfitIds: newArray
+        yourOutfitIds: newArray,
+        yourOutfitArray: newObjArray
       })
       window.localStorage.setItem('yourOutfits', newArray);
-      this.setYourOutfitArray(newArray);
+
     }
   }
 

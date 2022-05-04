@@ -249,15 +249,25 @@ class RelatedItemsWidget extends Component {
       this.setYourOutfitArray(newArray);
     } else {
 
-      // can manually update array and just make one api call for the new card
-      // removing the need to repopulate all the information for all the previously loaded cards
-
       let newArray = [...new Set([id, ...originalArray])];
-      this.setState({
-        yourOutfitIds: newArray
-      })
-      window.localStorage.setItem('yourOutfits', newArray);
-      this.setYourOutfitArray(newArray);
+      let newObjArray = this.state.yourOutfitArray;
+
+      Promise.all([Promise.resolve(this.setCards(id))])
+        .then((value) => {
+          newObjArray.push(value[0]);
+        })
+        .then(() => {
+          this.setState({
+            yourOutfitIds: newArray,
+            yourOutfitArray: newObjArray
+          })
+          window.localStorage.setItem('yourOutfits', newArray);
+        })
+        .catch((err) => {
+          console.log('error in adding new obj to yourOutfitArray: ', err)
+        })
+
+
     }
   }
 

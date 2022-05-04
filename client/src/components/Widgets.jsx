@@ -19,9 +19,9 @@ const Widgets = () => {
     return(
       <>
       <Overview product_id={productId}/>
-      <RelatedItems
+      {/* <RelatedItems
         changeId={setProductId}
-        productId={productId}/>
+        productId={productId}/> */}
       <Questions product_id={productId}/>
       <Reviews product_id={productId}/>
       </>

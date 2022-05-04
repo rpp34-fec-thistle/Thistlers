@@ -8,7 +8,7 @@ class RelatedItemsWidget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      overviewId: 64620,
+      overviewId: 0,
       overviewIdName: '',
       overviewIdFeatures: [],
       relatedProductsIds: [],
@@ -16,8 +16,7 @@ class RelatedItemsWidget extends Component {
       yourOutfitIds: [],
       yourOutfitArray: [],
       relatedProductsLoaded: false,
-      yourOutfitLoaded: false,
-      loaded: true
+      yourOutfitLoaded: false
     }
     this.setOverviewId = this.setOverviewId.bind(this);
     this.setOverviewIdData = this.setOverviewIdData.bind(this);
@@ -38,6 +37,10 @@ class RelatedItemsWidget extends Component {
 
   setOverviewId(id) {
 
+    if (id === this.state.overviewId) {
+      return;
+    }
+
     let idString = id.toString();
     this.props.changeId(idString);
 
@@ -47,15 +50,15 @@ class RelatedItemsWidget extends Component {
       relatedProductsLoaded: false
     })
 
-    this.setOverviewIdData();
+    this.setOverviewIdData(id);
   }
 
 
-  setOverviewIdData() {
+  setOverviewIdData(id) {
 
     const endpoints = [
-      `/products/${this.state.overviewId}`,
-      `/products/${this.state.overviewId}/related`];
+      `/products/${id}`,
+      `/products/${id}/related`];
 
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((overview, related) => {
@@ -80,13 +83,7 @@ class RelatedItemsWidget extends Component {
       })
       .then(() => {
         this.setYourOutfitsIds();
-        // return this.state.yourOutfitIds
       })
-      // .then((array) => {
-      //   if (array.length > 0) {
-      //     this.setYourOutfitArray(array);
-      //   }
-      // })
       .catch((err) => {
         console.log('error in setOverviewIdData');
         return err;
@@ -217,17 +214,21 @@ class RelatedItemsWidget extends Component {
       this.setYourOutfitArray([]);
     } else {
       let originalArray = this.state.yourOutfitIds;
+      let originalObjArray = this.state.yourOutfitArray;
       let newArray = [];
+      let newObjArray = [];
       for (var i = 0; i < originalArray.length; i++) {
         if (originalArray[i] !== id) {
           newArray.push(originalArray[i]);
+          newObjArray.push(originalObjArray[i]);
         }
       }
       this.setState({
-        yourOutfitIds: newArray
+        yourOutfitIds: newArray,
+        yourOutfitArray: newObjArray
       })
       window.localStorage.setItem('yourOutfits', newArray);
-      this.setYourOutfitArray(newArray);
+
     }
   }
 
@@ -247,12 +248,26 @@ class RelatedItemsWidget extends Component {
       window.localStorage.setItem('yourOutfits', [id]);
       this.setYourOutfitArray(newArray);
     } else {
+
       let newArray = [...new Set([id, ...originalArray])];
-      this.setState({
-        yourOutfitIds: newArray
-      })
-      window.localStorage.setItem('yourOutfits', newArray);
-      this.setYourOutfitArray(newArray);
+      let newObjArray = this.state.yourOutfitArray;
+
+      Promise.all([Promise.resolve(this.setCards(id))])
+        .then((value) => {
+          newObjArray.push(value[0]);
+        })
+        .then(() => {
+          this.setState({
+            yourOutfitIds: newArray,
+            yourOutfitArray: newObjArray
+          })
+          window.localStorage.setItem('yourOutfits', newArray);
+        })
+        .catch((err) => {
+          console.log('error in adding new obj to yourOutfitArray: ', err)
+        })
+
+
     }
   }
 

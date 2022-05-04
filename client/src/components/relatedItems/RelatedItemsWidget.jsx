@@ -8,7 +8,7 @@ class RelatedItemsWidget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      overviewId: 64620,
+      overviewId: 0,
       overviewIdName: '',
       overviewIdFeatures: [],
       relatedProductsIds: [],
@@ -37,8 +37,9 @@ class RelatedItemsWidget extends Component {
 
   setOverviewId(id) {
 
-    // what if the id the click is trying to set is already the overviewId?
-    // can remove unnecessary re-rendering/extra API calls by simply not re-rendering same info again
+    if (id === this.state.overviewId) {
+      return;
+    }
 
     let idString = id.toString();
     this.props.changeId(idString);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import RelatedProducts from './RelatedProducts.jsx';
 import YourOutfit from './YourOutfit.jsx';
 import MetricsWrapper from '../MetricsWrapper.jsx';
@@ -17,26 +18,15 @@ class RelatedItemsWidget extends Component {
       yourOutfitArray: [],
       relatedProductsLoaded: false,
       yourOutfitLoaded: false
-    }
-    this.setOverviewId = this.setOverviewId.bind(this);
-    this.setOverviewIdData = this.setOverviewIdData.bind(this);
-    this.setCards = this.setCards.bind(this);
-    this.setRelatedArray = this.setRelatedArray.bind(this);
-    this.setYourOutfitsIds = this.setYourOutfitsIds.bind(this);
-    this.deleteYourOutfits = this.deleteYourOutfits.bind(this);
-    this.addToOutfits = this.addToOutfits.bind(this);
+    };
   }
 
-  // this.props.product_id: '',
-  // this.props.setOverviewId(id)
-
-  componentDidMount() {
+  componentDidMount = () => {
     let newId = parseInt(this.props.productId);
     this.setOverviewId(newId)
   }
 
-  setOverviewId(id) {
-
+  setOverviewId = (id) => {
     if (id === this.state.overviewId) {
       return;
     }
@@ -54,7 +44,7 @@ class RelatedItemsWidget extends Component {
   }
 
 
-  setOverviewIdData(id) {
+  setOverviewIdData = (id) => {
 
     const endpoints = [
       `/products/${id}`,
@@ -62,20 +52,19 @@ class RelatedItemsWidget extends Component {
 
     axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((overview, related) => {
-
-        var overviewResult = overview.data;
+        var overviewResult = overview.data
         var itemFeatures = overviewResult.features.map((x) => {
           if (x.value !== null) {
             return x.value;
           }
-        });
+        })
         var relatedResult = related.data;
         var uniqueResults = [...new Set(relatedResult)].filter(id => id !== this.state.overviewId);
         this.setState({
           overviewIdName: overviewResult.name,
           overviewIdFeatures: itemFeatures,
           relatedProductsIds: uniqueResults
-        });
+        })
         return uniqueResults;
       }))
       .then((dataArray) => {
@@ -90,7 +79,7 @@ class RelatedItemsWidget extends Component {
       })
   }
 
-  setRelatedArray(idArray) {
+  setRelatedArray = (idArray) => {
     Promise.all(idArray.map((item) => {
       return Promise.resolve(this.setCards(item));
     })).then((values) => {
@@ -101,7 +90,7 @@ class RelatedItemsWidget extends Component {
     })
   }
 
-  setYourOutfitArray(idArray) {
+  setYourOutfitArray = (idArray) => {
     if (idArray.length === 0) {
       this.setState({
         yourOutfitArray: [],
@@ -110,15 +99,15 @@ class RelatedItemsWidget extends Component {
     }
     Promise.all(idArray.map((item) => {
       return Promise.resolve(this.setCards(item));
-      })).then((values) => {
-        this.setState({
-          yourOutfitArray: values,
-          yourOutfitLoaded: true
-        })
+    })).then((values) => {
+      this.setState({
+        yourOutfitArray: values,
+        yourOutfitLoaded: true
       })
+    })
   }
 
-  setYourOutfitsIds() {
+  setYourOutfitsIds = () => {
     if (window.localStorage.yourOutfits) {
       let testArray = window.localStorage.getItem('yourOutfits');
       testArray = testArray.split(',').map(x => parseInt(x));
@@ -135,12 +124,12 @@ class RelatedItemsWidget extends Component {
   }
 
 
-  setCards(eachItem) {
+  setCards = (eachItem) => {
 
     const endpoints = [
       `/styles/${eachItem}`,
       `/products/${eachItem}`,
-      `/reviews/${eachItem}`];
+      `/reviews/${eachItem}`]
 
     return axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then(axios.spread((styles, products, ratings) => {
@@ -153,17 +142,18 @@ class RelatedItemsWidget extends Component {
         var productsResults = products.data;
         var category = productsResults.category;
         var name = productsResults.name;
+
         const valueArrayMaker = (objArr) => {
-          let newArray = [];
+          let newArray = []
           objArr.forEach((obj) => {
             if (obj.value !== null) {
-              newArray.push(obj.value);
+              newArray.push(obj.value)
             }
           })
           return newArray;
-        }
-        var features = valueArrayMaker(productsResults.features)
+        };
 
+        var features = valueArrayMaker(productsResults.features);
         var ratingsResults = ratings.data;
         var ratingsObj = ratingsResults.ratings;
 
@@ -203,8 +193,7 @@ class RelatedItemsWidget extends Component {
       })
   }
 
-  deleteYourOutfits(id) {
-
+  deleteYourOutfits = (id) => {
     if (this.state.yourOutfitIds.length === 1) {
       window.localStorage.clear();
       window.localStorage.setItem('yourOutfits', []);
@@ -227,12 +216,11 @@ class RelatedItemsWidget extends Component {
         yourOutfitIds: newArray,
         yourOutfitArray: newObjArray
       })
-      window.localStorage.setItem('yourOutfits', newArray);
-
+      window.localStorage.setItem('yourOutfits', newArray)
     }
   }
 
-  addToOutfits(id) {
+  addToOutfits = (id) => {
 
     let originalArray = this.state.yourOutfitIds;
     let localStorageArray = window.localStorage.yourOutfits.split(',');
@@ -240,6 +228,7 @@ class RelatedItemsWidget extends Component {
     if (localStorageArray.indexOf(id.toString()) !== -1) {
       return;
     }
+
     if (window.localStorage.yourOutfits === '') {
       let newArray = [id]
       this.setState({
@@ -247,14 +236,17 @@ class RelatedItemsWidget extends Component {
       })
       window.localStorage.setItem('yourOutfits', [id]);
       this.setYourOutfitArray(newArray);
+
     } else {
 
       let newArray = [...new Set([id, ...originalArray])];
-      let newObjArray = this.state.yourOutfitArray;
-
+      let previousObjArray = this.state.yourOutfitArray;
+      let newObjArray;
+      // let newObjArray = this.state.yourOutfitArray;
       Promise.all([Promise.resolve(this.setCards(id))])
         .then((value) => {
-          newObjArray.push(value[0]);
+          newObjArray = [...new Set([value[0], ...previousObjArray])];
+          // newObjArray.push(value[0]);
         })
         .then(() => {
           this.setState({
@@ -265,12 +257,9 @@ class RelatedItemsWidget extends Component {
         })
         .catch((err) => {
           console.log('error in adding new obj to yourOutfitArray: ', err)
-        })
-
-
+        });
     }
-  }
-
+  };
 
   render() {
 
@@ -294,6 +283,7 @@ class RelatedItemsWidget extends Component {
     if (this.state.relatedProductsLoaded) {
 
       page =
+
         <div className="related-items-widget">
           <RelatedProducts overviewId={this.state.overviewId} overviewIdName={this.state.overviewIdName} overviewIdFeatures={this.state.overviewIdFeatures} relatedProductsIds={this.state.relatedProductsIds} setOverviewId={this.setOverviewId} relatedProductsArray={this.state.relatedProductsArray} setOverviewIdData={this.setOverviewIdData} />
           <WrappedYourOutfit />
@@ -305,8 +295,6 @@ class RelatedItemsWidget extends Component {
 
   }
 }
-
-import PropTypes from 'prop-types';
 
 RelatedItemsWidget.propTypes = {
   interaction: PropTypes.func,

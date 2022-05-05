@@ -22,7 +22,7 @@ class Search extends Component {
   render() {
     return (
       <div className="question-search">
-        <input onChange={this.onSearchInputChange.bind(this)} type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."></input>
+        <input onChange={this.onSearchInputChange.bind(this)} type="text" placeholder="  HAVE A QUESTION? SEARCH FOR ANSWERS..."></input>
       </div>
     )
   }

@@ -141,22 +141,26 @@ class QuestionWidget extends Component {
       <div className="question-widget-container">
         <div className="question-widget">
           <p className="question-widget-title">QUESTIONS & ANSWERS</p>
-          <Search
-            questions={this.state.questions}
-            onSearch={this.onSearch.bind(this)}
-          />
-          <QuestionList
-            questions={this.state.displayedQuestions}
-            onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
-            allAnswersDisplayed={this.state.allAnswersDisplayed}
-            onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
-            onHelpfulClick={this.onHelpfulClick.bind(this)}
-            onReport={this.onReport.bind(this)}
-            reportedAnswers={this.state.reportedAnswers}
-            onAddAnswer={this.onAddAnswer.bind(this)}
-            onImageClick={this.onImageClick.bind(this)}
-            currentImage={this.state.currentImage}
-          />
+          {this.state.questions.length > 0 && (
+            <>
+              <Search
+              questions={this.state.questions}
+              onSearch={this.onSearch.bind(this)}
+              />
+              <QuestionList
+                questions={this.state.displayedQuestions}
+                onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
+                allAnswersDisplayed={this.state.allAnswersDisplayed}
+                onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
+                onHelpfulClick={this.onHelpfulClick.bind(this)}
+                onReport={this.onReport.bind(this)}
+                reportedAnswers={this.state.reportedAnswers}
+                onAddAnswer={this.onAddAnswer.bind(this)}
+                onImageClick={this.onImageClick.bind(this)}
+                currentImage={this.state.currentImage}
+              />
+            </>
+          )}
           <Footer
             moreQuestions={this.state.moreQuestions}
             onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}

@@ -7,8 +7,6 @@ import MetricsWrapper from '../MetricsWrapper.jsx';
 class YourOutfit extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    }
   }
 
   render() {

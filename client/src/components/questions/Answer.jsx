@@ -5,7 +5,7 @@ import helpers from './helpers.js';
 const months = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"]
 
-const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
+const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers, onImageClick }) => {
 
   const formatDate = (date) => {
     const newDate = new Date(date);
@@ -27,10 +27,15 @@ const Answer = ({ answer, onHelpfulClick, onReport, reportedAnswers }) => {
     onReport('answers', answer.id);
   }
 
+  const onPhotoClick = (e) => {
+    onImageClick(e.target.src);
+    document.querySelector('.display-image-modal').style.display = 'flex';
+  }
+
   return (
     <div className="answer">
       <p>{answer.body}</p>
-        {answer.photos.length > 0 && <div className="answer-images">{answer.photos.map((photoUrl, index) => <img className="answer-image" src={photoUrl} key={index}/>)}</div>}
+        {answer.photos.length > 0 && <div className="answer-images">{answer.photos.map((photoUrl, index) => <img onClick={onPhotoClick} className="answer-image" src={photoUrl} key={index}/>)}</div>}
         <div className="reaction-buttons">
           <p>by {answer.answerer_name === 'Seller'
             ? <span className="answer-from-seller">{answer.answerer_name}</span>
@@ -52,7 +57,8 @@ Answer.propTypes = {
   answer: PropTypes.object.isRequired,
   onHelpfulClick: PropTypes.func.isRequired,
   onReport: PropTypes.func.isRequired,
-  reportedAnswers: PropTypes.array.isRequired
+  reportedAnswers: PropTypes.array.isRequired,
+  onImageClick: PropTypes.func.isRequired
 };
 
 export default Answer;

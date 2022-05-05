@@ -1,84 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 class Ratings extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      ratings: null,
-      starRatings: ''
-    }
-    this.setRatings = this.setRatings.bind(this);
-  }
-
-  componentDidMount() {
-    this.setRatings()
-  }
-
-  setRatings() {
-
-    const ratingsAPI = `/reviews/${this.props.id}`;
-
-    axios(ratingsAPI)
-      .then((data) => {
-        var result = data.data.ratings;
-        var hasRatings = Object.keys(result).length > 0;
-        if (hasRatings) {
-          var ratingsArr = Object.entries(result);
-          var totalScore = 0;
-          for (var i = 0; i < ratingsArr.length; i++) {
-            var currentPair = ratingsArr[i];
-            var score = parseInt(currentPair[0]);
-            var votes = parseInt(currentPair[1]);
-            var pairTotal = score * votes;
-            totalScore += pairTotal;
-          }
-
-          var totalRatings = Object.values(result).map(x => parseInt(x)).reduce((a, b) => a + b, 0);
-          var averageScore = Math.round((totalScore / totalRatings) * 100) / 100;
-
-          var numWholeStars = Math.floor(averageScore);
-
-          var starString = '';
-
-          if (numWholeStars === 1) {
-            starString = '★☆☆☆☆'
-          }
-          if (numWholeStars === 2) {
-            starString = '★★☆☆☆'
-          }
-          if (numWholeStars === 3) {
-            starString = '★★★☆☆'
-          }
-          if (numWholeStars === 4) {
-            starString = '★★★★☆'
-          }
-          if (numWholeStars === 5) {
-            starString = '★★★★★'
-          }
-
-          this.setState({
-            ratings: averageScore,
-            starRatings: starString
-          });
-        }
-        return result;
-      })
-      .catch((err) => {
-        console.log('error in setRelatedProductsIds');
-        return err;
-      })
-
   }
 
   render() {
 
+    var result = this.props.ratings;
+    var numWholeStars = Math.floor(result);
+    var starString = '';
+
+    if (numWholeStars === 1) {
+      starString = '★☆☆☆☆'
+    }
+    if (numWholeStars === 2) {
+      starString = '★★☆☆☆'
+    }
+    if (numWholeStars === 3) {
+      starString = '★★★☆☆'
+    }
+    if (numWholeStars === 4) {
+      starString = '★★★★☆'
+    }
+    if (numWholeStars === 5) {
+      starString = '★★★★★'
+    }
+
     return (
       <>
-      <div className="ratings" data-testid='ratings-id' id={'rating-' + this.props.id}>
-        {this.state.starRatings}
-      </div>
+        <div className="ratings" data-testid='ratings-id' id={'rating-' + this.props.id}>
+          {starString}
+        </div>
       </>
     )
 
@@ -86,7 +40,8 @@ class Ratings extends Component {
 }
 
 Ratings.propTypes = {
-  id: PropTypes.number
+  id: PropTypes.number,
+  ratings: PropTypes.number
 }
 
 export default Ratings;

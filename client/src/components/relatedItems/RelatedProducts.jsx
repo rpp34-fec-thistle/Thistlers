@@ -9,10 +9,6 @@ class RelatedProducts extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.setOverviewIdData();
-  }
-
   render() {
 
     let items = this.props.relatedProductsArray;
@@ -50,11 +46,8 @@ class RelatedProducts extends Component {
           </div>
         </div>
 
-
     }
     return (page)
-
-
 
   }
 }
@@ -71,33 +64,3 @@ RelatedProducts.propTypes = {
 }
 
 export default RelatedProducts;
-
-
-{/* <>
-<div className="related-products-container">
-
-  <h3>Related Products</h3>
-  <div className="related-products-carousel" data-testid='related-products-id'>
-    {items.length > 0 && items.map((eachId) => {
-
-      let wrappedProps = {
-        displayButton: 'related-products',
-        id: eachId,
-        overviewId: this.props.overviewId,
-        overviewIdName: this.props.overviewIdName,
-        overviewIdFeatures: this.props.overviewIdFeatures,
-        setOverviewId: this.props.setOverviewId,
-        relatedProductsIds: this.props.relatedProductsIds,
-      }
-
-      let WrappedCards = MetricsWrapper(Cards, wrappedProps);
-
-      return <WrappedCards key={'rp-' + eachId} />
-
-    }
-
-    )}
-  </div>
-
-</div>
-</> */}

@@ -3,22 +3,13 @@ const path = require('path');
 const axios = require('axios');
 const compression = require('compression');
 const cors = require('cors');
-// const cloudinary = require('cloudinary');
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 require('dotenv').config();
-const multer = require('multer');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 
 const app = express();
-
-//Cloudinary Config
-// cloudinary.config({ 
-//   cloud_name: 'desc2h9c3', 
-//   api_key: '457552656857226', 
-//   api_secret: 'uahUfVJM-j7neyyg8L9ntDuMQ5U' 
-// });
 
 app.use(cors())
 app.use(compression())

@@ -18,10 +18,10 @@ class QuestionWidget extends Component {
       moreQuestions: false,
       allAnswersDisplayed: [],
       reportedAnswers: [],
-      selectedQuestion: {}
+      selectedQuestion: {},
+      currentImage: ''
     }
   }
-
 
   componentDidMount() {
     this.setOrderedData();
@@ -128,6 +128,14 @@ class QuestionWidget extends Component {
     this.setState({ selectedQuestion: question });
   }
 
+  onImageClick(imageUrl, reset) {
+    if (reset) {
+      this.setState({currentImage: ''})
+    } else {
+      this.setState({currentImage: imageUrl});
+    }
+  }
+
   render() {
     return (
       <div className="question-widget-container">
@@ -146,6 +154,8 @@ class QuestionWidget extends Component {
             onReport={this.onReport.bind(this)}
             reportedAnswers={this.state.reportedAnswers}
             onAddAnswer={this.onAddAnswer.bind(this)}
+            onImageClick={this.onImageClick.bind(this)}
+            currentImage={this.state.currentImage}
           />
           <Footer
             moreQuestions={this.state.moreQuestions}

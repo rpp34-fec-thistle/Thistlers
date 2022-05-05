@@ -11,7 +11,9 @@ const Question = ({
   onHelpfulClick,
   onReport,
   reportedAnswers,
-  onAddAnswer
+  onAddAnswer,
+  onImageClick,
+  currentImage
 }) => {
 
   const onMoreAnswersClick = () => {
@@ -71,6 +73,8 @@ const Question = ({
           onHelpfulClick={onHelpfulClick}
           onReport={onReport}
           reportedAnswers={reportedAnswers}
+          onImageClick={onImageClick}
+          currentImage={currentImage}
         />
         )}
       </div>
@@ -90,7 +94,9 @@ Question.propTypes = {
   onHelpfulClick: PropTypes.func.isRequired,
   onReport: PropTypes.func.isRequired,
   reportedAnswers: PropTypes.array.isRequired,
-  onAddAnswer: PropTypes.func.isRequired
+  onAddAnswer: PropTypes.func.isRequired,
+  onImageClick: PropTypes.func.isRequired,
+  currentImage: PropTypes.string.isRequired
 };
 
 export default Question;

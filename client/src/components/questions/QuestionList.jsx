@@ -10,7 +10,9 @@ const QuestionList = ({
     onHelpfulClick,
     onReport,
     reportedAnswers,
-    onAddAnswer
+    onAddAnswer,
+    onImageClick,
+    currentImage
    }) => {
   return (
     <div className="question-list">
@@ -26,6 +28,8 @@ const QuestionList = ({
             onReport={onReport}
             reportedAnswers={reportedAnswers}
             onAddAnswer={onAddAnswer}
+            onImageClick={onImageClick}
+            currentImage={currentImage}
           />
         )
       })}
@@ -41,7 +45,9 @@ QuestionList.propTypes = {
   onHelpfulClick: PropTypes.func.isRequired,
   onReport: PropTypes.func.isRequired,
   reportedAnswers: PropTypes.array.isRequired,
-  onAddAnswer: PropTypes.func.isRequired
+  onAddAnswer: PropTypes.func.isRequired,
+  onImageClick: PropTypes.func.isRequired,
+  currentImage: PropTypes.string.isRequired
 };
 
 export default QuestionList;

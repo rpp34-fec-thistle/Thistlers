@@ -468,3 +468,8 @@ body {
 .close-fs-image-modal:hover {
   cursor: pointer;
 }
+
+.hidden-form-input-pId {
+  position: absolute;
+  display: none;
+}

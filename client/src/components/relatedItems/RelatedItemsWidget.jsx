@@ -242,11 +242,9 @@ class RelatedItemsWidget extends Component {
       let newArray = [...new Set([id, ...originalArray])];
       let previousObjArray = this.state.yourOutfitArray;
       let newObjArray;
-      // let newObjArray = this.state.yourOutfitArray;
       Promise.all([Promise.resolve(this.setCards(id))])
         .then((value) => {
           newObjArray = [...new Set([value[0], ...previousObjArray])];
-          // newObjArray.push(value[0]);
         })
         .then(() => {
           this.setState({

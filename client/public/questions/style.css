@@ -369,3 +369,10 @@
   box-shadow: 0 0 0 25px #eeee;
   border-radius: 10px;
 }
+
+.question-search input {
+  background-image: url('../images/search_icon.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 3rem;
+}

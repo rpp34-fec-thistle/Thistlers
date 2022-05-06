@@ -17,7 +17,8 @@ class Overview extends React.Component {
       styles: [],
       info: {},
       ratings: {},
-      loaded: false
+      loaded: false,
+      serverError: false
     }
     this.updateStyle = this.updateStyle.bind(this);
     this.changeView = this.changeView.bind(this);
@@ -60,12 +61,14 @@ class Overview extends React.Component {
             styles: styles.data.results,
             info: products.data,
             ratings: avgstars.data.ratings,
-            loaded: true
+            loaded: true,
+            serverError: false
           })
         })
       )
       .catch((err) => {
         console.log('GET DATA ERROR:', err)
+        this.setState({serverError: true, loaded: false})
       })
 
   }
@@ -112,6 +115,14 @@ class Overview extends React.Component {
           </div>
         )
       }
+    }
+
+    if (this.state.serverError) {
+      page = (
+        <div className="image-gallery">
+          <h1>Oops! We spun out! SERVER ERROR 😅</h1>
+        </div>
+      )
     }
     return (page)
   }

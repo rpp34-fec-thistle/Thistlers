@@ -7,15 +7,22 @@ import axios from 'axios';
 class Reviews extends Component {
   constructor(props) {
     super(props);
-    // PROPS SHOULD HAVE props.product_id or SIMILAR!
-    this.state = {
-      productId: this.props.product_id,
+      //props.product_id exists 
+      this.state = {
       reviews: [],
       metadata: {},
     }
-    // this.refresh(this.state.productId);
-    this.parseReviewsMetaInfo(this.state.productId);
-    this.parseReviewsInfo(this.state.productId);
+  }
+
+  componentDidMount() {
+    this.parseReviewsMetaInfo(this.props.product_id);
+    this.parseReviewsInfo(this.props.product_id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(this.props) === JSON.stringify(prevProps)) return;
+    this.parseReviewsMetaInfo(this.props.product_id);
+    this.parseReviewsInfo(this.props.product_id);
   }
 
   render() {

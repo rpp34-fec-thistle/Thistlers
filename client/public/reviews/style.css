@@ -336,7 +336,6 @@ body {
   grid-template-rows: 50% 50%;
   place-items: center;
   justify-content: left;
-  border: 1px solid red;
   width: 100%;
 }
 

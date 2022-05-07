@@ -356,7 +356,7 @@ app.post('/newReview', uploadS3Reviews.array('images'), (req, res) => {
   let characteristics = {};
   for (let x in req.body) {
     if (!isNaN(parseInt(x))) {
-      characteristics[x] = req.body[x];
+      characteristics[parseInt(x)] = parseInt(req.body[x]);
     }
   }
 
@@ -389,7 +389,7 @@ app.post('/newReview', uploadS3Reviews.array('images'), (req, res) => {
     }
   })
   .then(() => {
-    res.redirect('/6424'); //get last url
+    res.redirect('/64620'); //get last url
   })
   .catch(err => {
     console.log('Err Saving Review', err);

@@ -7,13 +7,14 @@ class NewReviewModle extends Component {
   }
 
   render() {
+    console.log(this.props);
     if (this.props.render) {
       return (
         <div className="new-review-modle">
           <button onClick = {this.props.toggleModle} className="btn-exit-new-review-modle">Exit</button>
 
           <form action="/newReview" id="new-review-form" method="post" encType="multipart/form-data">
-            <input name="product_id" className="hidden-form-input-pId" type="text" value={this.props.productId} visibility="hidden"/>
+            <input name="product_id" className="hidden-form-input-pId" type="text" value={this.props.productId} visibility="hidden" readOnly/>
             <select name="rating" form="new-review-form">
               <option value="5">5</option>
               <option value="4">4</option>

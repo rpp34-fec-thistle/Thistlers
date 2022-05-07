@@ -20,7 +20,7 @@ class FullScreenImageModal extends Component {
 }
 
 FullScreenImageModal.propTypes = {
-  url: PropTypes.string,
+  url: PropTypes.string || PropTypes.object,
   modalOn: PropTypes.bool,
   toggle: PropTypes.func
 };

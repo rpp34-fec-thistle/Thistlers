@@ -342,6 +342,8 @@ var uploadS3Reviews = multer({
 
 //create a new review
 app.post('/newReview', uploadS3Reviews.array('images'), (req, res) => {
+  console.log('request: ', req);
+
   const photos = [];
   if (req.files) {
     req.files.forEach(file => {
@@ -360,18 +362,6 @@ app.post('/newReview', uploadS3Reviews.array('images'), (req, res) => {
     }
   }
 
-  console.log({
-    product_id: parseInt(product_id),
-    rating: parseInt(rating),
-    summary,
-    body,
-    recommend,
-    name: username,
-    email,
-    photos,
-    characteristics 
-  });
-
   axios({
     method: 'post',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews`,
@@ -389,7 +379,7 @@ app.post('/newReview', uploadS3Reviews.array('images'), (req, res) => {
     }
   })
   .then(() => {
-    res.redirect('/64620'); //get last url
+    res.redirect(`/${product_id}`); //get last url
   })
   .catch(err => {
     console.log('Err Saving Review', err);

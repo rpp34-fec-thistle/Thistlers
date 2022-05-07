@@ -10,7 +10,6 @@ class ReviewCount extends Component {
   }
 
   onSelectChange(option) {
-    console.log('attempting to change');
     this.props.changeSort(option);
   }
 

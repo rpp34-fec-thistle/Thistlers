@@ -11,7 +11,7 @@ class FullScreenImageModal extends Component {
       return (
         <div className="fs-image-modal">
           <div onClick={this.props.toggle} className="close-fs-image-modal">X</div>
-          <img src={this.props.url} alt="" width="800px" height="800px"/>
+          <img src={this.props.url} alt="" width="1000px" height="800px"/>
         </div>
       );
     }

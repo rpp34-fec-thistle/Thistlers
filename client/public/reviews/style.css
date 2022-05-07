@@ -29,7 +29,9 @@ body {
 
 
 .customer-reviews {
+  position: relative;
   display: grid;
+  height: 80vh;
   grid-template-rows: 10% 78% 12%;
 }
 
@@ -135,18 +137,20 @@ body {
 
 .new-review-modle {
   position: relative;
-  width: 800px;
+  width: 500px;
   height: 600px;
   border: 1px solid black;
   position: fixed;
   top: calc(50% - 300px);
-  left: calc(50% - 400px);
+  left: calc(50% - 250px);
   filter: blur(100%);
   background: rgba(255,255,255,0.2);
   backdrop-filter: blur(15px);
   box-sizing: content-box;
   padding: 10px;
   border-radius: 10px;
+  display: grid;
+  align-items: center;
 }
 
 .individual-review {
@@ -200,7 +204,20 @@ body {
 
 .btn-exit-new-review-modle {
   position: absolute;
-  right: 10px;
+  top: 5px;
+  left: calc(100% - 30px);
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border-radius: 100%;
+  background: rgba(0,0,0,0.105);
+  border: none;
+  color: white;
+  z-index: 1000;
+}
+.btn-exit-new-review-modle:hover {
+  cursor: pointer;
 }
 
 .new-review-modle-identification-container {
@@ -240,7 +257,7 @@ body {
 
 .review-list {
   position: relative;
-  height:  70vh;
+  height:  100%;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -274,9 +291,11 @@ body {
 }
 
 .reviews-title {
+  position: relative;
   font-size: 17px;
   font-weight: 900;
   color: rgba(0,0,0,0.6);
+  left: 10%;
 }
 
 .review-interactions * {
@@ -423,9 +442,15 @@ body {
 
 .individual-reviews-images {
   width: 100%;
-  height: 75px;
+  height: max-content;
   display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-columns: max-content max-content max-content max-content max-content;
+  grid-column-gap: 5px;
+  margin-bottom: 5px;
+}
+.individual-reviews-images * {
+  box-sizing: border-box;
+  border: 1px solid black;
 }
 
 .characteristics-options {
@@ -439,12 +464,12 @@ body {
 
 .fs-image-modal {
   position: fixed;
-  min-width: 800px;
+  min-width: 1000px;
   min-height: 800px;
-  max-width: 800px;
+  max-width: 1000px;
   max-height: 800px;
   top: calc(50% - 400px);
-  left: calc(50% - 400px);
+  left: calc(50% - 500px);
   z-index: 1000;
   box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
 }
@@ -471,4 +496,109 @@ body {
 .hidden-form-input-pId {
   position: absolute;
   display: none;
+}
+
+#new-review-form {
+  display: grid;
+  position: relative;
+}
+
+#new-review-form input {
+  position: relative;
+  width: 80%;
+  left: 10%;
+  height: 35px;
+}
+
+.new-review-label {
+  position: relative;
+  left: 12%;
+  top: 50%;
+  z-index: 2;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(20px);
+  width: max-content;
+  padding: 0 5px 0 5px;
+  height: max-content;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+}
+
+.new-review-recommend-container {
+  position: relative;
+  width: calc(80% - 5px) !important;
+  left: 10%;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  place-items: center;
+  column-gap: 5px;
+}
+
+.new-review-recommend-container input {
+  margin-top: 5px !important;
+  margin: 0%;
+  width: 25px !important;
+  height: 25px !important;
+  padding-left: 5px;
+  box-sizing: border-box;
+}
+
+.new-review-rating-container {
+  position: relative;
+  left: 10%;
+  width: 80%;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-column-gap: 5px;
+  margin: 0;
+}
+.new-review-rating-container select {
+  border: none;
+  background: transparent;
+}
+
+label * {
+  color: rgba(0,0,0,0.75) !important;
+  font-weight: 900 !important;
+}
+
+.new-review-add-image-container {
+  width: 80%;
+  display: grid;
+  place-items: center;
+  grid-template-columns: max-content max-content;
+  grid-column-gap: 5px;
+  position: relative;
+  left: 10%;
+}
+
+.new-review-characteristics-container {
+  position: relative;
+  width: 80%;
+  left: 10%;
+  display: grid;
+  grid-template-rows: max-content max-content;
+  grid-row-gap: 5px;
+}
+
+.characteristics-options {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  place-items: center;
+}
+
+.characteristics-text-label {
+  font-weight: 900;
+}
+
+.new-review-submit {
+  margin-top: 5px;
+  width: 20% !important;
+  border: none;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.35);
+}
+.new-review-submit:active {
+  transform: translateX(3px);
+  box-shadow: none;
 }

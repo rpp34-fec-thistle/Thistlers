@@ -32,8 +32,13 @@ class DefaultView extends React.Component {
     let stlyeName = this.props.styles[this.props.styleIndex].name;
 
     let thumbnails = this.props.styles[this.props.styleIndex].photos.map((photo) => {
+      let image = photo.thumbnail_url;
+      if (image[0] === 'u') {
+        //fixing an api bad url issue
+        image = image.slice(1);
+      }
       return {
-        tn: photo.thumbnail_url,
+        tn: image,
         name: stlyeName
       }
     });
@@ -309,7 +314,7 @@ class DefaultView extends React.Component {
     }
     let viewClassName;
     if (this.props.currentView === 'default') {
-      viewClassName = 'selected-image';
+      viewClassName = 'selected-image-overview';
     } else if (this.state.zoomed) {
       viewClassName = "expanded-zoom"
     } else {

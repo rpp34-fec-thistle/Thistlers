@@ -190,7 +190,7 @@ class Footer extends Component {
               </div>
             </div>
             <p className="add-qa-title">Submit Your Answer</p>
-            <p className="add-answer-product-name">{this.props.productName} <span className="add-answer-subtitle">{this.props.selectedQuestion.question_body}</span></p>
+            <p className="add-answer-product-name">{this.props.productName} :<span className="add-answer-subtitle">{this.props.selectedQuestion.question_body}</span></p>
             <div className="nickname-input form-input">
               <div>
                 <p className="answer-nickname-error-message error-message">You must enter the following:</p>
@@ -260,7 +260,6 @@ class Footer extends Component {
                   multiple
                   >
                 </input>
-                <p className="form-message">For authentication reasons, you will not be emailed</p>
               </div>
             </div>
             <input type="text" name="questionId" value={this.props.selectedQuestion.question_id || ''} hidden readOnly></input>

@@ -6,8 +6,6 @@ import axios from 'axios';
 import helpers from './helpers.js';
 import PropTypes from 'prop-types';
 
-const testProductName = 'Camo Onesi';
-
 class QuestionWidget extends Component {
   constructor(props) {
     super(props);
@@ -19,18 +17,33 @@ class QuestionWidget extends Component {
       allAnswersDisplayed: [],
       reportedAnswers: [],
       selectedQuestion: {},
-      currentImage: ''
+      currentImage: '',
+      productName: ''
     }
   }
 
   componentDidMount() {
     this.setOrderedData();
+    this.getProductName();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.product_id !== this.props.product_id) {
       this.setOrderedData();
+      this.getProductName();
     }
+  }
+
+  getProductName() {
+    helpers.getProductName(this.props.product_id, (err, results) => {
+      if (err) {
+        console.error('An error occured fetching product name: ', err);
+      } else {
+        if (results.data.name) {
+          this.setState({productName: results.data.name});
+        }
+      }
+    })
   }
 
   setOrderedData() {
@@ -164,7 +177,7 @@ class QuestionWidget extends Component {
           <Footer
             moreQuestions={this.state.moreQuestions}
             onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
-            productName={testProductName}
+            productName={this.state.productName}
             productId={this.props.product_id}
             updateQuestionState={this.updateQuestionState.bind(this)}
             selectedQuestion={this.state.selectedQuestion}

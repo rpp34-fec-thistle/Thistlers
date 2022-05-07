@@ -1,24 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Cards from './Cards.jsx';
 import PropTypes from 'prop-types';
 import MetricsWrapper from '../MetricsWrapper.jsx';
 
+const RelatedProducts = ({relatedProductsArray, overviewId, overviewIdName, overviewIdFeatures, setOverviewId}) => {
 
-class RelatedProducts extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-
-    let items = this.props.relatedProductsArray;
+    let items = relatedProductsArray;
     let page = <div></div>;
 
     if (items.length === 0) {
+
       page =
         <div className="related-products-container">
         </div>
+
     } else {
+
       page =
         <div className="related-products-container">
           <h3>Related Products</h3>
@@ -34,10 +31,10 @@ class RelatedProducts extends Component {
                 price: eachItem.price,
                 salePrice: eachItem.salePrice,
                 ratings: eachItem.ratings,
-                overviewId: this.props.overviewId,
-                overviewIdName: this.props.overviewIdName,
-                overviewIdFeatures: this.props.overviewIdFeatures,
-                setOverviewId: this.props.setOverviewId
+                overviewId: overviewId,
+                overviewIdName: overviewIdName,
+                overviewIdFeatures: overviewIdFeatures,
+                setOverviewId: setOverviewId
               }
               let WrappedCards = MetricsWrapper(Cards, wrappedProps);
               return <WrappedCards key={'rp-' + eachItem.id} />
@@ -47,10 +44,10 @@ class RelatedProducts extends Component {
         </div>
 
     }
+
     return (page)
 
   }
-}
 
 RelatedProducts.propTypes = {
   interaction: PropTypes.func,

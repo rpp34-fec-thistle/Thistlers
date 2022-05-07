@@ -1,17 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Cards from './Cards.jsx';
 import PropTypes from 'prop-types';
 import MetricsWrapper from '../MetricsWrapper.jsx';
 
 
-class YourOutfit extends Component {
-  constructor(props) {
-    super(props);
-  }
+const YourOutfit = ({yourOutfitArray, id, addToOutfits, overviewId, setOverviewId, deleteYourOutfits, interaction}) => {
 
-  render() {
-
-    const items = this.props.yourOutfitArray;
+    const items = yourOutfitArray;
 
     let page = <div></div>;
 
@@ -24,10 +19,10 @@ class YourOutfit extends Component {
         <div className="your-outfit-container">
           <h3>Your Outfit</h3>
           <div className="your-outfit-carousel" data-testid="your-outfit-id">
-            <div className="card" data-testid='test-id' id={this.props.id}>
+            <div className="card" data-testid='test-id' id={id}>
               <button aria-label="add-item-to-list" onClick={(e) => {
-                this.props.addToOutfits(this.props.overviewId);
-                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
+                addToOutfits(overviewId);
+                interaction(`${e.target}`, 'RelatedItems', new Date())
               }} className="add-to-outfits">Add This Item to Your Outfit List</button>
             </div>
 
@@ -42,8 +37,8 @@ class YourOutfit extends Component {
                 price: eachItem.price,
                 salePrice: eachItem.salePrice,
                 ratings: eachItem.ratings,
-                setOverviewId: this.props.setOverviewId,
-                deleteYourOutfits: this.props.deleteYourOutfits
+                setOverviewId: setOverviewId,
+                deleteYourOutfits: deleteYourOutfits
               }
               let WrappedCards = MetricsWrapper(Cards, wrappedProps);
               return <WrappedCards key={'yo-' + eachItem.id} />
@@ -53,7 +48,7 @@ class YourOutfit extends Component {
     }
       return (page)
   }
-}
+
 
 YourOutfit.propTypes = {
     interaction: PropTypes.func,

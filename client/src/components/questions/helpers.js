@@ -125,6 +125,16 @@ export default {
     } else {
       return false;
     }
+  },
+
+  getProductName: (id, cb) => {
+    axios(`/products/${id}`)
+    .then(data => {
+      cb(null, data);
+    })
+    .catch(err => {
+      cb(err);
+    })
   }
 }
 

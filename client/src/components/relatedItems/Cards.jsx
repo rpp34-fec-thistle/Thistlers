@@ -1,93 +1,84 @@
-import React, { Component } from 'react';
-// import axios from 'axios';
+import React from 'react';
 import Ratings from './Ratings.jsx';
 import PropTypes from 'prop-types';
 import ComparisonModal from './ComparisonModal.jsx';
 import MetricsWrapper from '../MetricsWrapper.jsx';
 import { Link } from 'react-router-dom';
 
-class Cards extends Component {
-  constructor(props) {
-    super(props);
+const Cards = ({ interaction, id, overviewId, overviewIdName, overviewIdFeatures, setOverviewId, displayButton, deleteYourOutfits, image, name, ratings, features, category, salePrice, price }) => {
+
+  let wrappedProps = {
+    id: id,
+    overviewId: overviewId,
+    overviewIdName: overviewIdName,
+    overviewIdFeatures: overviewIdFeatures,
+    name: name,
+    features: features,
   }
 
-  render() {
+  let WrappedComparisonModal = MetricsWrapper(ComparisonModal, wrappedProps);
 
-    let wrappedProps = {
-      id: this.props.id,
-      overviewId: this.props.overviewId,
-      overviewIdName: this.props.overviewIdName,
-      overviewIdFeatures: this.props.overviewIdFeatures,
-      name: this.props.name,
-      features: this.props.features,
-    }
+  return (
+    <>
+      {image !== null &&
 
-    let WrappedComparisonModal = MetricsWrapper(ComparisonModal, wrappedProps);
+        <div className="card" data-testid='test-id' id={'card-' + id}>
 
-    return (
-      <>
+          <div className="card-image">
 
-        {this.props.image !== null &&
-
-          <div className="card" data-testid='test-id' id={'card-' + this.props.id}>
-
-            <div className="card-image">
-
-            <Link to={`/${this.props.id}`}>
-            <img src={this.props.image} alt="item-image" onClick={(e) => {
-                this.props.setOverviewId(this.props.id);
-                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
+            <Link to={`/${id}`}>
+              <img src={image} alt="item-image" onClick={(e) => {
+                setOverviewId(id);
+                interaction(`${e.target}`, 'RelatedItems', new Date())
               }} />
             </Link>
 
-              {this.props.displayButton === 'related-products' ?
-                <>
-                  <WrappedComparisonModal />
-                </>
-                :
-                <button aria-label="delete-outfits" className="overlay" onClick={(e) => {
-                  this.props.deleteYourOutfits(this.props.id);
-                  this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
-                }}></button>}
+            {displayButton === 'related-products' ?
+              <>
+                <WrappedComparisonModal />
+              </>
+              :
+              <button aria-label="delete-outfits" className="overlay" onClick={(e) => {
+                deleteYourOutfits(id);
+                interaction(`${e.target}`, 'RelatedItems', new Date())
+              }}></button>}
 
+          </div>
+
+          <div className="card-description">
+            <br />
+            <div className="text-category">
+              {category}
             </div>
 
-            <div className="card-description">
-              <br />
-              <div className="text-category">
-                {this.props.category}
-              </div>
+            <Link to={`/${id}`}>
+              <button aria-label="set-item-from-name" onClick={(e) => {
+                setOverviewId(id);
+                interaction(`${e.target}`, 'RelatedItems', new Date())
+              }} className="set-text-name">{name}</button>
+            </Link>
 
-              <Link to={`/${this.props.id}`}>
-                  <button aria-label="set-item-from-name" onClick={(e) => {
-                this.props.setOverviewId(this.props.id);
-                this.props.interaction(`${e.target}`, 'RelatedItems', new Date())
-              }} className="set-text-name">{this.props.name}</button>
-              </Link>
+            {salePrice === null ?
+              <div className="text-price">
+                {price}
+              </div> :
+              <>
+                <div className="price-change">
+                  {price}
+                </div>
+                <div className="sale-price">
+                  {salePrice}
+                </div>
+              </>
+            }
 
-              {this.props.salePrice === null ?
-                <div className="text-price">
-                  {this.props.price}
-                </div> :
-                <>
-                  <div className="price-change">
-                    {this.props.price}
-                  </div>
-                  <div className="sale-price">
-                    {this.props.salePrice}
-                  </div>
-                </>
-              }
-
-              <br />
-              <Ratings id={this.props.id} ratings={this.props.ratings}/>
-            </div>
-          </div>}
-      </>
-    )
-  }
-
-}
+            <br />
+            <Ratings id={id} ratings={ratings} />
+          </div>
+        </div>}
+    </>
+  )
+};
 
 Cards.propTypes = {
   interaction: PropTypes.func,

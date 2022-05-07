@@ -3,13 +3,6 @@ import PropTypes from 'prop-types';
 import Triangle from './Triangle.jsx';
 
 let Characteristic = props => {
-  // let text = ["", "", ""];
-  // let value = "3";
-  // let title = "";
-  // if (props.text) text = props.text;
-  // if (props.title) title = props.title;
-  // if (props.value) value = props.value;
-
   return (
     <div className="characteristic-container">
       <div className="characteristic-title">{props.title || ''}</div>

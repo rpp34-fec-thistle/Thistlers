@@ -6,8 +6,6 @@ import axios from 'axios';
 import helpers from './helpers.js';
 import PropTypes from 'prop-types';
 
-const testProductName = 'Camo Onesi';
-
 class QuestionWidget extends Component {
   constructor(props) {
     super(props);
@@ -19,18 +17,33 @@ class QuestionWidget extends Component {
       allAnswersDisplayed: [],
       reportedAnswers: [],
       selectedQuestion: {},
-      currentImage: ''
+      currentImage: '',
+      productName: ''
     }
   }
 
   componentDidMount() {
     this.setOrderedData();
+    this.getProductName();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.product_id !== this.props.product_id) {
       this.setOrderedData();
+      this.getProductName();
     }
+  }
+
+  getProductName() {
+    helpers.getProductName(this.props.product_id, (err, results) => {
+      if (err) {
+        console.error('An error occured fetching product name: ', err);
+      } else {
+        if (results.data.name) {
+          this.setState({productName: results.data.name});
+        }
+      }
+    })
   }
 
   setOrderedData() {
@@ -141,26 +154,30 @@ class QuestionWidget extends Component {
       <div className="question-widget-container">
         <div className="question-widget">
           <p className="question-widget-title">QUESTIONS & ANSWERS</p>
-          <Search
-            questions={this.state.questions}
-            onSearch={this.onSearch.bind(this)}
-          />
-          <QuestionList
-            questions={this.state.displayedQuestions}
-            onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
-            allAnswersDisplayed={this.state.allAnswersDisplayed}
-            onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
-            onHelpfulClick={this.onHelpfulClick.bind(this)}
-            onReport={this.onReport.bind(this)}
-            reportedAnswers={this.state.reportedAnswers}
-            onAddAnswer={this.onAddAnswer.bind(this)}
-            onImageClick={this.onImageClick.bind(this)}
-            currentImage={this.state.currentImage}
-          />
+          {this.state.questions.length > 0 && (
+            <>
+              <Search
+              questions={this.state.questions}
+              onSearch={this.onSearch.bind(this)}
+              />
+              <QuestionList
+                questions={this.state.displayedQuestions}
+                onShowMoreAnswersClick={this.onShowMoreAnswersClick.bind(this)}
+                allAnswersDisplayed={this.state.allAnswersDisplayed}
+                onCollapseAnswersClick={this.onCollapseAnswersClick.bind(this)}
+                onHelpfulClick={this.onHelpfulClick.bind(this)}
+                onReport={this.onReport.bind(this)}
+                reportedAnswers={this.state.reportedAnswers}
+                onAddAnswer={this.onAddAnswer.bind(this)}
+                onImageClick={this.onImageClick.bind(this)}
+                currentImage={this.state.currentImage}
+              />
+            </>
+          )}
           <Footer
             moreQuestions={this.state.moreQuestions}
             onShowMoreQuestionsClick={this.onShowMoreQuestionsClick.bind(this)}
-            productName={testProductName}
+            productName={this.state.productName}
             productId={this.props.product_id}
             updateQuestionState={this.updateQuestionState.bind(this)}
             selectedQuestion={this.state.selectedQuestion}

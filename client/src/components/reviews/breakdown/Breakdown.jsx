@@ -8,9 +8,7 @@ import PropTypes from 'prop-types';
 class Breakdown extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      metadata: this.props.metadata,
-    }
+    //this.props.metadata
   }
 
   render() {

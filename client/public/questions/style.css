@@ -1,5 +1,4 @@
 .question-widget {
-  /* border: 2px solid black; */
   margin: 5px;
   padding: 5px;
   overflow: auto;
@@ -230,17 +229,17 @@
 }
 
 .add-question-product-name {
-  color: rgb(80, 135, 80);
+  color: rgb(141, 140, 140);
   font-size: 23px;
 }
 
 .add-answer-product-name {
-  color: rgb(80, 135, 80);
-  font-size: 23px;
+  color: rgb(141, 140, 140);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 23px;
 }
 
 .input-container {

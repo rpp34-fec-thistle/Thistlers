@@ -14,7 +14,17 @@ class CustomerReviews extends Component {
       reviewsFilter: null
     };
 
-    this.fetchReviews.call(this);
+    this.fetchReviews = this.fetchReviews.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchReviews();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(prevProps) !== JSON.stringify(this.props)) {
+      this.fetchReviews();
+    }
   }
 
   getTotalReviews() {
@@ -77,7 +87,7 @@ CustomerReviews.propTypes = {
   totalReviews: PropTypes.number,
   refresh: PropTypes.func,
   metadata: PropTypes.object,
-  productId: PropTypes.number
+  productId: PropTypes.string
 };
 
 export default CustomerReviews;

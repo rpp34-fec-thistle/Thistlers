@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 class Recommendation extends Component {
   constructor(props) {
     super(props);
+    this.getRecommendPercentage = this.getRecommendPercentage.bind(this);
   }
 
   render() {
       return (
         <div className="reviews-breakdown-recommendation">
-          {this.getRecommendPercentage.call(this)}
+          {this.getRecommendPercentage()}
         </div>
       );
 

@@ -6,9 +6,16 @@ class Triangle extends Component {
     super(props);
   }
 
-  componentDidUpdate() {
-    console.log("avg", this.props.average);
-    if (this.props.average) {
+  componentDidMount() {
+    if (this.props.average !== undefined) {
+      var percentage = Math.floor(parseFloat(this.props.average) / 5 * 100);
+      document.querySelector(`.triangle-box-${this.props.id}`).style.left = `calc(${percentage}% - 10px)`;
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(prevProps) === JSON.stringify(this.props)) return;
+    if (this.props.average !== undefined) {
       var percentage = Math.floor(parseFloat(this.props.average) / 5 * 100);
       document.querySelector(`.triangle-box-${this.props.id}`).style.left = `calc(${percentage}% - 10px)`;
     }

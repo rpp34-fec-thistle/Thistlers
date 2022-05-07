@@ -59,7 +59,7 @@ NewReviewModle.propTypes = {
   render: PropTypes.bool,
   toggleModle: PropTypes.func,
   metadata: PropTypes.object,
-  productId: PropTypes.number,
+  productId: PropTypes.string,
   fetchReviews: PropTypes.func
 };
 

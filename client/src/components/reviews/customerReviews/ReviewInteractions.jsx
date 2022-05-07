@@ -33,7 +33,7 @@ class ReviewInteractions extends Component {
 ReviewInteractions.propTypes = {
   refresh: PropTypes.func,
   metadata: PropTypes.object,
-  productId: PropTypes.number,
+  productId: PropTypes.string,
   fetchReviews: PropTypes.func
 };
 

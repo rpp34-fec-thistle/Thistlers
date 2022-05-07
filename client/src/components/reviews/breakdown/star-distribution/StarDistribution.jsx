@@ -8,6 +8,8 @@ class StarDistribution extends Component {
   }
 
   render() {
+    let totalRatings = this.getTotalRatings(this.props.metadata.ratings);
+
     if (this.props.metadata.ratings === undefined) {
       return <div>RETRIEVING RATINGS!</div>
     }
@@ -18,8 +20,8 @@ class StarDistribution extends Component {
 
     return (
       <div className="reviews-breakdown-star-distribution">
-        {reverseStarsArr.map(rating => {
-          return <IndividualStar key = {rating} keyVal = {rating} value = {this.props.metadata.ratings[rating]} total = {this.getTotalRatings(this.props.metadata.ratings)}/>
+        {reverseStarsArr.map((rating, i) => {
+          return <IndividualStar key={`rating-${i}`} keyVal={rating} value={this.props.metadata.ratings[rating]} total={totalRatings}/>
         })}
       </div>
     );

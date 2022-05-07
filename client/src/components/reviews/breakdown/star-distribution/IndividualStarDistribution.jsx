@@ -4,14 +4,24 @@ import PropTypes from 'prop-types';
 class IndividualStar extends Component {
   constructor(props) {
     super(props);
-    this.percentage = Math.floor(parseInt(this.props.value) / this.props.total * 100);
+    //props: keyval value total
   }
 
-  componentDidUpdate() {
-    // console.log(this.props);
+  componentDidMount() {
+    try {
+      let percentage = Math.floor(parseInt(this.props.value) / parseInt(this.props.total) * 100);
+      let starBar = document.querySelector(`.star-bar-${this.props.keyVal}`);
+      starBar.style.width = `${percentage}%`;
+    } catch {
+      null;
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (JSON.stringify(prevProps) === JSON.stringify(this.props)) return;
+    let percentage = Math.floor(parseInt(this.props.value) / parseInt(this.props.total) * 100);
     let starBar = document.querySelector(`.star-bar-${this.props.keyVal}`);
-    // console.log(this.percentage);
-    starBar.style.width = `${this.percentage}%`;
+    starBar.style.width = `${percentage}%`;
   }
 
   render() {

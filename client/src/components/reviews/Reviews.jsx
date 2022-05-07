@@ -66,7 +66,7 @@ class Reviews extends Component {
 
 //PROPS
 Reviews.propTypes = {
-  product_id: PropTypes.number
+  product_id: PropTypes.string
 };
 
 export default Reviews;

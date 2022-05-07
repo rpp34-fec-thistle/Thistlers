@@ -10,7 +10,6 @@ const Star = props => {
   } else if (float <= .75) {
     return <img width="14px" height="14px" src={'/3quarter-star.png'} alt="x" />
   } else {
-    console.log(props.starVal);
     return <img width="14px" height="14px" src={'/full-star-1.png'} alt="x" />
   }
 };

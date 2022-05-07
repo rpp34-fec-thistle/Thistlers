@@ -29,7 +29,9 @@ body {
 
 
 .customer-reviews {
+  position: relative;
   display: grid;
+  height: 80vh;
   grid-template-rows: 10% 78% 12%;
 }
 
@@ -240,7 +242,7 @@ body {
 
 .review-list {
   position: relative;
-  height:  70vh;
+  height:  100%;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -423,9 +425,15 @@ body {
 
 .individual-reviews-images {
   width: 100%;
-  height: 75px;
+  height: max-content;
   display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-columns: max-content max-content max-content max-content max-content;
+  grid-column-gap: 5px;
+  margin-bottom: 5px;
+}
+.individual-reviews-images * {
+  box-sizing: border-box;
+  border: 1px solid black;
 }
 
 .characteristics-options {
@@ -439,12 +447,12 @@ body {
 
 .fs-image-modal {
   position: fixed;
-  min-width: 800px;
+  min-width: 1000px;
   min-height: 800px;
-  max-width: 800px;
+  max-width: 1000px;
   max-height: 800px;
   top: calc(50% - 400px);
-  left: calc(50% - 400px);
+  left: calc(50% - 500px);
   z-index: 1000;
   box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
 }

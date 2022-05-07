@@ -7,7 +7,6 @@ class NewReviewModle extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.render) {
       return (
         <div className="new-review-modle">

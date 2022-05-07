@@ -29,6 +29,7 @@
     "@babel/runtime": "^7.17.9",
     "aws-sdk": "^2.1125.0",
     "axios": "^0.26.1",
+    "cloudinary": "^1.29.1",
     "compression": "^1.7.4",
     "concurrently": "^7.1.0",
     "cors": "^2.8.5",

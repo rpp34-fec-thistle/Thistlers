@@ -3,8 +3,9 @@ const path = require('path');
 const axios = require('axios');
 const compression = require('compression');
 const cors = require('cors');
+const multer  = require('multer')
+// const upload = multer({ dest: 'uploads/' })
 require('dotenv').config();
-const multer = require('multer');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 
@@ -324,21 +325,75 @@ app.post('/get-reviews', (req, res) => {
   });
 });
 
+var uploadS3Reviews = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: 'fec-review-images',
+    contentType: multerS3.AUTO_CONTENT_TYPE,
+    metadata: (req, file, callback) => {
+      callback(null, {fieldName: file.fieldname});
+    },
+    key: (req, file, callback) => {
+      callback(null, Date.now().toString());
+    }
+  }),
+  fileFilter: multerFilter
+});
+
 //create a new review
-app.post('/newReview', (req, res) => {
+app.post('/newReview', uploadS3Reviews.array('images'), (req, res) => {
+  const photos = [];
+  if (req.files) {
+    req.files.forEach(file => {
+      if (photos.length < 5) {
+        photos.push(file.location);
+      }
+    });
+  }
+
+  let recommend = req.body.recommend? true : false;
+  let {product_id, rating, username, email, summary, body} = req.body;
+  let characteristics = {};
+  for (let x in req.body) {
+    if (!isNaN(parseInt(x))) {
+      characteristics[parseInt(x)] = parseInt(req.body[x]);
+    }
+  }
+
+  console.log({
+    product_id: parseInt(product_id),
+    rating: parseInt(rating),
+    summary,
+    body,
+    recommend,
+    name: username,
+    email,
+    photos,
+    characteristics 
+  });
+
   axios({
     method: 'post',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp/reviews`,
     headers: {'Authorization': API_KEY},
-    data: req.body
+    data: {
+      product_id: parseInt(product_id),
+      rating: parseInt(rating),
+      summary,
+      body,
+      recommend,
+      name: username,
+      email,
+      photos,
+      characteristics 
+    }
   })
-  .then((response) => {
-    console.log('success posting data: ', response.data);
-    res.send(response.data);
+  .then(() => {
+    res.redirect('/64620'); //get last url
   })
-  .catch((err) => {
-    console.log('error in reviews post request', err);
-    res.status(500).send(err);
+  .catch(err => {
+    console.log('Err Saving Review', err);
+    res.status(401).end(JSON.stringify(err));
   });
 });
 

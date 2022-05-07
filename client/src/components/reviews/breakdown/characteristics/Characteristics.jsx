@@ -3,26 +3,26 @@ import PropTypes from 'prop-types';
 import Triangle from './Triangle.jsx';
 
 let Characteristic = props => {
-  let text = ["", "", ""];
-  let value = "";
-  let title = "";
-  if (props.text) text = props.text;
-  if (props.title) title = props.title;
-  if (props.value) value = props.value;
+  // let text = ["", "", ""];
+  // let value = "3";
+  // let title = "";
+  // if (props.text) text = props.text;
+  // if (props.title) title = props.title;
+  // if (props.value) value = props.value;
 
   return (
     <div className="characteristic-container">
-      <div className="characteristic-title">{title}</div>
+      <div className="characteristic-title">{props.title || ''}</div>
       <div className="characteristic-body">
-        <Triangle id={props.id} average={value}/>
+        <Triangle id={props.id} average={props.value || 0}/>
         <div className="characteristic-body-comp"></div>
         <div className="characteristic-body-comp"></div>
         <div className="characteristic-body-comp"></div>
       </div>
       <div className="characteristic-text-container">
-        <div className="characteristic-begin-text">{text[0]}</div>
-        <div className="characteristic-middle-text">{text[1]}</div>
-        <div className="characteristic-end-text">{text[2]}</div>
+        <div className="characteristic-begin-text">{props.text[0] || ''}</div>
+        <div className="characteristic-middle-text">{props.text[1] || ''}</div>
+        <div className="characteristic-end-text">{props.text[2] || ''}</div>
       </div>
     </div>
   )

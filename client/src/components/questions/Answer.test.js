@@ -10,7 +10,7 @@ const answer = {
   "date": "2019-11-24T00:00:00.000Z",
   "answerer_name": "n00bgamer",
   "helpfulness": 4,
-  "photos": []
+  "photos": ['https://i.ibb.co/4pn5TwC/bowl.jpg']
 }
 
 const onHelpfulClick = () => {
@@ -21,16 +21,21 @@ const onReport = () => {
   console.log('Report click!');
 }
 
+const onImageClick = () => {
+  console.log('image click!');
+}
+
 const reportedAnswers = [];
 
 describe('Answer Component Unit Tests', () => {
   it('renders the Report button', () => {
-    const getByText = render(
+    const {getByText} = render(
       <Answer
         answer={answer}
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={reportedAnswers}
+        onImageClick={onImageClick}
       />
     );
     expect(getByText('Report')).toBeInTheDocument();
@@ -43,6 +48,7 @@ describe('Answer Component Unit Tests', () => {
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={reportedAnswers}
+        onImageClick={onImageClick}
       />
     );
     expect(getByText(/\(4\)/)).toBeInTheDocument();
@@ -55,9 +61,11 @@ describe('Answer Component Unit Tests', () => {
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={reportedAnswers}
+        onImageClick={onImageClick}
       />
     );
-    expect(getByText(/by n00bgamer, November 23, 2019/)).toBeInTheDocument();
+    expect(getByText(/n00bgamer/)).toBeInTheDocument();
+    expect(getByText(/ November 23, 2019/)).toBeInTheDocument();
   })
 
   it('renders the question body', () => {
@@ -67,6 +75,7 @@ describe('Answer Component Unit Tests', () => {
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={reportedAnswers}
+        onImageClick={onImageClick}
       />
     );
     expect(getByText(/Yes it does/)).toBeInTheDocument();

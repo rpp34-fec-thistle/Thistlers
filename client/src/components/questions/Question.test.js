@@ -10,7 +10,8 @@ const testQuestionOne = {
   "asker_name": "iluvcatz",
   "question_helpfulness": 220,
   "reported": false,
-  "answers": {
+  "answers": [
+    {
       "5269989": {
           "id": 5269989,
           "body": "It fit fine for me",
@@ -19,6 +20,8 @@ const testQuestionOne = {
           "helpfulness": 5,
           "photos": []
       },
+    },
+    {
       "5269990": {
           "id": 5269990,
           "body": "Felt a little smaller than my usual size.",
@@ -26,8 +29,9 @@ const testQuestionOne = {
           "answerer_name": "iluvbirds",
           "helpfulness": 6,
           "photos": []
-      }
-  }
+      },
+    }
+  ]
 };
 
 const testQuestionTwo = {
@@ -37,7 +41,8 @@ const testQuestionTwo = {
   "asker_name": "iluvcatz",
   "question_helpfulness": 220,
   "reported": false,
-  "answers": {
+  "answers": [
+    {
       "5269989": {
           "id": 5269989,
           "body": "It fit fine for me",
@@ -46,6 +51,8 @@ const testQuestionTwo = {
           "helpfulness": 5,
           "photos": []
       },
+    },
+    {
       "5269990": {
           "id": 5269990,
           "body": "Felt a little smaller than my usual size.",
@@ -54,6 +61,8 @@ const testQuestionTwo = {
           "helpfulness": 6,
           "photos": []
       },
+    },
+    {
       "5269991": {
         "id": 5269991,
         "body": "Like Tom Hanks after talking to a fortune teller machine.",
@@ -61,8 +70,9 @@ const testQuestionTwo = {
         "answerer_name": "iliketurtles",
         "helpfulness": 26,
         "photos": []
-    }
-  }
+     }
+   }
+  ]
 };
 
 const onShowMoreQuestionsClick = () => {
@@ -81,6 +91,16 @@ const onReport = () => {
   console.log('report clicked');
 }
 
+const onAddAnswer = () => {
+  console.log('add answer clicked');
+}
+
+const onImageClick = () => {
+  console.log('add answer clicked');
+}
+
+const currentImage = 'https://i.ibb.co/4pn5TwC/bowl.jpg';
+
 describe('Question Component Unit Tests', () => {
   it('renders the question helpfulness number passed in props', () => {
     const {getByText} = render(
@@ -92,6 +112,9 @@ describe('Question Component Unit Tests', () => {
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={[]}
+        onAddAnswer={onAddAnswer}
+        onImageClick={onImageClick}
+        currentImage={currentImage}
       />
     );
     expect(getByText(/\(220\)/)).toBeInTheDocument();
@@ -107,6 +130,9 @@ describe('Question Component Unit Tests', () => {
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={[]}
+        onAddAnswer={onAddAnswer}
+        onImageClick={onImageClick}
+        currentImage={currentImage}
       />
     );
     expect(getByText(/Add Answer/)).toBeInTheDocument();
@@ -122,6 +148,9 @@ describe('Question Component Unit Tests', () => {
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={[]}
+        onAddAnswer={onAddAnswer}
+        onImageClick={onImageClick}
+        currentImage={currentImage}
       />
     );
     expect(queryByText(/LOAD MORE ANSWERS/)).not.toBeInTheDocument();
@@ -138,6 +167,9 @@ describe('Question Component Unit Tests', () => {
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={[]}
+        onAddAnswer={onAddAnswer}
+        onImageClick={onImageClick}
+        currentImage={currentImage}
       />
     );
     expect(queryByText(/LOAD MORE ANSWERS/)).toBeInTheDocument();
@@ -153,6 +185,9 @@ describe('Question Component Unit Tests', () => {
         onHelpfulClick={onHelpfulClick}
         onReport={onReport}
         reportedAnswers={[]}
+        onAddAnswer={onAddAnswer}
+        onImageClick={onImageClick}
+        currentImage={currentImage}
       />
     );
     expect(queryByText(/COLLAPSE ANSWERS/)).toBeInTheDocument();

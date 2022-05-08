@@ -3,8 +3,19 @@ import {render} from '@testing-library/react'
 import {jsdom} from '@testing-library/jest-dom'
 import Footer from './Footer.jsx';
 
+const productName = 'Camo Onsie';
+const productId = '64620';
+const selectedQuestion = {
+  question_body: 'Does this run big or small?',
+  question_id: '64620'
+}
+
 const onShowMoreQuestionsClick = () => {
-  console.log('show more questioned clicked');
+  console.log('show more questions clicked');
+}
+
+const updateQuestionState = () => {
+  console.log('update question state clicked');
 }
 
 describe('Footer Component Unit Tests', () => {
@@ -13,6 +24,10 @@ describe('Footer Component Unit Tests', () => {
     <Footer
       onShowMoreQuestionsClick={onShowMoreQuestionsClick}
       moreQuestions={false}
+      productName={productName}
+      productId={productId}
+      updateQuestionState={updateQuestionState}
+      selectedQuestion={selectedQuestion}
     />
     );
     expect(getByText('ADD A QUESTION +')).toBeInTheDocument();
@@ -23,6 +38,10 @@ describe('Footer Component Unit Tests', () => {
       <Footer
       onShowMoreQuestionsClick={onShowMoreQuestionsClick}
       moreQuestions={true}
+      productName={productName}
+      productId={productId}
+      updateQuestionState={updateQuestionState}
+      selectedQuestion={selectedQuestion}
       />
     );
     expect(queryByText('MORE ANSWERED QUESTIONS')).toBeInTheDocument();
@@ -33,6 +52,10 @@ describe('Footer Component Unit Tests', () => {
     <Footer
       onShowMoreQuestionsClick={onShowMoreQuestionsClick}
       moreQuestions={false}
+      productName={productName}
+      productId={productId}
+      updateQuestionState={updateQuestionState}
+      selectedQuestion={selectedQuestion}
       />
     );
     expect(queryByText('MORE ANSWERED QUESTIONS')).not.toBeInTheDocument();

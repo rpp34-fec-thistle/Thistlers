@@ -13,14 +13,16 @@ Run the following commands:
 
 This project is a product landing page consisting of 4 widgets:
 
-1. Product Overview
-2. Related Items & Outfit Creation
-3. Questions & Answers
-4. Ratings & Reviews
+1. Product Overview (Darian Hogue)
+2. Related Items & Outfit Creation (Jane Srisarakorn)
+3. Questions & Answers (Derek Southard)
+4. Ratings & Reviews (Sase Ramischrand)
 
 # Widgets Details
 
 ## Product Overview
+Product Overview Screenshot
+![Screen Shot 2022-04-28 at 9 05 25 PM](https://user-images.githubusercontent.com/66260540/185972575-325f70b2-3017-4881-87d5-780492125037.png)
 
 The Product Overview widget has 4 main components:
 

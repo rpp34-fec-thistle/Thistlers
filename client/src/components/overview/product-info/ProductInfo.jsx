@@ -7,6 +7,7 @@ import Info from './components/Info.jsx';
 function ProductInfo(props) {
     return(
       <div data-testid="product-info" className="product-info">
+        <h1>TEST</h1>
         <StarRating stars={props.ratings}/>
         <Info sale_price={props.sale_price} info={props.info}/>
       </div>
